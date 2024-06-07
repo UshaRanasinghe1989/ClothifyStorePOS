@@ -1,0 +1,8 @@
+
+œ	java:S116"URename this field "contact_no" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ñıœµÿÿÿÿÿ8â¬äÈş1J$3a0c7a50-ba62-4ef7-8b28-9d8cf3b264b1
+‚
+java:S1128"?Remove this unused import 'jakarta.persistence.GeneratedValue'.(‘ŒÇŒ8›¢Êş1J$8b8c0e58-47a6-4304-89dc-d325e28930d7
+‚
+java:S1128"?Remove this unused import 'jakarta.persistence.GenerationType'.(²ºëÊ8›¢Êş1J$866f0c55-7ce4-4cb5-8f65-e970797e82a6
+v
+java:S1128"3Remove this unused import 'jakarta.persistence.Id'.(š¨ô 8›¢Êş1J$5a391e5e-5fd4-4b55-96a5-47cf753a887b

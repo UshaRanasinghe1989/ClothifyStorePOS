@@ -1,0 +1,62 @@
+
+w
+java:S3740"/Provide the parametrized type for this generic.(Áˆ•ùÿÿÿÿ8º£Ëüş1J$d1e69aea-fd5c-4227-a6ee-041249753735
+w
+java:S3740"/Provide the parametrized type for this generic.(¤æâÕşÿÿÿÿ8º£Ëüş1J$e599c45f-d682-4817-8713-6bacef7d3522
+r
+java:S3740"/Provide the parametrized type for this generic.(¬ûæ8º£Ëüş1J$82d68b73-20a9-40e2-b388-a363e0be7e20
+r
+java:S3740"/Provide the parametrized type for this generic.(Ã«Èµ8º£Ëüş1J$fed4325d-ab2c-42c2-b081-87fafb47ddc7
+r
+java:S3740"/Provide the parametrized type for this generic.(”¸Ì8º£Ëüş1J$cf17f299-81b2-4eed-a9b1-68b16aee6665
+w
+java:S3740"/Provide the parametrized type for this generic.(ªğçÃøÿÿÿÿ8º£Ëüş1J$ff983743-a662-4a29-a254-4b340f93a51f
+q
+java:S3740"/Provide the parametrized type for this generic.(©Ì“"8º£Ëüş1J$2662eef9-46cb-4bca-bb86-3eac286c494c
+r
+java:S3740!"/Provide the parametrized type for this generic.(ÁÏÆ8º£Ëüş1J$44086137-d451-4760-93eb-837c3d5cbe23
+Ÿ
+java:S1104"WMake empNameText a static final constant or non-public and provide accessors if needed.(òõ»ãüÿÿÿÿ8¼£Ëüş1J$aa22367d-cee6-4e12-b161-5c3a59661319
+
+java:S1104"VMake empNicText a static final constant or non-public and provide accessors if needed.(Ê§¨şÿÿÿÿ8¼£Ëüş1J$8fad0c6d-74e6-4fe3-9443-dcf6f8becd8e
+¤
+java:S1104"\Make empDobDatePicker a static final constant or non-public and provide accessors if needed.(ªØÿ¿ÿÿÿÿÿ8¼£Ëüş1J$aea58105-0b6d-4f1f-a03b-4c94aa7af6bc
+Ÿ
+java:S1104"\Make empContactNoText a static final constant or non-public and provide accessors if needed.(¸â¹¿8¼£Ëüş1J$6e7b6001-e770-4182-ae86-a6bbf08ad51b
+š
+java:S1104"XMake empEmailText a static final constant or non-public and provide accessors if needed.(ÕØó68¼£Ëüş1J$a624cde3-feb0-4f58-a81e-0150d594588b
+
+java:S1104"ZMake empAddressText a static final constant or non-public and provide accessors if needed.(¼ƒ¥±8¼£Ëüş1J$2fc7f82e-7103-4072-b50f-ed162fbd2142
+™
+java:S1104"QMake idCol a static final constant or non-public and provide accessors if needed.(Áˆ•ùÿÿÿÿ8¼£Ëüş1J$8f931cdd-a80c-47a6-8a02-11ab77f6ae1f
+›
+java:S1104"SMake nameCol a static final constant or non-public and provide accessors if needed.(¤æâÕşÿÿÿÿ8¼£Ëüş1J$cecf681b-6767-4a81-8055-978ce793a86c
+•
+java:S1104"RMake dobCol a static final constant or non-public and provide accessors if needed.(¬ûæ8¼£Ëüş1J$96947875-bf28-4e57-ae37-de9b936e5345
+•
+java:S1104"RMake nicCol a static final constant or non-public and provide accessors if needed.(Ã«Èµ8¼£Ëüş1J$3c66a569-d6b9-40c1-8331-eef918ead7cb
+›
+java:S1104"XMake contactNoCol a static final constant or non-public and provide accessors if needed.(”¸Ì8¼£Ëüş1J$dee2f60b-c5bb-43c3-a61a-42bdcf90aa1f
+œ
+java:S1104"TMake emailCol a static final constant or non-public and provide accessors if needed.(ªğçÃøÿÿÿÿ8¼£Ëüş1J$7af4e01d-b961-4e1f-9817-06e0efb7e862
+˜
+java:S1104"VMake addressCol a static final constant or non-public and provide accessors if needed.(©Ì“"8¼£Ëüş1J$e05b66c7-d85e-4258-8240-97bb90b93d25
+¢
+java:S1104"ZMake currentDateLbl a static final constant or non-public and provide accessors if needed.(ï®Æ¾ûÿÿÿÿ8¼£Ëüş1J$cb2909bf-dc15-4827-bd48-13f3ced2bb57
+—
+java:S1104 "TMake timerLbl a static final constant or non-public and provide accessors if needed.(—ûÆå8¼£Ëüş1J$c1f5043c-bf83-4ef5-9769-f3a507bfceb4
+
+java:S1104!"ZMake empDetailTable a static final constant or non-public and provide accessors if needed.(ÁÏÆ8¼£Ëüş1J$e171a78c-d7a8-44af-a1f5-195fbf7e190e
+
+java:S1104""UMake empIdText a static final constant or non-public and provide accessors if needed.(›ë®¥üÿÿÿÿ8¼£Ëüş1J$9a169641-2df2-4380-89d0-b6c4253d5b08
+É
+java:S1186E"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(õºšÿÿÿÿÿ8Ù£Ëüş1J$d99e0926-6dee-488f-9583-ffc81abeeed7
+É
+java:S1186H"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(²œÖèûÿÿÿÿ8Ú£Ëüş1J$eeb2dbb2-0a58-4448-9110-f908f4c31033
+É
+java:S1186K"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(©¾ÚÎúÿÿÿÿ8Ú£Ëüş1J$7168f7c3-069d-476a-ad17-a804288f07a9
+Ä
+java:S1186N"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Æ½ÓË8Ú£Ëüş1J$4f2b822b-89eb-44dc-9a8a-f3d33009734a
+u
+java:S1172+"2Remove this unused method parameter "actionEvent".(“ÏŸû8Ş£Ëüş1J$d17079ae-6b08-4d9c-9b2c-0fe39ae7db91
+m	java:S106A"+Replace this use of System.out by a logger.(¥²İÏ8ä£Ëüş1J$f44450a8-98a5-4781-a112-184bab34f3e6
