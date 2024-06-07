@@ -1,0 +1,56 @@
+
+w
+java:S3740"/Provide the parametrized type for this generic.(‘­ÓÏûÿÿÿÿ8ü¢»ãş1J$1620d64c-605e-4923-a2fc-8b1ba6445407
+r
+java:S3740"/Provide the parametrized type for this generic.(ÁÏÆ8ü¢»ãş1J$6e83f330-34e1-4cb3-becb-069591ff25eb
+w
+java:S3740"/Provide the parametrized type for this generic.(ëÿÚÿÿÿÿÿ8ı¢»ãş1J$57fefddc-3135-4e74-abec-3309ffa76bc0
+w
+java:S3740"/Provide the parametrized type for this generic.(‹·ÙÅşÿÿÿÿ8ı¢»ãş1J$3dec823c-2c60-46a1-9b82-6ce1b98dd56f
+r
+java:S3740"/Provide the parametrized type for this generic.(¬¤¼¦8ı¢»ãş1J$332e96c0-45ed-4d85-b4b0-58893572dbcc
+w
+java:S3740"/Provide the parametrized type for this generic.(ÿØĞÙıÿÿÿÿ8ı¢»ãş1J$ac1b52a3-f7b8-40f3-b035-a7a6b2d6f4c4
+w
+java:S3740"/Provide the parametrized type for this generic.(›¶€ÿøÿÿÿÿ8ı¢»ãş1J$97b25f56-6603-40a1-8928-ffca7feaafe1
+w
+java:S3740"/Provide the parametrized type for this generic.(®ø•ÿÿÿÿÿ8ı¢»ãş1J$469f51f7-e381-4ecc-8171-eec4dfffa836
+q
+java:S3740"/Provide the parametrized type for this generic.(‡¢†E8ı¢»ãş1J$e523e1a1-69d5-4094-ba39-fe78f547dd57
+
+java:S1104"VMake empIdCombo a static final constant or non-public and provide accessors if needed.(‘­ÓÏûÿÿÿÿ8ÿ¢»ãş1J$3abb21f5-199f-4ae2-acc7-4375b07f581b
+¢
+java:S1104	"ZMake currentDateLbl a static final constant or non-public and provide accessors if needed.(ï®Æ¾ûÿÿÿÿ8€£»ãş1J$79810630-d0e2-4004-b206-2affe7b928d8
+—
+java:S1104
+"TMake timerLbl a static final constant or non-public and provide accessors if needed.(—ûÆå8€£»ãş1J$f32c1a06-a7c6-4d85-881b-ab1d8656526c
+
+java:S1104"ZMake empDetailTable a static final constant or non-public and provide accessors if needed.(ÁÏÆ8€£»ãş1J$ebd3b605-680d-45b6-8492-6ce87464105f
+¤
+java:S1104"\Make selectEmpIdCombo a static final constant or non-public and provide accessors if needed.(ëÿÚÿÿÿÿÿ8€£»ãş1J$a88a58a1-bc89-42b4-8a9b-a9725d0cc239
+
+java:S1104"ZMake nameSystemText a static final constant or non-public and provide accessors if needed.(¹†ı8€£»ãş1J$d28e5e44-0085-41f6-b749-4a994b8711e4
+¤
+java:S1104"\Make userDetailsTable a static final constant or non-public and provide accessors if needed.(‹·ÙÅşÿÿÿÿ8€£»ãş1J$92fd4c9d-9523-471e-a436-d2cbaa836aba
+—
+java:S1104"TMake empIdCol a static final constant or non-public and provide accessors if needed.(¬¤¼¦8€£»ãş1J$a3d4d0c3-d6a5-4bd6-9eb4-4232af3b6eb1
+Ÿ
+java:S1104"WMake userTypeCol a static final constant or non-public and provide accessors if needed.(ÿØĞÙıÿÿÿÿ8€£»ãş1J$9f3227ff-a61d-4e24-9f33-0dd50ed3604d
+¡
+java:S1104"YMake nameSystemCol a static final constant or non-public and provide accessors if needed.(›¶€ÿøÿÿÿÿ8€£»ãş1J$3d0d3865-9507-4e7c-8728-23cbbdade89f
+Ÿ
+java:S1104"WMake usernameCol a static final constant or non-public and provide accessors if needed.(®ø•ÿÿÿÿÿ8€£»ãş1J$e58937b9-4f3b-4c0f-a236-1c435565b25b
+Ÿ
+java:S1104"WMake userNameLbl a static final constant or non-public and provide accessors if needed.(Á÷«ëıÿÿÿÿ8€£»ãş1J$aa63e860-4230-4462-854f-f23cd3e4287c
+›
+java:S1104"YMake userTypeCombo a static final constant or non-public and provide accessors if needed.(‡¢†E8£»ãş1J$3b67e734-e021-4438-8c7e-c8c5962e0bc4
+™
+java:S1104"VMake passwordPw a static final constant or non-public and provide accessors if needed.(ş™ı8£»ãş1J$2f49e0ba-b216-4d12-b895-1fdd3e5c375a
+É
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(í¯‹ÿÿÿÿÿ8å—½ãş1J$32770274-c3ea-4a15-a879-9640877fe25c
+Ä
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(­×¬‰8µñ½ãş1J$03f9a918-8624-48d3-b48b-7681166f57d7
+É
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(õºšÿÿÿÿÿ8÷Ò¾ãş1J$cab0ea5e-7614-4655-bc5e-898a662d27ae
+É
+java:S1186 "€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(²œÖèûÿÿÿÿ8Äú¾ãş1J$bac3d3af-8902-49a4-bf89-45172566623e

@@ -1,0 +1,36 @@
+
+|
+java:S1104"ZMake currentDateLbl a static final constant or non-public and provide accessors if needed.(ï®Æ¾ûÿÿÿÿ8ÁÃâÃÿ1
+q
+java:S1104"TMake timerLbl a static final constant or non-public and provide accessors if needed.(—ûÆå8ÁÃâÃÿ1
+u
+java:S1104"SMake userLbl a static final constant or non-public and provide accessors if needed.(›…òòûÿÿÿÿ8ÁÃâÃÿ1
+£
+java:S11869"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(®³¬¥øÿÿÿÿ8ÚÃâÃÿ1
+
+java:S1186="€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(‚–Æ´8ÚÃâÃÿ1
+
+java:S1186@"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(êÏ£8ÚÃâÃÿ1
+£
+java:S1186C"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÿ­¯üøÿÿÿÿ8ÚÃâÃÿ1
+
+java:S1186F"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ıÈÁA8ÚÃâÃÿ1
+£
+java:S1186I"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Èëİˆşÿÿÿÿ8ÚÃâÃÿ1
+£
+java:S1186L"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ËÖÖŸüÿÿÿÿ8ÚÃâÃÿ1
+
+java:S1186V"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¹™æ‰8ÚÃâÃÿ1
+£
+java:S1186Y"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Õ‰Ş–ùÿÿÿÿ8ÚÃâÃÿ1
+N
+java:S1172O"2Remove this unused method parameter "actionEvent".(Ìæg8öğÓËÿ1
+Y
+java:S1128
+"<Remove this unused import 'javafx.scene.control.DatePicker'.(êÊ8ñÓËÿ1
+_
+java:S1128"=Remove this unused import 'javafx.scene.control.TableColumn'.(›¢øùÿÿÿÿ8ñÓËÿ1
+X
+java:S1128";Remove this unused import 'javafx.scene.control.TextField'.(¨¢¤¶8ñÓËÿ1
+[
+java:S11449"9Remove this unused private "loadManageStockCombo" method.(®³¬¥øÿÿÿÿ8ìÃâÃÿ1
