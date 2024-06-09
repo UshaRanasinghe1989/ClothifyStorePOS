@@ -30,9 +30,7 @@ public class EmployeeBoImpl implements EmployeeBo {
     }
 
     @Override
-    public List retrieveLastId() {
-        return employeeDao.retrieveLastId();
-    }
+    public List retrieveAllId(){ return employeeDao.retrieveAllId(); }
 
     @Override
     public int update(Employee dto) {

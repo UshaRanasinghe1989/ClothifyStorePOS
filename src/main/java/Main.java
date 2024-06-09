@@ -12,7 +12,8 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         //stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/user-login-form.fxml"))));
         //stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/admin-dashboard-form.fxml"))));
-        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/manage-employee-form.fxml"))));
+        //stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/manage-employee-form.fxml"))));
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/manage-user-form.fxml"))));
         stage.show();
 
 

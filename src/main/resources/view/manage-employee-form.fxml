@@ -99,7 +99,7 @@
               </columns>
             </TableView>
             <Separator layoutX="8.0" layoutY="244.0" prefWidth="828.0" />
-            <TextField fx:id="empIdText" layoutX="14.0" layoutY="28.0" onAction="#empIdOnAction" prefHeight="26.0" prefWidth="174.0" promptText="Employee Id" />
+            <TextField fx:id="empIdText" layoutX="14.0" layoutY="28.0" prefHeight="26.0" prefWidth="174.0" promptText="Employee Id" />
             <Button layoutX="216.0" layoutY="28.0" mnemonicParsing="false" onAction="#searchBtnOnAction" prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: #57A6A1;" text="Search" textFill="#240750">
                <font>
                   <Font name="System Bold" size="12.0" />

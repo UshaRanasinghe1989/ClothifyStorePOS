@@ -11,7 +11,7 @@ public interface EmployeeBo extends SuperBo {
 
     List retrieveAll();
     Employee retrieveById(String id);
-    List retrieveLastId();
+    List retrieveAllId();
     int update(Employee dto);
     int deleteById(String id);
 }

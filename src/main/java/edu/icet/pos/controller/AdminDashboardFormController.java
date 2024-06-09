@@ -21,7 +21,7 @@ import java.time.LocalTime;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-public class AdminDashboardFormController implements Initializable, FormController {
+public class AdminDashboardFormController implements Initializable {
     public Label currentDateLbl;
     public Label timerLbl;
     public Label userLbl;
@@ -31,8 +31,7 @@ public class AdminDashboardFormController implements Initializable, FormControll
         loadDateTime();
     }
 
-    @Override
-    public void loadDateTime() {
+    private void loadDateTime() {
         currentDateLbl.setText(getCurrentDate());
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.ZERO, e -> {
@@ -47,8 +46,7 @@ public class AdminDashboardFormController implements Initializable, FormControll
         timeline.play();
     }
 
-    @Override
-    public String getCurrentDate() {
+    private String getCurrentDate() {
         Date currentDate = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         return format.format(currentDate);

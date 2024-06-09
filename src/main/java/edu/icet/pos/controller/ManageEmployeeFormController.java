@@ -9,23 +9,21 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;
-import org.hibernate.type.YesNoConverter;
 
 import java.net.URL;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
-import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ManageEmployeeFormController implements Initializable, FormController {
+
     public TextField empNameText;
     public TextField empNicText;
     public DatePicker empDobDatePicker;
@@ -47,11 +45,13 @@ public class ManageEmployeeFormController implements Initializable, FormControll
     private EmployeeBo bo = BoFactory.getInstance().getBo(BoType.EMPLOYEE);
 
     private ObservableList<Employee> employeeList;
+    private final static String TRYAGAIN = "Please try again !";
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         employeeList = FXCollections.observableList(bo.retrieveAll());
         loadEmpId();
+        loadDateTime();
 
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -84,7 +84,19 @@ public class ManageEmployeeFormController implements Initializable, FormControll
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         return format.format(currentDate);
     }
-    public void saveBtnOnAction(ActionEvent actionEvent) throws ParseException {
+
+    @Override
+    public boolean loadConfirmAlert(String msg){
+        boolean isConfirm = false;
+        ButtonType btnYes = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
+        ButtonType btnNo = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, msg, btnYes, btnNo);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.orElse(btnNo)==btnYes) isConfirm = true;
+
+        return isConfirm;
+    }
+    public void saveBtnOnAction() {
         Employee employeeDto = new Employee(
                 empIdText.getText(),
                 empNameText.getText(),
@@ -102,59 +114,58 @@ public class ManageEmployeeFormController implements Initializable, FormControll
             loadEmpId();
             loadEmployeeTable();
         }else {
-            new Alert(Alert.AlertType.ERROR, "Please try again !").show();
+            new Alert(Alert.AlertType.ERROR, TRYAGAIN).show();
         }
     }
     private void loadEmpId() {
         String lastEmpId=null;
-        if (bo.retrieveLastId().size() == 0) {
+        if (employeeList.isEmpty()) {
             empIdText.setText("EMP0001");
         } else{
-            lastEmpId = (String) bo.retrieveLastId().get(bo.retrieveLastId().size() - 1);
+            lastEmpId = (String) bo.retrieveAllId().get(bo.retrieveAllId().size() - 1);
             int number = Integer.parseInt(lastEmpId.split("EMP")[1]);
-        number++;
-        empIdText.setText(String.format("EMP%04d", number));
+            number++;
+            empIdText.setText(String.format("EMP%04d", number));
         }
     }
 
-    public void editBtnOnAction(ActionEvent actionEvent) {
-        Employee employee = new Employee(
-                empIdText.getText(),
-                empNameText.getText(),
-                empDobDatePicker.getValue(),
-                empNicText.getText(),
-                empContactNoText.getText(),
-                empEmailText.getText(),
-                empAddressText.getText(),
-                new Date()
-        );
-        int updatedRowCount = bo.update(employee);
-        if(updatedRowCount>0){
-            new Alert(Alert.AlertType.CONFIRMATION, "Employee updated successfully !").show();
-            clearForm();
-            loadEmpId();
-            loadEmployeeTable();
-        }else {
-            new Alert(Alert.AlertType.ERROR, "Please try again !").show();
+    public void editBtnOnAction() {
+        if (loadConfirmAlert("Confirm update ?")){
+            Employee employee = new Employee(
+                    empIdText.getText(),
+                    empNameText.getText(),
+                    empDobDatePicker.getValue(),
+                    empNicText.getText(),
+                    empContactNoText.getText(),
+                    empEmailText.getText(),
+                    empAddressText.getText(),
+                    new Date()
+            );
+            int updatedRowCount = bo.update(employee);
+            if(updatedRowCount>0){
+                new Alert(Alert.AlertType.CONFIRMATION, "Employee updated successfully !").show();
+                clearForm();
+                loadEmpId();
+                loadEmployeeTable();
+            }else {
+                new Alert(Alert.AlertType.ERROR, TRYAGAIN).show();
+            }
         }
     }
-
-    public void deleteBtnOnAction(ActionEvent actionEvent) {
-        int noRowsDeleted = bo.deleteById(empIdText.getText());
-        if(noRowsDeleted>0){
-            new Alert(Alert.AlertType.CONFIRMATION, "Employee deleted successfully !").show();
-            clearForm();
-            loadEmpId();
-            loadEmployeeTable();
-        }else {
-            new Alert(Alert.AlertType.ERROR, "Please try again !").show();
+    public void deleteBtnOnAction() {
+        if (loadConfirmAlert("Confirm delete ?")) {
+            int noRowsDeleted = bo.deleteById(empIdText.getText());
+            if (noRowsDeleted > 0) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Employee deleted successfully !").show();
+                clearForm();
+                loadEmpId();
+                loadEmployeeTable();
+            } else {
+                new Alert(Alert.AlertType.ERROR, TRYAGAIN).show();
+            }
         }
     }
-
-    public void empIdOnAction(ActionEvent actionEvent) {
-    }
-
-    public void searchBtnOnAction(ActionEvent actionEvent) {
+    public void searchBtnOnAction() {
         Employee employee = bo.retrieveById(empIdText.getText());
         empNameText.setText(employee.getName());
         empDobDatePicker.setValue(employee.getDob());

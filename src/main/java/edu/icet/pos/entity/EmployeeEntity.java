@@ -24,5 +24,6 @@ public class EmployeeEntity {
     private String contactNo;
     private String email;
     private String address;
+    @Temporal(TemporalType.DATE)
     private Date createdDate;
 }

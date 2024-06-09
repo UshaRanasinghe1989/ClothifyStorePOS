@@ -43,7 +43,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public List retrieveLastId() {
+    public List retrieveAllId() {
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
         String query = "SELECT E.id FROM EmployeeEntity E";
