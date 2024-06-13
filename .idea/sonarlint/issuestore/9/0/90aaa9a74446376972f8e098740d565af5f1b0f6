@@ -1,0 +1,39 @@
+
+w
+java:S3740!"/Provide the parametrized type for this generic.(Ş‘Ó®ıÿÿÿÿ8Ïù§¹€2J$6e401e1b-a487-4887-a422-b210c2ed379c
+r
+java:S3740#"/Provide the parametrized type for this generic.(Ê¤µ8Ğù§¹€2J$2eb1747a-f954-4b93-85a4-c603543cf1fa
+r
+java:S3740$"/Provide the parametrized type for this generic.(Šãù…8Ğù§¹€2J$1f90d19e-c2bb-45bc-a555-bd2c417e51cb
+w
+java:S3740%"/Provide the parametrized type for this generic.(ô ÅÅüÿÿÿÿ8Ğù§¹€2J$c13383da-af3a-4c77-8e07-36fa02190890
+r
+java:S3740*"/Provide the parametrized type for this generic.(Š°”8Ğù§¹€2J$d4f52768-426b-4ee0-b2dd-eaa6c1277c8b
+s
+java:S3740¢"/Provide the parametrized type for this generic.(­®ñÃ8Ğù§¹€2J$9e78fe45-3b09-4cbf-9e51-bd16b99a0840
+s
+java:S3740£"/Provide the parametrized type for this generic.(¯¸Ÿ€8Ğù§¹€2J$d56b169a-a40d-4158-81b7-428093ade37a
+œ
+java:S1104 "YMake categoryIdTxt a static final constant or non-public and provide accessors if needed.(Ûé¨ù8Ñù§¹€2J$650a9ce6-c6fe-4613-81fb-2b60ddcc0096
+©
+java:S1104!"aMake selectCategoryIdCombo a static final constant or non-public and provide accessors if needed.(Ş‘Ó®ıÿÿÿÿ8Ñù§¹€2J$e932a9e5-6e29-4a0c-ab23-b596bc69e752
+
+java:S1104""[Make categoryNameTxt a static final constant or non-public and provide accessors if needed.(¿‰æ8Ñù§¹€2J$20c646b0-6b10-4a13-9cac-2466f404220f
+ 
+java:S1104#"]Make categoryTableView a static final constant or non-public and provide accessors if needed.(Ê¤µ8Ñù§¹€2J$f97597ad-6fe8-4a43-886c-9edb6ee7344e
+œ
+java:S1104$"YMake categoryIdCol a static final constant or non-public and provide accessors if needed.(Šãù…8Ñù§¹€2J$6f591e9b-dbfa-434e-8e32-42062e169de4
+£
+java:S1104%"[Make categoryNameCol a static final constant or non-public and provide accessors if needed.(ô ÅÅüÿÿÿÿ8Ñù§¹€2J$b8ebf154-d5b5-4959-ba5f-021d4b372bee
+¢
+java:S1104&"ZMake currentDateLbl a static final constant or non-public and provide accessors if needed.(ï®Æ¾ûÿÿÿÿ8Ñù§¹€2J$223e83fa-10bc-4832-8884-6dd390aab37e
+—
+java:S1104'"TMake timerLbl a static final constant or non-public and provide accessors if needed.(—ûÆå8Ñù§¹€2J$56d8e8de-3298-4f34-8079-3397a432968c
+u
+java:S1172_"2Remove this unused method parameter "actionEvent".(­×¬‰8øù§¹€2J$1b2e70ac-5404-4e27-9369-eb548c7511e0
+z
+java:S1172o"2Remove this unused method parameter "actionEvent".(úÉèûÿÿÿÿ8ùù§¹€2J$2bdc669e-97e0-4496-931f-c399bce0a90b
+{
+java:S1172ƒ"2Remove this unused method parameter "actionEvent".(¥Šùèüÿÿÿÿ8ûù§¹€2J$67a45e30-71fa-4140-a25b-567773c0744e
+†
+java:S1117£"BRename "observableList" which hides the field declared at line 43.(¯¸Ÿ€8‚ú§¹€2J$6de2f24a-1fd5-4cc4-865e-a978eb36086a
