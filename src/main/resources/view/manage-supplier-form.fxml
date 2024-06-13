@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="682.0" prefWidth="846.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.ManageSupplierFormController">
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #dae0db;" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="supplierIdTxt" layoutX="26.0" layoutY="39.0" promptText="Supplier Id" />
+            <Button layoutX="199.0" layoutY="39.0" mnemonicParsing="false" onAction="#searchBtnOnAction" prefHeight="26.0" prefWidth="68.0" style="-fx-background-color: #57A6A1;" text="Search" textFill="#240750">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <TextField fx:id="supplierNameTxt" layoutX="199.0" layoutY="111.0" />
+            <Label layoutX="26.0" layoutY="114.0" text="Supplier name">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="26.0" layoutY="154.0" text="Contact person">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="contactPersonTxt" layoutX="199.0" layoutY="151.0" />
+            <Label layoutX="26.0" layoutY="198.0" text="Contact no.">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="contactNoTxt" layoutX="199.0" layoutY="195.0" />
+            <TextField fx:id="emailTxt" layoutX="496.0" layoutY="111.0" />
+            <Label layoutX="384.0" layoutY="114.0" text="Email">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="384.0" layoutY="154.0" text="Address">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="addressTxt" layoutX="496.0" layoutY="151.0" />
+            <Separator layoutX="366.0" layoutY="101.0" orientation="VERTICAL" prefHeight="125.0" prefWidth="5.0" />
+            <Button layoutX="384.0" layoutY="253.0" mnemonicParsing="false" onAction="#saveBtnOnAction" prefHeight="37.0" prefWidth="144.0" style="-fx-background-color: #f04330;" text="Save" />
+            <Button layoutX="559.0" layoutY="253.0" mnemonicParsing="false" onAction="#updateBtnOnAction" prefHeight="38.0" prefWidth="86.0" style="-fx-background-color: #2cbf4e;" text="Update" />
+            <Separator layoutX="24.0" layoutY="307.0" prefHeight="0.0" prefWidth="655.0" />
+            <TableView fx:id="supplierDetailTable" layoutX="26.0" layoutY="324.0" prefHeight="274.0" prefWidth="785.0">
+              <columns>
+                <TableColumn fx:id="idCol" prefWidth="75.0" text="Id" />
+                <TableColumn fx:id="nameCol" prefWidth="75.0" text="Name" />
+                  <TableColumn fx:id="contactPersonCol" prefWidth="123.20002746582031" text="Contact Person" />
+                  <TableColumn fx:id="contactNoCol" prefWidth="118.39996337890625" text="Contact no." />
+                  <TableColumn fx:id="emailCol" prefWidth="165.5999755859375" text="Email" />
+                  <TableColumn fx:id="addressCol" prefWidth="228.79998779296875" text="Address" />
+              </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
+   </center>
+   <top>
+      <AnchorPane prefHeight="72.0" prefWidth="756.0" style="-fx-background-color: #240750;" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="412.0" layoutY="18.0" text="Manage Suppliers" textFill="#57a6a1">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <Label fx:id="currentDateLbl" layoutX="14.0" layoutY="21.0" text="00-00-0000" textFill="#9a9c9e">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="timerLbl" layoutX="128.0" layoutY="21.0" text="00:00:00" textFill="#9a9c9e">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </top>
+</BorderPane>

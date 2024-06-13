@@ -1,13 +1,11 @@
 package edu.icet.pos.dao.custom.impl;
 
 import edu.icet.pos.dao.custom.EmployeeDao;
-import edu.icet.pos.dto.Employee;
 import edu.icet.pos.entity.EmployeeEntity;
 import edu.icet.pos.util.HibernateUtil;
-import jakarta.persistence.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.modelmapper.ModelMapper;
+import org.hibernate.query.MutationQuery;
 
 import java.util.List;
 
@@ -23,23 +21,25 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public List retrieveAll() {
+    public List<EmployeeEntity> retrieveAll() {
+        String sql = "FROM EmployeeEntity";
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
-        List list = session.createQuery("FROM EmployeeEntity", EmployeeEntity.class).list();
+        List<EmployeeEntity> list = session.createQuery(sql, EmployeeEntity.class).list();
         session.getTransaction().commit();
         session.close();
         return list;
     }
 
     @Override
-    public Employee retrieveById(String id) {
+    public List<EmployeeEntity> retrieveById(String id) {
+        String sql = "FROM EmployeeEntity E WHERE E.id='"+id+"'";
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
-        List list = session.createQuery("FROM EmployeeEntity E WHERE E.id='"+id+"'").list();
+        List<EmployeeEntity> list = session.createQuery(sql, EmployeeEntity.class).list();
         session.getTransaction().commit();
         session.close();
-        return new ModelMapper().map(list.get(0), Employee.class);
+        return list;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
         String query = "SELECT E.id FROM EmployeeEntity E";
-        List list = session.createQuery(query).list();
+        List<EmployeeEntity> list = session.createQuery(query, EmployeeEntity.class).list();
         session.getTransaction().commit();
         session.close();
         return list;
@@ -65,7 +65,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
                         "WHERE E.id = :id";
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
-        Query query = session.createQuery(sql);
+        MutationQuery query = session.createMutationQuery(sql);
         query.setParameter("name", entity.getName());
         query.setParameter("dob", entity.getDob());
         query.setParameter("nic", entity.getNic());
@@ -84,7 +84,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
         String sql = "DELETE FROM EmployeeEntity E WHERE id = :id";
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
-        Query query = session.createQuery(sql);
+        MutationQuery query = session.createMutationQuery(sql);
         query.setParameter("id", id);
         int noRowsDeleted = query.executeUpdate();
         transaction.commit();

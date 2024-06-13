@@ -59,7 +59,7 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button layoutX="377.0" layoutY="197.0" mnemonicParsing="false" onAction="#editBtnOnAction" prefHeight="34.0" prefWidth="99.0" style="-fx-background-color: #2cbf4e;" text="Edit">
+            <Button layoutX="377.0" layoutY="197.0" mnemonicParsing="false" onAction="#updateBtnOnAction" prefHeight="34.0" prefWidth="99.0" style="-fx-background-color: #2cbf4e;" text="Update">
                <font>
                   <Font size="14.0" />
                </font>
@@ -71,10 +71,10 @@
             </Button>
             <TableView fx:id="userDetailsTable" layoutX="23.0" layoutY="296.0" prefHeight="280.0" prefWidth="666.0">
                <columns>
-                  <TableColumn fx:id="empIdCol" prefWidth="113.59997177124023" text="Emp Id" />
+                  <TableColumn fx:id="userIdCol" prefWidth="113.59997177124023" text="User Id" />
                   <TableColumn fx:id="userTypeCol" prefWidth="152.8000030517578" text="User Type" />
                   <TableColumn fx:id="nameSystemCol" prefWidth="191.20001220703125" text="Name on System" />
-                  <TableColumn fx:id="usernameCol" minWidth="0.0" prefWidth="240.0" text="Username" />
+                  <TableColumn fx:id="userNameCol" minWidth="0.0" prefWidth="240.0" text="Username" />
                </columns>
             </TableView>
             <Separator layoutX="8.0" layoutY="244.0" prefWidth="828.0" />

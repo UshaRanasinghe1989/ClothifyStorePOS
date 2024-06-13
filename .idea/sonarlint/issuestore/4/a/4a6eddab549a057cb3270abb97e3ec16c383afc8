@@ -1,3 +1,10 @@
 
+€
+java:S1488'"^Immediately return this expression instead of assigning it to the temporary variable "status".(€ÁÇÀýÿÿÿÿ8Ñ‘± €2
+š
+java:S1104"WMake userNameTxt a static final constant or non-public and provide accessors if needed.(ø‡ûð8é¹ÕŸ€2J$cae4b0cc-26fd-4978-bcda-d419563df5fc
+™
+java:S1104"VMake passwordPw a static final constant or non-public and provide accessors if needed.(þ™žý8é¹ÕŸ€2J$680b4d60-5d2a-4cd4-bcc2-274a9eb7c087
+¡	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(ìß¤Äûÿÿÿÿ8Ö‹æŸ€2J$68f0666c-64d8-44d9-9aa2-236f0c0e17ba
 u
-java:S1172"2Remove this unused method parameter "actionEvent".(Ð’ƒÀ8Äƒì¼þ1J$e5dc9810-bcb8-4fc2-9c84-feb352787547
+java:S1172"2Remove this unused method parameter "actionEvent".(Ð’ƒÀ8—ºÕŸ€2J$6552a80d-d689-47ad-bde5-8ddefa59f4c9

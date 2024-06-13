@@ -18,12 +18,26 @@ import java.util.Date;
 public class EmployeeEntity {
     @Id
     private String id;
+
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
     private LocalDate dob;
+
+    @Column(nullable = false)
     private String nic;
+
+    @Column(nullable = false)
     private String contactNo;
+
+    @Column(nullable = false)
     private String email;
+
+    @Column(nullable = false)
     private String address;
+
+    @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date createdDate;
 }

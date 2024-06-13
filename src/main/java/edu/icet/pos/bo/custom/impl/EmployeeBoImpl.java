@@ -6,7 +6,6 @@ import edu.icet.pos.dao.custom.EmployeeDao;
 import edu.icet.pos.dto.Employee;
 import edu.icet.pos.entity.EmployeeEntity;
 import edu.icet.pos.util.DaoType;
-import javafx.collections.ObservableList;
 import org.modelmapper.ModelMapper;
 
 import java.util.List;
@@ -25,7 +24,7 @@ public class EmployeeBoImpl implements EmployeeBo {
     }
 
     @Override
-    public Employee retrieveById(String id) {
+    public List retrieveById(String id) {
         return employeeDao.retrieveById(id);
     }
 

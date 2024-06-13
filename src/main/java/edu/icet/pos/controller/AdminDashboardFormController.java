@@ -7,10 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -74,7 +71,7 @@ public class AdminDashboardFormController implements Initializable {
     public void customersBtnOnAction(ActionEvent actionEvent) {
     }
 
-    public void employeesBtnOnAction(ActionEvent actionEvent) throws IOException {
+    public void employeesBtnOnAction() throws IOException {
         //LOAD MANAGE EMPLOYEE MODULE
         Stage stage = new Stage();
         stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/manage-employee-form.fxml"))));

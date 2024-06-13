@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;
+import org.modelmapper.ModelMapper;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -166,7 +167,7 @@ public class ManageEmployeeFormController implements Initializable, FormControll
         }
     }
     public void searchBtnOnAction() {
-        Employee employee = bo.retrieveById(empIdText.getText());
+        Employee employee = new ModelMapper().map(bo.retrieveById(empIdText.getText()), Employee.class);
         empNameText.setText(employee.getName());
         empDobDatePicker.setValue(employee.getDob());
         empNicText.setText(employee.getNic());
@@ -180,7 +181,7 @@ public class ManageEmployeeFormController implements Initializable, FormControll
         empDetailTable.setItems(employeeList);
     }
 
-    private void clearForm(){
+    public void clearForm(){
         empNameText.setText("");
         empDobDatePicker.setValue(LocalDate.parse(getCurrentDate()));
         empNicText.setText("");

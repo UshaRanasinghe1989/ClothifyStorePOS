@@ -1,6 +1,7 @@
 package edu.icet.pos.util;
 
-import edu.icet.pos.entity.EmployeeEntity;
+import edu.icet.pos.entity.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
@@ -19,6 +20,14 @@ public class HibernateUtil {
 
         Metadata metadata = new MetadataSources(builder)
                 .addAnnotatedClass(EmployeeEntity.class)
+                .addAnnotatedClass(UserEntity.class)
+                .addAnnotatedClass(CategoryEntity.class)
+                .addAnnotatedClass(SupplierEntity.class)
+                .addAnnotatedClass(ProductEntity.class)
+                .addAnnotatedClass(ProductImageEntity.class)
+                .addAnnotatedClass(StockEntity.class)
+                .addAnnotatedClass(OrderEntity.class)
+                .addAnnotatedClass(OrderDetailEntity.class)
                 .getMetadataBuilder()
                 .applyImplicitNamingStrategy(ImplicitNamingStrategyJpaCompliantImpl.INSTANCE)
                 .build();

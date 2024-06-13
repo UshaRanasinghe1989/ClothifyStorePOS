@@ -1,7 +1,6 @@
 package edu.icet.pos.bo;
 
-import edu.icet.pos.bo.custom.impl.EmployeeBoImpl;
-import edu.icet.pos.bo.custom.impl.UserBoImpl;
+import edu.icet.pos.bo.custom.impl.*;
 import edu.icet.pos.util.BoType;
 
 public class BoFactory implements SuperBo{
@@ -17,6 +16,12 @@ public class BoFactory implements SuperBo{
         switch (type){
             case EMPLOYEE : return (T) new EmployeeBoImpl();
             case USER: return (T) new UserBoImpl();
+            case CATEGORY: return (T) new CategoryBoImpl();
+            case SUPPLIER: return (T) new SupplierBoImpl();
+            case PRODUCT: return (T) new ProductBoImpl();
+            case STOCK: return (T) new StockBoImpl();
+            case ORDERS: return (T) new OrderBoImpl();
+            case ORDERDETAIL: return (T) new OrderDetailBoImpl();
         }
         return null;
     }

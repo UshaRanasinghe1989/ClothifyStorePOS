@@ -1,6 +1,6 @@
 package edu.icet.pos.dao;
 
-import edu.icet.pos.dao.custom.impl.EmployeeDaoImpl;
+import edu.icet.pos.dao.custom.impl.*;
 import edu.icet.pos.util.DaoType;
 
 public class DaoFactory implements SuperDao {
@@ -15,6 +15,13 @@ public class DaoFactory implements SuperDao {
     public <T extends SuperDao>T getDao(DaoType type){
         switch (type){
             case EMPLOYEE: return (T) new EmployeeDaoImpl();
+            case USER: return (T) new UserDaoImpl();
+            case CATEGORY: return (T) new CategoryDaoImpl();
+            case SUPPLIER: return (T) new SupplierDaoImpl();
+            case PRODUCT: return (T) new ProductDaoImpl();
+            case STOCK: return (T) new StockDaoImpl();
+            case ORDERS: return (T) new OrderDaoImpl();
+            case ORDERDETAIL: return (T) new OrderDetailDaoImpl();
         }
         return null;
     }

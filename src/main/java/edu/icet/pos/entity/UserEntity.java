@@ -18,15 +18,40 @@ import java.util.Date;
 public class UserEntity {
     @Id
     private String id;
-    @OneToOne(cascade = CascadeType.ALL)
+
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "empId")
-    private String empId;
+    private EmployeeEntity employeeEntity;
+
+    @Column(nullable = false)
     private String systemName;
+
+    @Column(nullable = false)
     private String email;
+
+    @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private UserType type;
-    private boolean isActive;
+
+    @Column(nullable = false)
+    private Boolean isActive;
+
+    @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date createDate;
+
+    public UserEntity(String id, String systemName, String password, UserType type) {
+        this.id = id;
+        this.systemName = systemName;
+        this.password = password;
+        this.type = type;
+    }
+
+    public UserEntity(String id, boolean isActive) {
+        this.id = id;
+        this.isActive = isActive;
+    }
 }

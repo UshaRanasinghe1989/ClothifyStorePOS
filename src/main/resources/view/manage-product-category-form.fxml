@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="682.0" prefWidth="846.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.ManageProductCategoryFormController">
+   <top>
+      <AnchorPane prefHeight="72.0" prefWidth="756.0" style="-fx-background-color: #240750;" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="441.0" layoutY="18.0" text="Manage Categories" textFill="#57a6a1">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <Label fx:id="currentDateLbl" layoutX="14.0" layoutY="21.0" text="00-00-0000" textFill="#9a9c9e">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="timerLbl" layoutX="128.0" layoutY="21.0" text="00:00:00" textAlignment="CENTER" textFill="#9a9c9e">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </top>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #dae0db;" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="categoryIdTxt" layoutX="273.0" layoutY="32.0" prefHeight="18.0" prefWidth="114.0" />
+            <ComboBox fx:id="selectCategoryIdCombo" layoutX="423.0" layoutY="29.0" onAction="#catIdComboOnAction" prefWidth="150.0" promptText="Select Category Id" />
+            <TextField fx:id="categoryNameTxt" layoutX="423.0" layoutY="94.0" />
+            <Label layoutX="273.0" layoutY="97.0" prefHeight="18.0" prefWidth="113.0" text="Category name">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Button layoutX="273.0" layoutY="145.0" mnemonicParsing="false" onAction="#saveBtnOnAction" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #f04330;" text="Save" />
+            <Button layoutX="470.0" layoutY="145.0" mnemonicParsing="false" onAction="#updateBtnOnAction" prefHeight="34.0" prefWidth="102.0" style="-fx-background-color: #2cbf4e;" text="Update" />
+            <Separator layoutX="273.0" layoutY="209.0" prefHeight="6.0" prefWidth="310.0" />
+            <TableView fx:id="categoryTableView" layoutX="273.0" layoutY="244.0" prefHeight="359.0" prefWidth="400.0">
+              <columns>
+                <TableColumn fx:id="categoryIdCol" prefWidth="145.60003662109375" text="Category Id" />
+                <TableColumn fx:id="categoryNameCol" prefWidth="253.5999755859375" text="Category Name" />
+              </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

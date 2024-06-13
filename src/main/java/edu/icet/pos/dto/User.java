@@ -1,6 +1,7 @@
 package edu.icet.pos.dto;
 
-import jakarta.persistence.Id;
+import edu.icet.pos.entity.EmployeeEntity;
+import edu.icet.pos.util.UserType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,11 +15,23 @@ import java.util.Date;
 @ToString
 public class User {
     private String id;
-    private String empId;
+    private EmployeeEntity employeeEntity;
     private String systemName;
     private String email;
     private String password;
-    private String type;
-    private boolean isActive;
+    private UserType type;
+    private Boolean isActive;
     private Date createDate;
+
+    public User(String id, String systemName, String password, UserType type) {
+        this.id = id;
+        this.systemName = systemName;
+        this.password = password;
+        this.type = type;
+    }
+
+    public User(String id, boolean isActive) {
+        this.id = id;
+        this.isActive = isActive;
+    }
 }
