@@ -45,11 +45,11 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public List<String> retrieveAllId() {
+    public List<ProductEntity> retrieveAllId() {
         String sql = "SELECT P.id FROM ProductEntity P";
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
-        List<String> list = session.createQuery(sql, String.class).list();
+        List<ProductEntity> list = session.createQuery(sql, ProductEntity.class).list();
         session.getTransaction().commit();
         session.close();
         return list;

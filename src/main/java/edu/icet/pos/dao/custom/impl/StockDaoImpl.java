@@ -43,11 +43,11 @@ public class StockDaoImpl implements StockDao {
     }
 
     @Override
-    public List<String> retrieveAllId() {
+    public List<StockEntity> retrieveAllId() {
         String sql = "SELECT S.id FROM StockEntity S";
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
-        List<String> list  = session.createQuery(sql, String.class).list();
+        List<StockEntity> list  = session.createQuery(sql, StockEntity.class).list();
         session.getTransaction().commit();
         session.close();
         return list;
