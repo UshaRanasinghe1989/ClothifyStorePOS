@@ -1,12 +1,7 @@
 package edu.icet.pos.dto;
 
-
-import edu.icet.pos.entity.CategoryEntity;
-import edu.icet.pos.entity.SupplierEntity;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import edu.icet.pos.util.ProductSizes;
+import lombok.*;
 
 import java.util.Date;
 
@@ -16,10 +11,10 @@ import java.util.Date;
 @ToString
 public class Product {
     private String id;
-    private CategoryEntity categoryEntity;
-    private SupplierEntity supplierEntity;
+    private Category category;
+    private Supplier supplier;
     private String name;
     private String description;
-    private String size;
+    private ProductSizes size;
     private Date createDateTime;
 }

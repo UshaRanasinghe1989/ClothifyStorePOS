@@ -1,11 +1,13 @@
 package edu.icet.pos.dao.custom.impl;
 
 import edu.icet.pos.dao.custom.StockDao;
+import edu.icet.pos.entity.ProductEntity;
 import edu.icet.pos.entity.StockEntity;
 import edu.icet.pos.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.MutationQuery;
+import org.hibernate.query.Query;
 
 import java.util.List;
 
@@ -43,11 +45,11 @@ public class StockDaoImpl implements StockDao {
     }
 
     @Override
-    public List<StockEntity> retrieveAllId() {
+    public List<String> retrieveAllId() {
         String sql = "SELECT S.id FROM StockEntity S";
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
-        List<StockEntity> list  = session.createQuery(sql, StockEntity.class).list();
+        List<String> list  = session.createQuery(sql, String.class).list();
         session.getTransaction().commit();
         session.close();
         return list;
@@ -85,5 +87,18 @@ public class StockDaoImpl implements StockDao {
         transaction.commit();
         session.close();
         return noRowsUpdated;
+    }
+
+    @Override
+    public List<StockEntity> retrieveActiveStockByProduct(ProductEntity productEntity) {
+        String sql = "FROM StockEntity S WHERE S.productEntity=:productEntity AND S.isActive=true";
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+        Query<StockEntity> query = session.createQuery(sql, StockEntity.class);
+        query.setParameter("productEntity", productEntity);
+        List<StockEntity> list = query.list();
+        transaction.commit();
+        session.close();
+        return list;
     }
 }

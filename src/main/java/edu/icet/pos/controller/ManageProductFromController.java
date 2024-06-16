@@ -15,6 +15,7 @@ import edu.icet.pos.util.UserType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -29,33 +30,52 @@ import java.util.ResourceBundle;
 
 @Slf4j
 public class ManageProductFromController extends SuperFormController implements Initializable {
+    @FXML
     public Label currentDateLbl;
+    @FXML
     public Label timerLbl;
+    @FXML
     public TextField productNameText;
+    @FXML
     public TextField imageOnePathTxt;
+    @FXML
     public TextField imageTwoPathTxt;
+    @FXML
     public TextField imageThreePathTxt;
-    public TableView productDetailTable;
-    public TableColumn idCol;
-    public TableColumn nameCol;
-    public TableColumn sizeCol;
-    public TableColumn descriptionCol;
+    @FXML
+    public TableView<Product> productDetailTable;
+    @FXML
+    public TableColumn<Product, String> idCol;
+    @FXML
+    public TableColumn<Product, String> nameCol;
+    @FXML
+    public TableColumn<Product, String> sizeCol;
+    @FXML
+    public TableColumn<Product, String> descriptionCol;
+    @FXML
     public TextField productIdText;
-    public ComboBox categoryNameCombo;
+    @FXML
+    public ComboBox<String> categoryNameCombo;
+    @FXML
     public TextField selectedCatIdHiddenTxt;
-    public ComboBox supplierNameCombo;
+    @FXML
+    public ComboBox<String> supplierNameCombo;
+    @FXML
     public TextField selectedSupplierIdHiddenTxt;
-    public ComboBox sizeCombo;
+    @FXML
+    public ComboBox<ProductSizes> sizeCombo;
+    @FXML
     public TextField descriptionTxt;
+    @FXML
     public TextField imageFourPathTxt;
+    @FXML
     public TextField imageFivePathTxt;
+    @FXML
     public ImageView imageOne;
 
     ProductBo productBo = BoFactory.getInstance().getBo(BoType.PRODUCT);
     CategoryBo categoryBo = BoFactory.getInstance().getBo(BoType.CATEGORY);
     SupplierBo supplierBo = BoFactory.getInstance().getBo(BoType.SUPPLIER);
-    List list;
-    ObservableList observableList;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -65,16 +85,11 @@ public class ManageProductFromController extends SuperFormController implements 
         loadCategoryNamesCombo();
         loadSupplierNamesCombo();
         loadSizeCombo();
-
-        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        sizeCol.setCellValueFactory(new PropertyValueFactory<>("size"));
-        descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
         loadDetailTable();
     }
 
     private void loadSizeCombo() {
-        observableList = FXCollections.observableArrayList();
+        ObservableList<ProductSizes> observableList = FXCollections.observableArrayList();
         observableList.add(ProductSizes.X_SMALL);
         observableList.add(ProductSizes.SMALL);
         observableList.add(ProductSizes.MEDIUM);
@@ -90,8 +105,8 @@ public class ManageProductFromController extends SuperFormController implements 
 
     private void loadSupplierNamesCombo() {
         try {
-            list = categoryBo.retrieveCategoryNames();
-            observableList = FXCollections.observableList(list);
+            List<String> list = categoryBo.retrieveCategoryNames();
+            ObservableList<String> observableList = FXCollections.observableList(list);
             categoryNameCombo.setItems(observableList);
         }catch (NullPointerException e){
             log.info(e.getMessage());
@@ -100,39 +115,45 @@ public class ManageProductFromController extends SuperFormController implements 
 
     private void loadCategoryNamesCombo() {
         try {
-            list = supplierBo.retrieveSupplierNames();
-            observableList = FXCollections.observableList(list);
+            List<String> list = supplierBo.retrieveSupplierNames();
+            ObservableList<String> observableList = FXCollections.observableList(list);
             supplierNameCombo.setItems(observableList);
         }catch (NullPointerException e){
             log.info(e.getMessage());
         }
     }
 
-    public void saveBtnOnAction(ActionEvent actionEvent) {
+    public void saveBtnOnAction() {
         save();
     }
 
-    public void updateBtnOnAction(ActionEvent actionEvent) {
+    public void updateBtnOnAction() {
         updateById();
     }
 
-    public void searchBtnOnAction(ActionEvent actionEvent) {
+    public void searchBtnOnAction() {
         searchDetailById();
     }
 
-    public void categoryNameComboOnAction(ActionEvent actionEvent) {
+    public void categoryNameComboOnAction() {
         try {
-            list = categoryBo.retrieveCatIdByName(categoryNameCombo.getValue().toString());
-            selectedCatIdHiddenTxt.setText(list.get(0).toString());
+            String categoryName = categoryNameCombo.getValue();
+            if (categoryName!=null){
+                List<String> list = categoryBo.retrieveCatIdByName(categoryName);
+                selectedCatIdHiddenTxt.setText(list.get(0));
+            }
         }catch (NullPointerException e){
             log.info(e.getMessage());
         }
     }
 
-    public void supplierNameComboOnAction(ActionEvent actionEvent) {
+    public void supplierNameComboOnAction() {
         try {
-            list = supplierBo.retrieveSupplierIdByName(supplierNameCombo.getValue().toString());
-            selectedSupplierIdHiddenTxt.setText(list.get(0).toString());
+            String supplierName = supplierNameCombo.getValue();
+            if (supplierName!=null) {
+                List<String> list = supplierBo.retrieveSupplierIdByName(supplierName);
+                selectedSupplierIdHiddenTxt.setText(list.get(0));
+            }
         }catch (NullPointerException e){
             log.info(e.getMessage());
         }
@@ -155,24 +176,27 @@ public class ManageProductFromController extends SuperFormController implements 
 
     @Override
     void save() {
-        List categoryList = categoryBo.retrieveById(selectedCatIdHiddenTxt.getText());
-        CategoryEntity categoryEntity = new ModelMapper().map(categoryList.get(0), CategoryEntity.class);
-        List supplierList = supplierBo.retrieveById(selectedSupplierIdHiddenTxt.getText());
-        SupplierEntity supplierEntity = new ModelMapper().map(supplierList.get(0), SupplierEntity.class);
+        List<Category> categoryList = categoryBo.retrieveById(selectedCatIdHiddenTxt.getText());
+        Category category = categoryList.get(0);
+
+        List<Supplier> supplierList = supplierBo.retrieveById(selectedSupplierIdHiddenTxt.getText());
+        Supplier supplier = supplierList.get(0);
 
         Product product = new Product(
                 productIdText.getText(),
-                categoryEntity,
-                supplierEntity,
+                category,
+                supplier,
                 productNameText.getText(),
                 descriptionTxt.getText(),
-                sizeCombo.getValue().toString(),
+                sizeCombo.getValue(),
                 new Date()
         );
+
         boolean isSaved = productBo.save(product);
         if(isSaved){
             new Alert(Alert.AlertType.CONFIRMATION, "Product saved successfully !").show();
             loadId();
+            loadDetailTable();
             clearForm();
         }else {
             new Alert(Alert.AlertType.ERROR, "Please try again !").show();
@@ -195,9 +219,9 @@ public class ManageProductFromController extends SuperFormController implements 
         String lastId=null;
         int number=0;
         try {
-            list = productBo.retrieveAllId();
-            observableList = FXCollections.observableList(list);
-            lastId = (String) observableList.get(observableList.size() - 1);
+            List<String> list = productBo.retrieveAllId();
+            ObservableList<String> observableList = FXCollections.observableList(list);
+            lastId = observableList.get(observableList.size() - 1);
             number = Integer.parseInt(lastId.split("PRO")[1]);
         }catch (NullPointerException | IndexOutOfBoundsException e){
             productIdText.setText("PRO0001");
@@ -209,9 +233,14 @@ public class ManageProductFromController extends SuperFormController implements 
     @Override
     void loadDetailTable() {
         try {
-            list = productBo.retrieveAll();
-            observableList = FXCollections.observableList(list);
+            List<Product> list = productBo.retrieveAll();
+            ObservableList<Product> observableList = FXCollections.observableList(list);
             productDetailTable.setItems(observableList);
+
+            idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+            nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+            sizeCol.setCellValueFactory(new PropertyValueFactory<>("size"));
+            descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
         }catch (NullPointerException e){
             log.info(e.getMessage());
         }
@@ -220,15 +249,15 @@ public class ManageProductFromController extends SuperFormController implements 
     @Override
     void searchDetailById() {
         try {
-            list = productBo.retrieveById(productIdText.getText());
+            List<Product> list = productBo.retrieveById(productIdText.getText());
             Product product = new ModelMapper().map(list.get(0), Product.class);
             productNameText.setText(product.getName());
 
-            List categoryList = categoryBo.retrieveById(product.getCategoryEntity().getId());
+            List<Category> categoryList = categoryBo.retrieveById(product.getCategory().getId());
             Category category = new ModelMapper().map(categoryList.get(0), Category.class);
             categoryNameCombo.setValue(category.getName());
 
-            List supplierList = supplierBo.retrieveById(product.getSupplierEntity().getId());
+            List<Supplier> supplierList = supplierBo.retrieveById(product.getSupplier().getId());
             Supplier supplier = new ModelMapper().map(supplierList.get(0), Supplier.class);
             supplierNameCombo.setValue(supplier.getName());
 
@@ -243,18 +272,19 @@ public class ManageProductFromController extends SuperFormController implements 
     void updateById() {
         if(loadConfirmAlert("Confirm update ?")) {
             try {
-                List categoryList = categoryBo.retrieveById(selectedCatIdHiddenTxt.getText());
-                CategoryEntity categoryEntity = new ModelMapper().map(categoryList.get(0), CategoryEntity.class);
-                List supplierList = supplierBo.retrieveById(selectedSupplierIdHiddenTxt.getText());
-                SupplierEntity supplierEntity = new ModelMapper().map(supplierList.get(0), SupplierEntity.class);
+                List<Category> categoryList = categoryBo.retrieveById(selectedCatIdHiddenTxt.getText());
+                Category category = categoryList.get(0);
+
+                List<Supplier> supplierList = supplierBo.retrieveById(selectedSupplierIdHiddenTxt.getText());
+                Supplier supplier = supplierList.get(0);
 
                 Product product = new Product(
                         productIdText.getText(),
-                        categoryEntity,
-                        supplierEntity,
+                        category,
+                        supplier,
                         productNameText.getText(),
                         descriptionTxt.getText(),
-                        sizeCombo.getValue().toString(),
+                        sizeCombo.getValue(),
                         new Date()
                 );
                 int updatedRowCount = productBo.update(product);

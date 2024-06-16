@@ -1,23 +1,30 @@
 package edu.icet.pos.entity;
 
+import edu.icet.pos.dto.Orders;
+import edu.icet.pos.util.ProductSizes;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @ToString
 @Entity
 @Table(name = "product")
 public class ProductEntity {
     @Id
+    @Column(name = "id")
     private String id;
+
+    /*@ManyToMany(mappedBy = "productEntitySet")
+    private Set<OrderEntity> orderEntitySet = new HashSet<>();
+    public Set<OrderEntity> getOrders(){
+        return orderEntitySet;
+    }*/
 
     //ONE PRODUCT BELONGS TO ONE CATEGORY
     //FOREIGN KEY REFERS CATEGORY TABLE
@@ -33,11 +40,13 @@ public class ProductEntity {
 
     @Column(nullable = false)
     private String name;
-
+    
+    @Column
     private String description;
 
     @Column(nullable = false)
-    private String size;
+    @Enumerated(EnumType.STRING)
+    private ProductSizes size;
 
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
@@ -50,4 +59,20 @@ public class ProductEntity {
     //A PRODUCT MAY HAVE MANY STOCKS
     @OneToMany(mappedBy = "productEntity", cascade = CascadeType.MERGE)
     private List<StockEntity> stockEntityList;
+
+    public ProductEntity(String id, CategoryEntity categoryEntity, SupplierEntity supplierEntity, String name, String description, ProductSizes size, Date createDateTime, List<ProductImageEntity> productImageEntityList, List<StockEntity> stockEntityList) {
+        this.id = id;
+        this.categoryEntity = categoryEntity;
+        this.supplierEntity = supplierEntity;
+        this.name = name;
+        this.description = description;
+        this.size = size;
+        this.createDateTime = createDateTime;
+        this.productImageEntityList = productImageEntityList;
+        this.stockEntityList = stockEntityList;
+    }
+
+    /*public void addOrder(OrderEntity orderEntity){
+        this.orderEntitySet.add(orderEntity);
+    }*/
 }

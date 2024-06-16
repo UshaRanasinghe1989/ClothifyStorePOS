@@ -24,46 +24,46 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List retrieveAll() {
+    public List<UserEntity> retrieveAll() {
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
-        List list = session.createQuery("FROM UserEntity", UserEntity.class).list();
+        List<UserEntity> list = session.createQuery("FROM UserEntity", UserEntity.class).list();
         session.getTransaction().commit();
         session.close();
         return list;
     }
 
     @Override
-    public List<String> retrieveById(String id) {
+    public List<UserEntity> retrieveById(String id) {
         String sql = "FROM UserEntity U WHERE U.id='"+id+"'";
-        Session session = HibernateUtil.getSession();
-        session.getTransaction().begin();
-        List<String> list = session.createQuery(sql, String.class).list();
-        session.getTransaction().commit();
-        session.close();
-        return list;
-    }
-
-    @Override
-    public User retrieveByEmpId(EmployeeEntity entity) throws IndexOutOfBoundsException {
-        String sql = "FROM UserEntity U WHERE U.employeeEntity.id='"+entity.getId()+"'";
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
         List<UserEntity> list = session.createQuery(sql, UserEntity.class).list();
         session.getTransaction().commit();
         session.close();
-        return new ModelMapper().map(list.get(0), User.class);
+        return list;
     }
 
     @Override
-    public User retrieveByUsername(String username) {
+    public UserEntity retrieveByEmpId(String empId) throws IndexOutOfBoundsException {
+        String sql = "FROM UserEntity U WHERE U.employeeEntity.id='"+empId+"'";
+        Session session = HibernateUtil.getSession();
+        session.getTransaction().begin();
+        List<UserEntity> list = session.createQuery(sql, UserEntity.class).list();
+        session.getTransaction().commit();
+        session.close();
+        return list.get(0);
+    }
+
+    @Override
+    public UserEntity retrieveByUsername(String username) {
         String sql = "FROM UserEntity U WHERE U.email='"+username+"' AND U.isActive=true";
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
         List<UserEntity> list = session.createQuery(sql, UserEntity.class).list();
         session.getTransaction().commit();
         session.close();
-        return new ModelMapper().map(list.get(0), User.class);
+        return list.get(0);
     }
 
     @Override

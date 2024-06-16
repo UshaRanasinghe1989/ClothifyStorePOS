@@ -11,11 +11,11 @@ import java.util.Random;
 
 public class PasswordBasedEncryption {
     /* Declaration of variables */
-    private static final Random random = new SecureRandom();
-    private static final String characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    private static final int iterations = 10000;
-    private static final int keylength = 256;
-    private static final String salt = "test@1234";
+    private static final Random RANDOM = new SecureRandom();
+    private static final String CHARACTERS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    private static final int ITERATIONS = 10000;
+    private static final int KEYLENGTH = 256;
+    private static final String SALT = "test@1234";
 
     /* Method to generate the salt value. */
     public static String getSaltvalue(int length)
@@ -24,7 +24,7 @@ public class PasswordBasedEncryption {
 
         for (int i = 0; i < length; i++)
         {
-            finalval.append(characters.charAt(random.nextInt(characters.length())));
+            finalval.append(CHARACTERS.charAt(RANDOM.nextInt(CHARACTERS.length())));
         }
 
         return new String(finalval);
@@ -33,7 +33,7 @@ public class PasswordBasedEncryption {
     /* Method to generate the hash value */
     public static byte[] hash(char[] password, byte[] salt)
     {
-        PBEKeySpec spec = new PBEKeySpec(password, salt, iterations, keylength);
+        PBEKeySpec spec = new PBEKeySpec(password, salt, ITERATIONS, KEYLENGTH);
         Arrays.fill(password, Character.MIN_VALUE);
         try
         {
@@ -54,7 +54,7 @@ public class PasswordBasedEncryption {
     {
         String finalval = null;
 
-        byte[] securePassword = hash(password.toCharArray(), salt.getBytes());
+        byte[] securePassword = hash(password.toCharArray(), SALT.getBytes());
 
         finalval = Base64.getEncoder().encodeToString(securePassword);
 
@@ -92,7 +92,7 @@ public class PasswordBasedEncryption {
         boolean finalval = false;
 
         /* Generate New secure password with the same salt */
-        String newSecurePassword = generateSecurePassword(providedPassword, salt);
+        String newSecurePassword = generateSecurePassword(providedPassword, SALT);
 
         /* Check if two passwords are equal */
         finalval = newSecurePassword.equalsIgnoreCase(securedPassword);

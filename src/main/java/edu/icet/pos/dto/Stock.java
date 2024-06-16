@@ -1,6 +1,5 @@
 package edu.icet.pos.dto;
 
-import edu.icet.pos.entity.ProductEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,16 +15,16 @@ import java.util.Date;
 @Slf4j
 public class Stock {
     private String id;
-    private ProductEntity productEntity;
+    private Product product;
     private int initialQty;
     private int availableQty;
     private double unitPrice;
     private Boolean isActive;
     private Date createDateTime;
 
-    public Stock(String id, ProductEntity productEntity, int initialQty, int availableQty, double unitPrice) {
+    public Stock(String id, Product product, int initialQty, int availableQty, double unitPrice) {
         this.id = id;
-        this.productEntity = productEntity;
+        this.product = product;
         this.initialQty = initialQty;
         this.availableQty = availableQty;
         this.unitPrice = unitPrice;

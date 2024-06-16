@@ -10,6 +10,7 @@ import edu.icet.pos.entity.UserEntity;
 import edu.icet.pos.util.DaoType;
 import org.modelmapper.ModelMapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserBoImpl implements UserBo {
@@ -21,27 +22,45 @@ public class UserBoImpl implements UserBo {
     }
 
     @Override
-    public List retrieveAll() {
-        return userDao.retrieveAll();
+    public List<User> retrieveAll() {
+        List<UserEntity> userEntityList = userDao.retrieveAll();
+        List<User> userList = new ArrayList<>();
+
+        userEntityList.forEach(userEntity ->
+                userList.add(
+                        new ModelMapper().map(userEntity, User.class)
+                ));
+
+        return userList;
     }
 
     @Override
-    public List retrieveById(String id) {
-        return userDao.retrieveById(id);
+    public List<User> retrieveById(String id) {
+        List<UserEntity> userEntityList = userDao.retrieveById(id);
+        List<User> userList = new ArrayList<>();
+
+        userEntityList.forEach(userEntity ->
+                userList.add(
+                        new ModelMapper().map(userEntity, User.class)
+                ));
+
+        return userList;
     }
 
     @Override
-    public User retrieveByEmpId(Employee dto) {
-        return userDao.retrieveByEmpId(new ModelMapper().map(dto, EmployeeEntity.class));
+    public User retrieveByEmpId(String empId) {
+        UserEntity userEntity = userDao.retrieveByEmpId(empId);
+        return new ModelMapper().map(userEntity, User.class);
     }
 
     @Override
     public User retrieveByUsername(String username) {
-        return userDao.retrieveByUsername(username);
+        UserEntity userEntity = userDao.retrieveByUsername(username);
+        return new ModelMapper().map(userEntity, User.class);
     }
 
     @Override
-    public List retrieveAllId() {
+    public List<String> retrieveAllId() {
         return userDao.retrieveAllId();
     }
 

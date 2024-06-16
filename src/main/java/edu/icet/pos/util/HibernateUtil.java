@@ -1,7 +1,6 @@
 package edu.icet.pos.util;
 
 import edu.icet.pos.entity.*;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;

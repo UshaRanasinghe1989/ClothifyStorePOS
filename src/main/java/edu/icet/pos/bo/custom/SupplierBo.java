@@ -9,8 +9,8 @@ public interface SupplierBo extends SuperBo {
     boolean save(Supplier dto);
     List<Supplier> retrieveAll();
     List<Supplier> retrieveById(String id);
-    List<Supplier> retrieveAllId();
+    List<String> retrieveAllId();
     int update(Supplier dto);
-    List<Supplier> retrieveSupplierNames();
-    List<Supplier> retrieveSupplierIdByName(String name);
+    List<String> retrieveSupplierNames();
+    List<String> retrieveSupplierIdByName(String name);
 }

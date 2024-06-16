@@ -10,9 +10,9 @@ public interface UserBo extends SuperBo {
     boolean save(User dto);
     List<User> retrieveAll();
     List<User> retrieveById(String id);
-    User retrieveByEmpId(Employee dto);
+    User retrieveByEmpId(String empId);
     User retrieveByUsername(String username);
-    List<User> retrieveAllId();
+    List<String> retrieveAllId();
     int update(User dto);
     int deactivateById(User dto);
 }

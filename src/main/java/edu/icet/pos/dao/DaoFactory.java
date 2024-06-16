@@ -7,7 +7,6 @@ public class DaoFactory implements SuperDao {
     private static DaoFactory instance;
 
     private DaoFactory(){}
-
     public static DaoFactory getInstance(){
         return instance==null?(instance=new DaoFactory()):instance;
     }
@@ -21,7 +20,7 @@ public class DaoFactory implements SuperDao {
             case PRODUCT: return (T) new ProductDaoImpl();
             case STOCK: return (T) new StockDaoImpl();
             case ORDERS: return (T) new OrderDaoImpl();
-            case ORDERDETAIL: return (T) new OrderDetailDaoImpl();
+            case ORDER_DETAIL: return (T) new OrderDetailDaoImpl();
         }
         return null;
     }

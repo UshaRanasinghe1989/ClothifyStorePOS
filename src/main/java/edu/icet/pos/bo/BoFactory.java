@@ -21,7 +21,7 @@ public class BoFactory implements SuperBo{
             case PRODUCT: return (T) new ProductBoImpl();
             case STOCK: return (T) new StockBoImpl();
             case ORDERS: return (T) new OrderBoImpl();
-            case ORDERDETAIL: return (T) new OrderDetailBoImpl();
+            case ORDER_DETAIL: return (T) new OrderDetailBoImpl();
         }
         return null;
     }

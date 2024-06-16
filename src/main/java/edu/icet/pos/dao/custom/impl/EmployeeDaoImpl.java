@@ -43,11 +43,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public List retrieveAllId() {
+    public List<String> retrieveAllId() {
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
         String query = "SELECT E.id FROM EmployeeEntity E";
-        List<EmployeeEntity> list = session.createQuery(query, EmployeeEntity.class).list();
+        List<String> list = session.createQuery(query, String.class).list();
         session.getTransaction().commit();
         session.close();
         return list;

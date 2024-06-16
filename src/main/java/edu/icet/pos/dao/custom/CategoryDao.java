@@ -6,6 +6,6 @@ import edu.icet.pos.entity.CategoryEntity;
 import java.util.List;
 
 public interface CategoryDao extends CrudDao<CategoryEntity> {
-    List<CategoryEntity> retrieveCategoryNames();
-    List<CategoryEntity> retrieveCatIdByName(String name);
+    List<String> retrieveCategoryNames();
+    List<String> retrieveCatIdByName(String name);
 }

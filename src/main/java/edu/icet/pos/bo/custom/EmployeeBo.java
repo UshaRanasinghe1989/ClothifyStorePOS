@@ -10,7 +10,7 @@ public interface EmployeeBo extends SuperBo {
 
     List<Employee> retrieveAll();
     List<Employee> retrieveById(String id);
-    List<Employee> retrieveAllId();
+    List<String> retrieveAllId();
     int update(Employee dto);
     int deleteById(String id);
 }

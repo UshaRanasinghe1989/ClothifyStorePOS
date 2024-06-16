@@ -8,10 +8,11 @@ import edu.icet.pos.entity.EmployeeEntity;
 import edu.icet.pos.util.DaoType;
 import org.modelmapper.ModelMapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeBoImpl implements EmployeeBo {
-    private EmployeeDao employeeDao = DaoFactory.getInstance().getDao(DaoType.EMPLOYEE);
+    private final EmployeeDao employeeDao = DaoFactory.getInstance().getDao(DaoType.EMPLOYEE);
 
     @Override
     public boolean save(Employee dto) {
@@ -19,17 +20,31 @@ public class EmployeeBoImpl implements EmployeeBo {
     }
 
     @Override
-    public List retrieveAll() {
-        return employeeDao.retrieveAll();
+    public List<Employee> retrieveAll() throws NullPointerException {
+        List<EmployeeEntity> employeeEntityList = employeeDao.retrieveAll();
+        List<Employee> employeeList = new ArrayList<>();
+
+        employeeEntityList.forEach(employeeEntity ->
+                employeeList.add(
+                        new ModelMapper().map(employeeEntity, Employee.class)));
+
+        return employeeList;
     }
 
     @Override
-    public List retrieveById(String id) {
-        return employeeDao.retrieveById(id);
+    public List<Employee> retrieveById(String id) throws NullPointerException {
+        List<EmployeeEntity> employeeEntityList = employeeDao.retrieveAll();
+        List<Employee> employeeList = new ArrayList<>();
+
+        employeeEntityList.forEach(employeeEntity ->
+                employeeList.add(
+                    new ModelMapper().map(employeeEntity, Employee.class)));
+
+        return employeeList;
     }
 
     @Override
-    public List retrieveAllId(){ return employeeDao.retrieveAllId(); }
+    public List<String> retrieveAllId(){ return employeeDao.retrieveAllId(); }
 
     @Override
     public int update(Employee dto) {

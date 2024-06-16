@@ -10,6 +10,7 @@ import edu.icet.pos.util.BoType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -23,24 +24,36 @@ import java.util.ResourceBundle;
 
 @Slf4j
 public class ManageStockFormController extends SuperFormController implements Initializable {
+    @FXML
     public Label currentDateLbl;
+    @FXML
     public Label timerLbl;
+    @FXML
     public TextField initialQuantityTxt;
-    public TableView stockDetailsTable;
-    public TableColumn idCol;
-    public TableColumn initialQtyCol;
-    public TableColumn availableQtyCol;
-    public TableColumn unitPriceCol;
+    @FXML
+    public TableView<Stock> stockDetailsTable;
+    @FXML
+    public TableColumn<Stock, String> idCol;
+    @FXML
+    public TableColumn<Stock, String> initialQtyCol;
+    @FXML
+    public TableColumn<Stock, String> availableQtyCol;
+    @FXML
+    public TableColumn<Stock, String> unitPriceCol;
+    @FXML
     public Label userNameLbl;
-    public ComboBox productIdCombo;
+    @FXML
+    public ComboBox<String> productIdCombo;
+    @FXML
     public TextField stockIdTxt;
+    @FXML
     public TextField availableQuantityTxt;
+    @FXML
     public TextField unitPriceTxt;
 
-    private List list;
-    private ObservableList observableList;
-    private StockBo stockBo = BoFactory.getInstance().getBo(BoType.STOCK);
-    private ProductBo productBo = BoFactory.getInstance().getBo(BoType.PRODUCT);
+    private final StockBo stockBo = BoFactory.getInstance().getBo(BoType.STOCK);
+    private final ProductBo productBo = BoFactory.getInstance().getBo(BoType.PRODUCT);
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -54,23 +67,23 @@ public class ManageStockFormController extends SuperFormController implements In
 
     private void loadProductCombo() {
         try {
-            list = productBo.retrieveAllId();
-            observableList = FXCollections.observableList(list);
+            List<String> list = productBo.retrieveAllId();
+            ObservableList<String> observableList = FXCollections.observableList(list);
             productIdCombo.setItems(observableList);
         }catch (NullPointerException e){
             log.info(e.getMessage());
         }
     }
 
-    public void saveBtnOnAction(ActionEvent actionEvent) {
+    public void saveBtnOnAction() {
         save();
     }
 
-    public void updateBtnOnAction(ActionEvent actionEvent) {
+    public void updateBtnOnAction() {
         updateById();
     }
 
-    public void deactivateBtnOnAction(ActionEvent actionEvent) {
+    public void deactivateBtnOnAction() {
         if (loadConfirmAlert("Confirm deactivate stock ?")){
             int noRowsUpdated = stockBo.deactivateById(stockIdTxt.getText());
             if (noRowsUpdated>0){
@@ -84,18 +97,18 @@ public class ManageStockFormController extends SuperFormController implements In
         }
     }
 
-    public void searchBtnOnAction(ActionEvent actionEvent) {
+    public void searchBtnOnAction() {
         searchDetailById();
     }
 
     //OVERRIDDEN METHODS FROM SuperFormController ABSTRACT CLASS
     @Override
     void save() {
-        String selectedProductId = productIdCombo.getValue().toString();
-        ProductEntity productEntity = new ModelMapper().map(productBo.retrieveById(selectedProductId).get(0), ProductEntity.class);
+        String selectedProductId = productIdCombo.getValue();
+        Product product = productBo.retrieveById(selectedProductId).get(0);
         Stock stock = new Stock(
                 stockIdTxt.getText(),
-                productEntity,
+                product,
                 Integer.parseInt(initialQuantityTxt.getText()),
                 Integer.parseInt(availableQuantityTxt.getText()),
                 Double.parseDouble(unitPriceTxt.getText()),
@@ -126,9 +139,9 @@ public class ManageStockFormController extends SuperFormController implements In
         String lastId=null;
         int number=0;
         try {
-            list = stockBo.retrieveAllId();
-            observableList = FXCollections.observableList(list);
-            lastId = (String) observableList.get(observableList.size() - 1);
+            List<String> list = stockBo.retrieveAllId();
+            ObservableList<String> observableList = FXCollections.observableList(list);
+            lastId = observableList.get(observableList.size() - 1);
             number = Integer.parseInt(lastId.split("STK")[1]);
         }catch (NullPointerException | IndexOutOfBoundsException e){
             stockIdTxt.setText("STK0001");
@@ -140,8 +153,8 @@ public class ManageStockFormController extends SuperFormController implements In
     @Override
     void loadDetailTable() {
         try {
-            list = stockBo.retrieveAll();
-            observableList = FXCollections.observableList(list);
+            List<Stock> list = stockBo.retrieveAll();
+            ObservableList<Stock> observableList = FXCollections.observableList(list);
             stockDetailsTable.setItems(observableList);
 
             idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -156,10 +169,10 @@ public class ManageStockFormController extends SuperFormController implements In
     @Override
     void searchDetailById() {
         try {
-            list = stockBo.retrieveById(stockIdTxt.getText());
+            List<Stock> list = stockBo.retrieveById(stockIdTxt.getText());
             Stock stock = new ModelMapper().map(list.get(0), Stock.class);
 
-            List productList = productBo.retrieveById(stock.getProductEntity().getId());
+            List<Product> productList = productBo.retrieveById(stock.getProduct().getId());
             Product product = new ModelMapper().map(productList.get(0), Product.class);
             productIdCombo.setValue(product.getId());
 
@@ -176,12 +189,12 @@ public class ManageStockFormController extends SuperFormController implements In
 
     @Override
     void updateById() {
-        String selectedProductId = productIdCombo.getValue().toString();
-        ProductEntity productEntity = new ModelMapper().map(productBo.retrieveById(selectedProductId).get(0), ProductEntity.class);
+        String selectedProductId = productIdCombo.getValue();
+        Product product = productBo.retrieveById(selectedProductId).get(0);
 
         Stock stock = new Stock(
                 stockIdTxt.getText(),
-                productEntity,
+                product,
                 Integer.parseInt(initialQuantityTxt.getText()),
                 Integer.parseInt(availableQuantityTxt.getText()),
                 Double.parseDouble(unitPriceTxt.getText())

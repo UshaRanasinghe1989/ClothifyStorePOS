@@ -9,8 +9,8 @@ public interface CategoryBo extends SuperBo {
     boolean save(Category dto);
     List<Category> retrieveAll();
     List<Category> retrieveById(String id);
-    List<Category> retrieveAllId();
+    List<String> retrieveAllId();
     int update(Category dto);
-    List<Category> retrieveCategoryNames();
-    List<Category> retrieveCatIdByName(String name);
+    List<String> retrieveCategoryNames();
+    List<String> retrieveCatIdByName(String name);
 }

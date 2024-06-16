@@ -45,11 +45,11 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public List<ProductEntity> retrieveAllId() {
+    public List<String> retrieveAllId() {
         String sql = "SELECT P.id FROM ProductEntity P";
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
-        List<ProductEntity> list = session.createQuery(sql, ProductEntity.class).list();
+        List<String> list = session.createQuery(sql, String.class).list();
         session.getTransaction().commit();
         session.close();
         return list;
@@ -77,5 +77,16 @@ public class ProductDaoImpl implements ProductDao {
         transaction.commit();
         session.close();
         return noRowsUpdated;
+    }
+
+    @Override
+    public List<ProductEntity> retrieveByName(String name) {
+        String query = "FROM ProductEntity P WHERE P.name='"+name+"'";
+        Session session = HibernateUtil.getSession();
+        session.getTransaction().begin();
+        List<ProductEntity> list = session.createQuery(query, ProductEntity.class).list();
+        session.getTransaction().commit();
+        session.close();
+        return list;
     }
 }

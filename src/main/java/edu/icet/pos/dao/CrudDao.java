@@ -6,6 +6,6 @@ public interface CrudDao<T> extends SuperDao{
     boolean save(T entity);
     List<T> retrieveAll();
     List<T> retrieveById(String id);
-    List<T> retrieveAllId();
+    List<String> retrieveAllId();
     int update(T entity);
 }

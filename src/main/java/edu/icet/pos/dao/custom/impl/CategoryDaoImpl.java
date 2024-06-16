@@ -23,7 +23,7 @@ public class CategoryDaoImpl implements CategoryDao {
     }
 
     @Override
-    public List retrieveAll() {
+    public List<CategoryEntity> retrieveAll() {
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
         List<CategoryEntity> list = session.createQuery("FROM CategoryEntity", CategoryEntity.class).list();
@@ -33,7 +33,7 @@ public class CategoryDaoImpl implements CategoryDao {
     }
 
     @Override
-    public List retrieveById(String id) {
+    public List<CategoryEntity> retrieveById(String id) {
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
         List<CategoryEntity> list = session.createQuery("FROM CategoryEntity C WHERE C.id='"+id+"'", CategoryEntity.class).list();
@@ -43,11 +43,11 @@ public class CategoryDaoImpl implements CategoryDao {
     }
 
     @Override
-    public List retrieveAllId() {
+    public List<String> retrieveAllId() {
         String query = "SELECT C.id FROM CategoryEntity C";
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
-        List<CategoryEntity> list = session.createQuery(query, CategoryEntity.class).list();
+        List<String> list = session.createQuery(query, String.class).list();
         session.getTransaction().commit();
         session.close();
         return list;
@@ -68,7 +68,7 @@ public class CategoryDaoImpl implements CategoryDao {
     }
 
     @Override
-    public List retrieveCategoryNames() {
+    public List<String> retrieveCategoryNames() {
         String sql = "SELECT C.name FROM CategoryEntity C";
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
@@ -79,7 +79,7 @@ public class CategoryDaoImpl implements CategoryDao {
     }
 
     @Override
-    public List retrieveCatIdByName(String name) {
+    public List<String> retrieveCatIdByName(String name) {
         String sql = "SELECT C.id FROM CategoryEntity C WHERE C.name='"+name+"'";
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();

@@ -22,7 +22,7 @@
                </font>
             </Label>
             <TextField fx:id="userNameTxt" layoutX="460.0" layoutY="118.0" prefHeight="26.0" prefWidth="235.0" promptText="Username" style="-fx-background-color: #d0d3d9;" />
-            <Button layoutX="460.0" layoutY="242.0" mnemonicParsing="false" onAction="#loginBtnOnAction" prefHeight="34.0" prefWidth="235.0" style="-fx-background-color: #57A6A1;" text="Login">
+            <Button fx:id="loginBtn" layoutX="460.0" layoutY="242.0" mnemonicParsing="false" onAction="#loginBtnOnAction" prefHeight="34.0" prefWidth="235.0" style="-fx-background-color: #57A6A1;" text="Login">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>

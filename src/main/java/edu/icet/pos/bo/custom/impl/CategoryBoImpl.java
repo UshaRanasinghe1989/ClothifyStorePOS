@@ -9,6 +9,7 @@ import edu.icet.pos.util.DaoType;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -21,17 +22,23 @@ public class CategoryBoImpl implements CategoryBo {
     }
 
     @Override
-    public List retrieveAll() {
-        return categoryDao.retrieveAll();
+    public List<Category> retrieveAll() {
+        List<CategoryEntity> categoryEntityList =categoryDao.retrieveAll();
+        List<Category> categoryList = new ArrayList<>();
+        categoryEntityList.forEach(categoryEntity -> categoryList.add(new ModelMapper().map(categoryEntity, Category.class)));
+        return categoryList;
     }
 
     @Override
-    public List retrieveById(String id) {
-        return categoryDao.retrieveById(id);
+    public List<Category> retrieveById(String id) {
+        List<CategoryEntity> categoryEntityList =categoryDao.retrieveById(id);
+        List<Category> categoryList = new ArrayList<>();
+        categoryEntityList.forEach(categoryEntity -> categoryList.add(new ModelMapper().map(categoryEntity, Category.class)));
+        return categoryList;
     }
 
     @Override
-    public List retrieveAllId() {
+    public List<String> retrieveAllId() {
         return categoryDao.retrieveAllId();
     }
 
@@ -41,12 +48,12 @@ public class CategoryBoImpl implements CategoryBo {
     }
 
     @Override
-    public List retrieveCategoryNames() {
+    public List<String> retrieveCategoryNames() {
         return categoryDao.retrieveCategoryNames();
     }
 
     @Override
-    public List retrieveCatIdByName(String name) {
+    public List<String> retrieveCatIdByName(String name) {
         return categoryDao.retrieveCatIdByName(name);
     }
 }

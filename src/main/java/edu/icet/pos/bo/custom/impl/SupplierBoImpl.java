@@ -8,6 +8,7 @@ import edu.icet.pos.entity.SupplierEntity;
 import edu.icet.pos.util.DaoType;
 import org.modelmapper.ModelMapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SupplierBoImpl implements SupplierBo {
@@ -18,17 +19,33 @@ public class SupplierBoImpl implements SupplierBo {
     }
 
     @Override
-    public List retrieveAll() {
-        return supplierDao.retrieveAll();
+    public List<Supplier> retrieveAll() {
+        List<SupplierEntity> supplierEntityList = supplierDao.retrieveAll();
+        List<Supplier> supplierList = new ArrayList<>();
+
+        supplierEntityList.forEach(supplierEntity ->
+                supplierList.add(
+                        new ModelMapper().map(supplierEntity, Supplier.class)
+                ));
+
+        return supplierList;
     }
 
     @Override
-    public List retrieveById(String id) {
-        return supplierDao.retrieveById(id);
+    public List<Supplier> retrieveById(String id) {
+        List<SupplierEntity> supplierEntityList = supplierDao.retrieveById(id);
+        List<Supplier> supplierList = new ArrayList<>();
+
+        supplierEntityList.forEach(supplierEntity ->
+                supplierList.add(
+                        new ModelMapper().map(supplierEntity, Supplier.class)
+                ));
+
+        return supplierList;
     }
 
     @Override
-    public List retrieveAllId() {
+    public List<String> retrieveAllId() {
         return supplierDao.retrieveAllId();
     }
 
@@ -38,12 +55,12 @@ public class SupplierBoImpl implements SupplierBo {
     }
 
     @Override
-    public List retrieveSupplierNames() {
+    public List<String> retrieveSupplierNames() {
         return supplierDao.retrieveSupplierNames();
     }
 
     @Override
-    public List retrieveSupplierIdByName(String name) {
+    public List<String> retrieveSupplierIdByName(String name) {
         return supplierDao.retrieveSupplierIdByName(name);
     }
 }

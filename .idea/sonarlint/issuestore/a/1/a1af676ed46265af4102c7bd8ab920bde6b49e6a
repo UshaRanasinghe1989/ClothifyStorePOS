@@ -1,15 +1,36 @@
 
-É
-java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(•‘İŸüÿÿÿÿ8ûóŒ2J$58e6bd1a-1d83-475c-9e1b-5b5a31151003
-É
-java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(é¨îÇùÿÿÿÿ8§ñŒ2J$ee81f15e-3528-4da6-b3da-7763fb83c018
-Ä
-java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ºß¯ú8§ñŒ2J$b4f509bd-0c60-411f-9b32-c5232e9269ce
-É
-java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ôÊÛŸûÿÿÿÿ8§ñŒ2J$63f7e2fc-ba27-4e54-a47c-a97f31a31842
-É
-java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ë ø…üÿÿÿÿ8§ñŒ2J$ce5b03e8-a76e-43a2-bbc7-6778593f2a47
-É
-java:S1186$"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Å¼—ìüÿÿÿÿ8§ñŒ2J$180fae19-2afe-40d6-86c5-f0b2c2223bf0
-É
-java:S1186)"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(–€Â„ÿÿÿÿÿ8§ñŒ2J$857914cb-8e6c-402d-905c-ec97dae2c75c
+ 
+java:S1104I"XMake unitPriceLbl a static final constant or non-public and provide accessors if needed.(¶êËŒıÿÿÿÿ8“ãÖš‚2J$11e6423c-0c32-46c9-99d0-cf506069ccb2
+Ÿ
+java:S1104J"\Make activeStockIdLbl a static final constant or non-public and provide accessors if needed.(½¦¡½8”ãÖš‚2J$117fff7d-7c86-4789-95ac-0fdd83404130
+—
+java:S1104K"TMake priceLbl a static final constant or non-public and provide accessors if needed.(ÇŞäÄ8”ãÖš‚2J$ad6766e9-40e9-4d8f-96dc-f765a31681a8
+Ã
+java:S1186^"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(»Ç•[8®ãÖš‚2J$fe76b2c5-ac76-4117-8896-1d8f119643a3
+Ê
+java:S1186”"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ìëâİùÿÿÿÿ8®ãÖš‚2J$d720c972-6525-4d6e-add3-1476f08c29af
+Å
+java:S1186—"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(×ÙÿÅ8®ãÖš‚2J$788b5d71-a1cb-4d96-adf9-b480872a2425
+Ê
+java:S1186š"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(î˜úúıÿÿÿÿ8®ãÖš‚2J$53082b97-e064-47fa-98fe-baba663d4978
+Ê
+java:S1186Á"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(é¨îÇùÿÿÿÿ8®ãÖš‚2J$f425b0d1-5841-4c30-a3c0-96a70f953199
+Å
+java:S1186Æ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ºß¯ú8®ãÖš‚2J$8ee61b0d-8d93-47ac-a883-0b89e681679f
+Ê
+java:S1186Û"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ë ø…üÿÿÿÿ8®ãÖš‚2J$960d3c15-3bf5-4399-9d18-a373650f0b4c
+Ê
+java:S1186à"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Å¼—ìüÿÿÿÿ8®ãÖš‚2J$5e2ea63d-fc21-409b-b255-521f4caef8f9
+Ê
+java:S1186å"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(–€Â„ÿÿÿÿÿ8®ãÖš‚2J$08e8aebb-e697-4117-978e-41fb0e8a9c8f
+ƒ	java:S125N"<This block of commented-out lines of code should be removed.(‰“¹Áùÿÿÿÿ8²ãÖš‚2J$a4a078d6-f7eb-4f96-ad45-3509bbd2f1ce
+~	java:S125w"<This block of commented-out lines of code should be removed.(µèã×8»ãÖš‚2J$2d010d2c-4514-41c1-ae7b-dc1493568303
+~	java:S125~"<This block of commented-out lines of code should be removed.(©£Îá8»ãÖš‚2J$189c2c98-e545-41e0-b07b-f630ea32b7f1
+}	java:S125"<This block of commented-out lines of code should be removed.(ÄÖÄ18»ãÖš‚2J$062846c1-1a0c-4179-aaca-99e6ea039010
+„	java:S125©"<This block of commented-out lines of code should be removed.(ÆÃÅóûÿÿÿÿ8½ãÖš‚2J$74ab22f3-1c58-48e5-b623-60c25ddd0402
+s
+java:S1068M"1Remove this unused "cartArrayList" private field.(ÕöÓG8ÁãÖš‚2J$5a5beb90-f012-4504-8903-1c297516c11c
+t
+java:S1068T"1Remove this unused "orderDetailBo" private field.(„ºãì8ÁãÖš‚2J$eb6b5d9d-905c-4af8-8d8f-d469a4c8e379
+{
+java:S1144¨"2Remove this unused private "loadCartTable" method.(©÷ˆÿÿÿÿÿ8ÂãÖš‚2J$d4a2a7ac-9e09-4ec2-9062-f67ffa37f6f7

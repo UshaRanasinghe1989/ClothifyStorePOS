@@ -1,6 +1,5 @@
 package edu.icet.pos.dto;
 
-import edu.icet.pos.entity.EmployeeEntity;
 import edu.icet.pos.util.UserType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,7 +14,7 @@ import java.util.Date;
 @ToString
 public class User {
     private String id;
-    private EmployeeEntity employeeEntity;
+    private Employee employee;
     private String systemName;
     private String email;
     private String password;

@@ -11,6 +11,7 @@ import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -28,63 +29,54 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 @Slf4j
-public class ManageProductCategoryFormController implements FormController, Initializable {
+public class ManageProductCategoryFormController extends SuperFormController implements Initializable {
+    @FXML
     public Label categoryIdTxt;
-    public ComboBox selectCategoryIdCombo;
+    @FXML
+    public ComboBox<String> selectCategoryIdCombo;
+    @FXML
     public TextField categoryNameTxt;
-    public TableView categoryTableView;
-    public TableColumn categoryIdCol;
-    public TableColumn categoryNameCol;
+    @FXML
+    public TableView<Category> categoryTableView;
+    @FXML
+    public TableColumn<Category, String> categoryIdCol;
+    @FXML
+    public TableColumn<Category, String> categoryNameCol;
+    @FXML
     public Label currentDateLbl;
+    @FXML
     public Label timerLbl;
 
     CategoryBo categoryBo = BoFactory.getInstance().getBo(BoType.CATEGORY);
-    List categoryList;
-    ObservableList<Category> observableList;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadDateTime();
-        getCategoryId();
+        getCurrentDate(currentDateLbl);
+        getCurrentTime(timerLbl);
+        loadId();
         loadCategoryIdCombo();
-
-        categoryIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        categoryNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        loadCategoryTable();
+        loadDetailTable();
     }
 
     @Override
-    public void loadDateTime() {
-        currentDateLbl.setText(getCurrentDate());
-        Timeline timeline = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-            LocalTime localTime = LocalTime.now();
-            timerLbl.setText(
-                    localTime.getHour() +" : "+localTime.getMinute()+ " : "+ localTime.getSecond()
-            );
-        }),
-                new KeyFrame(Duration.seconds(1))
+    void save() {
+        Category category = new Category(
+                categoryIdTxt.getText(),
+                categoryNameTxt.getText()
         );
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.play();
-    }
-
-    @Override
-    public String getCurrentDate() {
-        Date currentDate = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        return dateFormat.format(currentDate);
-    }
-
-    @Override
-    public boolean loadConfirmAlert(String msg) {
-        boolean isConfirm = false;
-        ButtonType btnYes = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
-        ButtonType btnNo = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, msg, btnYes, btnNo);
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.orElse(btnNo)==btnYes) isConfirm = true;
-
-        return isConfirm;
+        try {
+            boolean isSaved = categoryBo.save(category);
+            if (isSaved){
+                new Alert(Alert.AlertType.CONFIRMATION, "Category saved successfully !").show();
+                loadId();
+                loadCategoryIdCombo();
+                clearForm();
+            }else {
+                new Alert(Alert.AlertType.ERROR, "Please try again !").show();
+            }
+        }catch (NullPointerException e){
+            log.info(e.getMessage());
+        }
     }
 
     @Override
@@ -92,63 +84,12 @@ public class ManageProductCategoryFormController implements FormController, Init
         categoryNameTxt.setText("");
     }
 
-    public void saveBtnOnAction(ActionEvent actionEvent) {
-        Category category = new Category(
-                categoryIdTxt.getText(),
-                categoryNameTxt.getText()
-        );
-        boolean isSaved = categoryBo.save(category);
-        if (isSaved){
-            new Alert(Alert.AlertType.CONFIRMATION, "Category saved successfully !").show();
-            getCategoryId();
-            loadCategoryIdCombo();
-            clearForm();
-        }else {
-            new Alert(Alert.AlertType.ERROR, "Please try again !").show();
-        }
-    }
-
-    public void updateBtnOnAction(ActionEvent actionEvent) {
-        Category category = new Category(
-                selectCategoryIdCombo.getValue().toString(),
-                categoryNameTxt.getText()
-        );
-        if (loadConfirmAlert("Confirm update ?")){
-            int rowCountUpdated = categoryBo.update(category);
-
-            if (rowCountUpdated>0){
-                new Alert(Alert.AlertType.CONFIRMATION, "Category name updated successfully !").show();
-                selectCategoryIdCombo.getSelectionModel().clearSelection();
-                getCategoryId();
-                loadCategoryTable();
-                clearForm();
-            }else {
-                new Alert(Alert.AlertType.ERROR, "Please try again !").show();
-            }
-        }
-    }
-
-    public void catIdComboOnAction(ActionEvent actionEvent) {
-        categoryList = categoryBo.retrieveById(selectCategoryIdCombo.getValue().toString());
-        Category category = new ModelMapper().map(categoryList.get(0), Category.class);
-        categoryNameTxt.setText(category.getName());
-    }
-    private void loadCategoryTable(){
-        try {
-            categoryList = categoryBo.retrieveAll();
-            observableList = FXCollections.observableList(categoryList);
-            categoryTableView.setItems(observableList);
-        }catch (NullPointerException e){
-            log.info(e.getMessage());
-        }
-    }
-
-    private void getCategoryId(){
-        String lastCatId=null;
+    @Override
+    void loadId() {
         int number=0;
         try {
-            categoryList = FXCollections.observableList(categoryBo.retrieveAllId());
-            lastCatId = (String) categoryList.get(categoryList.size() - 1);
+            ObservableList<String> categoryList = FXCollections.observableList(categoryBo.retrieveAllId());
+            String lastCatId = categoryList.get(categoryList.size() - 1);
             number = Integer.parseInt(lastCatId.split("CAT")[1]);
         }catch (NullPointerException | IndexOutOfBoundsException e){
             categoryIdTxt.setText("CAT0001");
@@ -157,10 +98,65 @@ public class ManageProductCategoryFormController implements FormController, Init
         categoryIdTxt.setText(String.format("CAT%04d", number));
     }
 
+    @Override
+    void loadDetailTable() {
+        try {
+            List<Category> categoryList = categoryBo.retrieveAll();
+            ObservableList<Category> observableList = FXCollections.observableList(categoryList);
+            categoryTableView.setItems(observableList);
+
+            categoryIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+            categoryNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        }catch (NullPointerException e){
+            log.info(e.getMessage());
+        }
+    }
+
+    @Override
+    void searchDetailById() {
+        String selectedCategory = selectCategoryIdCombo.getValue();
+        List<Category> categoryList = categoryBo.retrieveById(selectedCategory);
+        Category category = new ModelMapper().map(categoryList.get(0), Category.class);
+        categoryNameTxt.setText(category.getName());
+    }
+
+    @Override
+    void updateById() {
+        Category category = new Category(
+                selectCategoryIdCombo.getValue(),
+                categoryNameTxt.getText()
+        );
+        if (loadConfirmAlert("Confirm update ?")){
+            int rowCountUpdated = categoryBo.update(category);
+
+            if (rowCountUpdated>0){
+                new Alert(Alert.AlertType.CONFIRMATION, "Category name updated successfully !").show();
+                selectCategoryIdCombo.getSelectionModel().clearSelection();
+                loadId();
+                loadDetailTable();
+                clearForm();
+            }else {
+                new Alert(Alert.AlertType.ERROR, "Please try again !").show();
+            }
+        }
+    }
+
+    public void saveBtnOnAction() {
+        save();
+    }
+
+    public void updateBtnOnAction() {
+        updateById();
+    }
+
+    public void catIdComboOnAction() {
+        searchDetailById();
+    }
+
     private void loadCategoryIdCombo(){
         try {
-            List list = categoryBo.retrieveAllId();
-            ObservableList observableList = FXCollections.observableArrayList(list);
+            List<String> list = categoryBo.retrieveAllId();
+            ObservableList<String> observableList = FXCollections.observableArrayList(list);
             selectCategoryIdCombo.setItems(observableList);
         }catch (NullPointerException e){
             log.info("Null pointer exception !");

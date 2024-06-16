@@ -43,11 +43,11 @@ public class SupplierDaoImpl implements SupplierDao {
     }
 
     @Override
-    public List<SupplierEntity> retrieveAllId() {
+    public List<String> retrieveAllId() {
         String query = "SELECT S.id FROM SupplierEntity S";
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
-        List<SupplierEntity> list = session.createQuery(query, SupplierEntity.class).list();
+        List<String> list = session.createQuery(query, String.class).list();
         session.getTransaction().commit();
         session.close();
         return list;
