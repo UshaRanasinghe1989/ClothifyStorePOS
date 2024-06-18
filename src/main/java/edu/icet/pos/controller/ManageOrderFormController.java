@@ -9,8 +9,7 @@ import edu.icet.pos.dto.OrderDetail;
 import edu.icet.pos.dto.Orders;
 import edu.icet.pos.dto.Product;
 import edu.icet.pos.dto.Stock;
-import edu.icet.pos.entity.OrderEntity;
-import edu.icet.pos.entity.ProductEntity;
+import edu.icet.pos.dto.tableDto.CartTable;
 import edu.icet.pos.util.BoType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,10 +20,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -37,7 +36,7 @@ public class ManageOrderFormController extends SuperFormController implements In
     @FXML
     public Label timerLbl;
     @FXML
-    public TableView<OrderDetail> cartDetailTable;
+    public TableView<CartTable> cartDetailTable;
     @FXML
     public TableColumn<OrderDetail, String> idCol;
     @FXML
@@ -73,10 +72,14 @@ public class ManageOrderFormController extends SuperFormController implements In
     public Label unitPriceLbl;
     public Label activeStockIdLbl;
     public Label priceLbl;
+    public Label stockDiscountLbl;
+    public Label totalDiscountLbl;
+    public Label grossAmountLbl;
+    public Label netAmountLbl;
 
-    private List<String> cartArrayList = new ArrayList<>();
-    //private ObservableList<String> cartObservableList;
     double unitPrice;
+    Product selectedProduct;
+    private ObservableList<CartTable> cartTableList = FXCollections.observableArrayList();
 
     private final ProductBo productBo = BoFactory.getInstance().getBo(BoType.PRODUCT);
     private final StockBo stockBo = BoFactory.getInstance().getBo(BoType.STOCK);
@@ -91,53 +94,87 @@ public class ManageOrderFormController extends SuperFormController implements In
         loadProductNamesCombo();
     }
 
-    public void placeOrderBtnOnAction(ActionEvent actionEvent) {
+    public void placeOrderBtnOnAction() {
+        save();
     }
 
     public void selectProductComboOnAction() {
-        String selectedProduct = String.valueOf(selectProductNameCombo.getValue());
-        List<Product> productList = productBo.retrieveById(selectedProduct);
+        String selectedProductId = String.valueOf(selectProductNameCombo.getValue());
+        List<Product> productList = productBo.retrieveById(selectedProductId);
+        selectedProduct = productList.get(0);
 
-        String selectedProductId = productList.get(0).getId();
-        String description = productList.get(0).getDescription();
+        String description = selectedProduct.getDescription();
 
         productIdLbl.setText(selectedProductId);
-        productNameLbl.setText(productList.get(0).getName());
+        productNameLbl.setText(selectedProduct.getName());
         productDescriptionLbl.setText(description.isEmpty() ? "N/A":description);
-        productSizeLbl.setText(String.valueOf(productList.get(0).getSize()));
+        productSizeLbl.setText(String.valueOf(selectedProduct.getSize()));
 
         loadActiveStockDetails(selectedProductId);
     }
 
     public void addToCartBtnOnAction() {
-        OrderEntity orderEntity = new OrderEntity(orderIdLbl.getText());
-        ProductEntity productEntity = new ModelMapper().map(
-                productBo.retrieveById(selectProductNameCombo.getValue()).get(0), ProductEntity.class);
+        ObservableList<CartTable> observableList = getCartTables();
 
-        orderEntity.addProduct(productEntity);
+        cartDetailTable.setItems(observableList);
 
-        //orderDetailBo.retrieveByOrderId(orderIdLbl.getText());
+        idCol.setCellValueFactory(new PropertyValueFactory<>("productId"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        unitPriceCol.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
+        qtyCol.setCellValueFactory(new PropertyValueFactory<>("productQuantity"));
+        priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
 
-        /*Orders orders = new Orders(
-                orderIdLbl.getText(),
-                activeStockIdLbl.getText(),
-                orderDetailBo.retrieveCountOrderId(orderIdLbl.getText()),
+        calculateOrderTotal();
+        clearForm();
+    }
 
-        );*/
-        /*Product product = productBo.retrieveById(productIdLbl.getText()).get(0);
-
-        double price = Integer.parseInt(requiredQtyTxt.getText()) * Double.parseDouble(unitPriceLbl.getText());
-        OrderDetail orderDetail = new OrderDetail(
-                orders,
-                product,
-                activeStockIdLbl.getText(),
+    private ObservableList<CartTable> getCartTables() {
+        String productId =  productIdLbl.getText();
+        CartTable cartTable = new CartTable(
+                productId,
+                productNameLbl.getText(),
+                Double.parseDouble(unitPriceLbl.getText()),
                 Integer.parseInt(requiredQtyTxt.getText()),
-                price,
-                0.0
+                Double.parseDouble(priceLbl.getText()),
+                Double.parseDouble(stockDiscountLbl.getText()),
+                activeStockIdLbl.getText()
         );
-        orderDetailBo.save(orderDetail);
 
-        loadCartTable();*/
+        cartTableList.add(cartTable);
+
+        return cartTableList;
+    }
+
+    private void calculateOrderTotal(){
+        double grossTotal = 0.0;
+        double discountTotal = 0.0;
+        double netTotal = 0.0;
+
+        grossTotal = cartTableList.stream().mapToDouble(CartTable::getPrice).sum();
+        discountTotal = cartTableList.stream().mapToDouble(CartTable::getDiscount).sum();
+        netTotal = grossTotal - discountTotal;
+
+        grossAmountLbl.setText(String.valueOf(grossTotal));
+        totalDiscountLbl.setText(String.valueOf(discountTotal));
+        netAmountLbl.setText(String.valueOf(netTotal));
+    }
+
+    private List<OrderDetail> generateOrderDetailList(Orders newOrder){
+        List<OrderDetail> orderDetailList = new ArrayList<>();
+        OrderDetail newOrderDetail=null;
+
+        for (int i =0; i<cartTableList.size(); i++){
+            newOrderDetail = new OrderDetail(
+                    newOrder,
+                    productBo.retrieveById(cartTableList.get(i).getProductId()).get(0),
+                    cartTableList.get(i).getStockId(),
+                    cartTableList.get(i).getProductQuantity(),
+                    cartTableList.get(i).getPrice(),
+                    cartTableList.get(i).getDiscount()
+            );
+            orderDetailList.add(newOrderDetail);
+        }
+        return orderDetailList;
     }
 
     public void quantityTxtOnAction() {
@@ -165,20 +202,6 @@ public class ManageOrderFormController extends SuperFormController implements In
         }
     }
 
-    private void loadCartTable() {
-        /*Orders orders = new Orders(orderIdLbl.getText());
-        List<OrderDetail> orderDetailList = orderDetailBo.retrieveByOrderEntity(orders);
-        log.info(orderDetailList.toString()+"#######");
-        ObservableList<OrderDetail> cartObservableList = FXCollections.observableList(orderDetailList);
-        cartDetailTable.setItems(cartObservableList);
-
-        idCol.setCellValueFactory(new PropertyValueFactory<>("productId"));
-        nameCol.setCellValueFactory(new PropertyValueFactory<>(""));
-        unitPriceCol.setCellValueFactory(new PropertyValueFactory<>(""));
-        qtyCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-        priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));*/
-    }
-
     private void loadActiveStockDetails(String productId) {
         Product product = productBo.retrieveById(productId).get(0);
         List<Stock> stockList = stockBo.retrieveActiveStockByProduct(product);
@@ -187,16 +210,57 @@ public class ManageOrderFormController extends SuperFormController implements In
         activeStockIdLbl.setText(stock.getId());
         unitPrice = stock.getUnitPrice();
         unitPriceLbl.setText(String.valueOf(unitPrice));
+        stockDiscountLbl.setText(String.valueOf(stock.getDiscount()));
     }
 
     @Override
     void save() {
+        String orderId = orderIdLbl.getText();
+        //ORDER
+        double grossAmount = 0.0;
+        double discount = 0.0;
+        double netAmount = 0.0;
 
+        for (CartTable table : cartTableList) {
+            grossAmount += table.getPrice();
+            discount += table.getDiscount();
+            netAmount = grossAmount - discount;
+        }
+
+        Orders newOrder = new Orders(
+                orderId,
+                cartTableList.size(),
+                grossAmount,
+                discount,
+                netAmount,
+                new Date()
+        );
+        boolean isOrderSaved = orderBo.save(newOrder);
+        if (isOrderSaved){
+            boolean isDetailListSaved = orderDetailBo.save(generateOrderDetailList(newOrder));
+            if (isDetailListSaved){
+                int updatedRowCount = stockBo.updateStockQty(cartTableList);
+                if(updatedRowCount>0){
+                    new Alert(Alert.AlertType.CONFIRMATION, "Order saved successfully !").show();
+                }
+            }
+        }else {
+            new Alert(Alert.AlertType.ERROR, "Order failed !").show();
+        }
     }
 
     @Override
     void clearForm() {
-
+        selectProductNameCombo.valueProperty().set("");
+        productIdLbl.setText("");
+        productNameLbl.setText("");
+        productDescriptionLbl.setText("");
+        productSizeLbl.setText("");
+        unitPriceLbl.setText("");
+        activeStockIdLbl.setText("");
+        requiredQtyTxt.setText("");
+        stockDiscountLbl.setText("");
+        priceLbl.setText("");
     }
 
     @Override

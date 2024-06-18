@@ -10,11 +10,11 @@ import edu.icet.pos.entity.OrderEntity;
 import java.util.List;
 
 public interface OrderDetailBo extends SuperBo {
-    boolean save(OrderDetail dto);
+    boolean save(List<OrderDetail> list);
     List<OrderDetail> retrieveAll();
     List<OrderDetail> retrieveById(String orderId);
     List<Integer> retrieveAllId();
     int update(OrderDetail dto);
-    List<OrderDetail> retrieveByOrderId(String orderId);
-    int retrieveCountOrderId(String orderId);
+    List<OrderDetail> retrieveByOrderId(Orders dto);
+    int retrieveCountOrderId(Orders dto);
 }

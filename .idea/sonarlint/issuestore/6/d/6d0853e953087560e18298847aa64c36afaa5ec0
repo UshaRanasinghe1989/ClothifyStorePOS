@@ -1,16 +1,9 @@
 
+c
+java:S1126("AReplace this if-then-else statement by a single return statement.(¢¢Û«ûÿÿÿÿ8£íÉè‚2
 n
-java:S1168"+Return an empty collection instead of null.(¥¹ï8õøí‰‚2J$8c7c3d8c-4a89-4a32-9691-2866e5ae6c92
+java:S11680"+Return an empty collection instead of null.(¥¹ï8Ü»Çè‚2J$a35c75e1-df98-4cb0-8302-010f963ebb95
 n
-java:S1168,"+Return an empty collection instead of null.(¥¹ï8öøí‰‚2J$6bb0912a-d34b-4211-af01-7b12dbfa375c
+java:S1168A"+Return an empty collection instead of null.(¥¹ï8Ş»Çè‚2J$790326ed-831d-4c49-924e-b4343e313bab
 o
-java:S16028",Remove useless curly braces around statement(Ú‘ğ±8øøí‰‚2J$faf905b4-efca-45cc-adec-306653111102
-w
-java:S1128"4Remove this unused import 'edu.icet.pos.dto.Orders'.(‘¼¢û8Õ§†›‚2J$fbf95acc-6dea-48a6-8e0f-174d48ba71bb
-}
-java:S1128"5Remove this unused import 'edu.icet.pos.dto.Product'.(“¨ÔÅúÿÿÿÿ8Õ§†›‚2J$3d8c0b15-9a92-4bd4-9fc9-556359aaf655
-„
-java:S1128
-"<Remove this unused import 'edu.icet.pos.entity.OrderEntity'.(íº´ãşÿÿÿÿ8Õ§†›‚2J$4bc1405c-fdd2-499e-98a5-f95e9c0807ee
-
-java:S1128">Remove this unused import 'edu.icet.pos.entity.ProductEntity'.(à‰·Ğ8Õ§†›‚2J$966fc7e8-d8a4-47d0-9817-713d5b0bd904
+java:S1602N",Remove useless curly braces around statement(Ú‘ğ±8ß»Çè‚2J$114def5e-6ceb-46c6-8e50-106ad770ffc4

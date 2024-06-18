@@ -1,6 +1,7 @@
 package edu.icet.pos.dao.custom.impl;
 
 import edu.icet.pos.dao.custom.StockDao;
+import edu.icet.pos.dto.tableDto.CartTable;
 import edu.icet.pos.entity.ProductEntity;
 import edu.icet.pos.entity.StockEntity;
 import edu.icet.pos.util.HibernateUtil;
@@ -61,7 +62,8 @@ public class StockDaoImpl implements StockDao {
                 "S.productEntity = :productEntity, "+
                 "S.initialQty = :initialQty, "+
                 "S.availableQty = :availableQty, "+
-                "S.unitPrice = :unitPrice "+
+                "S.unitPrice = :unitPrice, "+
+                "S.discount = :discount "+
                 "WHERE S.id = :id";
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
@@ -70,6 +72,7 @@ public class StockDaoImpl implements StockDao {
         query.setParameter("initialQty", entity.getInitialQty());
         query.setParameter("availableQty", entity.getAvailableQty());
         query.setParameter("unitPrice", entity.getUnitPrice());
+        query.setParameter("discount", entity.getDiscount());
         query.setParameter("id", entity.getId());
         int noRowsUpdated = query.executeUpdate();
         transaction.commit();
@@ -100,5 +103,23 @@ public class StockDaoImpl implements StockDao {
         transaction.commit();
         session.close();
         return list;
+    }
+
+    @Override
+    public int updateStockQty(List<CartTable> cartTableList) {
+        int noRowsUpdated = 0;
+        for (int i=0; i<cartTableList.size(); i++){
+            String sql = "UPDATE StockEntity S " +
+                    "SET S.availableQty = S.availableQty - :qty " +
+                    "WHERE S.id='"+cartTableList.get(i).getStockId()+"'";
+            Session session = HibernateUtil.getSession();
+            Transaction transaction = session.beginTransaction();
+            MutationQuery query = session.createMutationQuery(sql);
+            query.setParameter("qty", cartTableList.get(i).getProductQuantity());
+            noRowsUpdated = query.executeUpdate();
+            transaction.commit();
+            session.close();
+        }
+        return noRowsUpdated;
     }
 }

@@ -165,3 +165,5 @@ p
 @src/main/java/edu/icet/pos/bo/custom/impl/OrderDetailBoImpl.java,6\d\6d0853e953087560e18298847aa64c36afaa5ec0
 ]
 -src/main/java/edu/icet/pos/util/UserType.java,a\4\a4de74a929946c8e01832b3e75bed474a7cb4c72
+f
+6src/main/java/edu/icet/pos/dto/tableDto/CartTable.java,b\8\b8fbb2cc70e680446d8492a70c8ef2c18e44844b

@@ -3,8 +3,10 @@ package edu.icet.pos.bo.custom.impl;
 import edu.icet.pos.bo.custom.StockBo;
 import edu.icet.pos.dao.DaoFactory;
 import edu.icet.pos.dao.custom.StockDao;
+import edu.icet.pos.dto.OrderDetail;
 import edu.icet.pos.dto.Product;
 import edu.icet.pos.dto.Stock;
+import edu.icet.pos.dto.tableDto.CartTable;
 import edu.icet.pos.entity.ProductEntity;
 import edu.icet.pos.entity.StockEntity;
 import edu.icet.pos.util.DaoType;
@@ -80,5 +82,10 @@ public class StockBoImpl implements StockBo {
                         new ModelMapper().map(stockEntity, Stock.class)
                 ));
         return stockList;
+    }
+
+    @Override
+    public int updateStockQty(List<CartTable> cartTableList) {
+        return stockDao.updateStockQty(cartTableList);
     }
 }

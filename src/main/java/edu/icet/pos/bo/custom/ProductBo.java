@@ -1,6 +1,8 @@
 package edu.icet.pos.bo.custom;
 
 import edu.icet.pos.bo.SuperBo;
+import edu.icet.pos.dto.OrderDetail;
+import edu.icet.pos.dto.Orders;
 import edu.icet.pos.dto.Product;
 import edu.icet.pos.entity.ProductEntity;
 
@@ -13,4 +15,5 @@ public interface ProductBo extends SuperBo {
     List<String> retrieveAllId();
     int update(Product dto);
     List<Product> retrieveByName(String name);
+    void addOrderDetail(OrderDetail orderDetailDto);
 }

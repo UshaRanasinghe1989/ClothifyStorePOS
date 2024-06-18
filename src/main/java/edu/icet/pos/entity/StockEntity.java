@@ -30,6 +30,9 @@ public class StockEntity {
     private double unitPrice;
 
     @Column(nullable = false)
+    private float discount;
+
+    @Column(nullable = false)
     private Boolean isActive;
 
     @Column(nullable = false)

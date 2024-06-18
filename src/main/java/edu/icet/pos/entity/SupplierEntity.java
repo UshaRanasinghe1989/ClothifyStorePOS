@@ -28,6 +28,6 @@ public class SupplierEntity {
     @Column(nullable = false)
     private String address;
     //ONE SUPPLIER MAY SUPPLY MANY PRODUCTS
-    @OneToMany(mappedBy = "supplierEntity", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "supplierEntity", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private List<ProductEntity> productEntityList;
 }

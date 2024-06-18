@@ -5,21 +5,42 @@ import edu.icet.pos.dao.DaoFactory;
 import edu.icet.pos.dao.custom.OrderDetailDao;
 import edu.icet.pos.dto.OrderDetail;
 import edu.icet.pos.dto.Orders;
-import edu.icet.pos.dto.Product;
 import edu.icet.pos.entity.OrderDetailEntity;
 import edu.icet.pos.entity.OrderEntity;
 import edu.icet.pos.entity.ProductEntity;
 import edu.icet.pos.util.DaoType;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class OrderDetailBoImpl implements OrderDetailBo {
     OrderDetailDao orderDetailDao = DaoFactory.getInstance().getDao(DaoType.ORDER_DETAIL);
     @Override
-    public boolean save(OrderDetail dto) {
-        return orderDetailDao.save(new ModelMapper().map(dto, OrderDetailEntity.class));
+    public boolean save(List<OrderDetail> list) {
+        OrderDetail dto=null;
+        OrderDetailEntity orderDetailEntity=null;
+        boolean isSaved = false;
+        for (OrderDetail orderDetail : list) {
+            dto = orderDetail;
+
+            orderDetailEntity = new OrderDetailEntity(
+                    new ModelMapper().map(dto.getOrders(), OrderEntity.class),
+                    new ModelMapper().map(dto.getProduct(), ProductEntity.class),
+                    dto.getStockId(),
+                    dto.getQuantity(),
+                    dto.getPrice(),
+                    dto.getDiscount()
+            );
+
+            isSaved=orderDetailDao.save(orderDetailEntity);
+        }
+        if (isSaved){
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -50,19 +71,21 @@ public class OrderDetailBoImpl implements OrderDetailBo {
     }
 
     @Override
-    public List<OrderDetail> retrieveByOrderId(String orderId) {
-        List<OrderDetailEntity> orderDetailEntityList = orderDetailDao.retrieveByOrderId(orderId);
+    public List<OrderDetail> retrieveByOrderId(Orders dto) {
+        OrderEntity orderEntity = new ModelMapper().map(dto, OrderEntity.class);
+        List<OrderDetailEntity> orderDetailEntityList = orderDetailDao.retrieveByOrderId(orderEntity);
         List<OrderDetail> orderDetailList = new ArrayList<>();
         orderDetailEntityList.forEach(orderDetailEntity -> {
             orderDetailList.add(
                     new ModelMapper().map(orderDetailEntity, OrderDetail.class)
             );
         });
+
         return orderDetailList;
     }
 
     @Override
-    public int retrieveCountOrderId(String orderId) {
-        return orderDetailDao.retrieveCountOrderId(orderId);
+    public int retrieveCountOrderId(Orders dto) {
+        return orderDetailDao.retrieveCountOrderId(new ModelMapper().map(dto, OrderEntity.class));
     }
 }

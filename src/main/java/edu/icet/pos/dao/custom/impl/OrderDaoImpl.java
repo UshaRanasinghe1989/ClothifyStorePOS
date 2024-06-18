@@ -1,12 +1,18 @@
 package edu.icet.pos.dao.custom.impl;
 
 import edu.icet.pos.dao.custom.OrderDao;
+import edu.icet.pos.entity.OrderDetailEntity;
 import edu.icet.pos.entity.OrderEntity;
 import edu.icet.pos.util.HibernateUtil;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 
 import java.util.List;
+import java.util.Set;
 
+@Slf4j
+@ToString
 public class OrderDaoImpl implements OrderDao {
     @Override
     public boolean save(OrderEntity entity) {
@@ -53,5 +59,10 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     public int update(OrderEntity entity) {
         return 0;
+    }
+
+    @Override
+    public Set<OrderDetailEntity> retrieveOrderDetailSet() {
+        return new OrderEntity().getOrderDetailEntitySet();
     }
 }

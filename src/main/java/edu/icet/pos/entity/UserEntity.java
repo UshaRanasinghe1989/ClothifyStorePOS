@@ -19,7 +19,7 @@ public class UserEntity {
     @Id
     private String id;
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "empId")
     private EmployeeEntity employeeEntity;
 

@@ -11,8 +11,11 @@ import java.util.List;
 import java.util.Set;
 
 @Data
+@Getter
+@Setter
 @NoArgsConstructor
-@ToString
+@AllArgsConstructor
+//@ToString
 @Entity
 @Table(name = "product")
 public class ProductEntity {
@@ -25,6 +28,8 @@ public class ProductEntity {
     public Set<OrderEntity> getOrders(){
         return orderEntitySet;
     }*/
+    @OneToMany(mappedBy = "productEntity", fetch = FetchType.EAGER)
+    private Set<OrderDetailEntity> orderDetailEntitySet = new HashSet<>();
 
     //ONE PRODUCT BELONGS TO ONE CATEGORY
     //FOREIGN KEY REFERS CATEGORY TABLE
@@ -72,7 +77,7 @@ public class ProductEntity {
         this.stockEntityList = stockEntityList;
     }
 
-    /*public void addOrder(OrderEntity orderEntity){
-        this.orderEntitySet.add(orderEntity);
-    }*/
+    public void addOrderDetail(OrderDetailEntity orderDetailEntity){
+        this.orderDetailEntitySet.add(orderDetailEntity);
+    }
 }

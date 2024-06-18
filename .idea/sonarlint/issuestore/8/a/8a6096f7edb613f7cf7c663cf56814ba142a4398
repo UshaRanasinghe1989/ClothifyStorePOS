@@ -1,10 +1,5 @@
 
-ˆ	java:S107?"AConstructor has 9 parameters, which is greater than 7 authorized.(»Ûßáúÿÿÿÿ8Ì¥ùš‚2J$6352d11e-dc6b-4b2a-aeab-8095c39bec03
-ƒ	java:S125"<This block of commented-out lines of code should be removed.(Äöä›ÿÿÿÿÿ8Ï¥ùš‚2J$b6f0cbc0-55d2-41aa-989a-3616dac6e035
-ƒ	java:S125K"<This block of commented-out lines of code should be removed.(‰ØÅøÿÿÿÿ8—ôùš‚2J$5677f9a9-ba98-4587-a784-3355b8688820
-w
-java:S1128"4Remove this unused import 'edu.icet.pos.dto.Orders'.(‘¼¢û8„²†›‚2J$526f5f16-86de-430c-85c8-ca3d05ce225c
-p
-java:S1128	".Remove this unused import 'java.util.HashSet'.(Ê‚êX8„²†›‚2J$28e8a3de-2d04-497a-bab1-36f7ad368708
-r
-java:S1128"*Remove this unused import 'java.util.Set'.(ö²„¤þÿÿÿÿ8„²†›‚2J$1cbae7b8-8a01-4538-8c83-e13f9dc46410
+b	java:S107D"AConstructor has 9 parameters, which is greater than 7 authorized.(»Ûßáúÿÿÿÿ8Ú‰äÑ‚2
+]	java:S125"<This block of commented-out lines of code should be removed.(Äöä›ÿÿÿÿÿ8Ý‰äÑ‚2
+Q
+java:S1128"4Remove this unused import 'edu.icet.pos.dto.Orders'.(‘¼¢û8â‰äÑ‚2

@@ -41,6 +41,10 @@ public class ManageStockFormController extends SuperFormController implements In
     @FXML
     public TableColumn<Stock, String> unitPriceCol;
     @FXML
+    public TableColumn<Stock, String> isActiveCol;
+    @FXML
+    public TableColumn<Stock, String> discountCol;
+    @FXML
     public Label userNameLbl;
     @FXML
     public ComboBox<String> productIdCombo;
@@ -50,10 +54,11 @@ public class ManageStockFormController extends SuperFormController implements In
     public TextField availableQuantityTxt;
     @FXML
     public TextField unitPriceTxt;
+    @FXML
+    public TextField stockDiscountPercentageTxt;
 
     private final StockBo stockBo = BoFactory.getInstance().getBo(BoType.STOCK);
     private final ProductBo productBo = BoFactory.getInstance().getBo(BoType.PRODUCT);
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -112,6 +117,7 @@ public class ManageStockFormController extends SuperFormController implements In
                 Integer.parseInt(initialQuantityTxt.getText()),
                 Integer.parseInt(availableQuantityTxt.getText()),
                 Double.parseDouble(unitPriceTxt.getText()),
+                Float.parseFloat(stockDiscountPercentageTxt.getText()),
                 true,
                 new Date()
         );
@@ -158,9 +164,11 @@ public class ManageStockFormController extends SuperFormController implements In
             stockDetailsTable.setItems(observableList);
 
             idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+            isActiveCol.setCellValueFactory(new PropertyValueFactory<>("isActive"));
             initialQtyCol.setCellValueFactory(new PropertyValueFactory<>("initialQty"));
             availableQtyCol.setCellValueFactory(new PropertyValueFactory<>("availableQty"));
             unitPriceCol.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
+            discountCol.setCellValueFactory(new PropertyValueFactory<>("discount"));
         }catch (NullPointerException e){
             log.info(e.getMessage());
         }

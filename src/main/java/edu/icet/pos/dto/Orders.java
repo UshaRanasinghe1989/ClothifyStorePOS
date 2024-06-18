@@ -1,18 +1,17 @@
 package edu.icet.pos.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Date;
 
 @Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 public class Orders {
-    private String id;
+    private String orderId;
     //private String sellerId;
     //private String cashierId;
     private int noOfProducts;

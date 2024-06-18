@@ -1,8 +1,10 @@
 package edu.icet.pos.bo.custom;
 
 import edu.icet.pos.bo.SuperBo;
+import edu.icet.pos.dto.OrderDetail;
 import edu.icet.pos.dto.Product;
 import edu.icet.pos.dto.Stock;
+import edu.icet.pos.dto.tableDto.CartTable;
 
 import java.util.List;
 
@@ -14,4 +16,5 @@ public interface StockBo extends SuperBo {
     int update(Stock dto);
     int deactivateById(String id);
     List<Stock> retrieveActiveStockByProduct(Product product);
+    int updateStockQty(List<CartTable> cartTableList);
 }

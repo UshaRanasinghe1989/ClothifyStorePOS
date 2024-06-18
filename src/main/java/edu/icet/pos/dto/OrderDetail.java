@@ -3,11 +3,13 @@ package edu.icet.pos.dto;
 import lombok.*;
 
 @Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 public class OrderDetail {
-    private int id;
+    private int detailId;
     private Orders orders;
     private Product product;
     private String stockId;

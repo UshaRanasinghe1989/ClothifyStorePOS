@@ -1,11 +1,5 @@
 
 n
-java:S1168"+Return an empty collection instead of null.(¥¹ï8Í«Ù‰‚2J$d39d7b35-1428-4c1f-9c69-cfcb3bb6e958
+java:S1168"+Return an empty collection instead of null.(¥¹ï8ÿÄ»Ò‚2J$60cfc903-b34d-4dac-9358-598bdc39590d
 n
-java:S1168."+Return an empty collection instead of null.(¥¹ï8Î«Ù‰‚2J$bdbd0080-868e-44b7-80fa-3beba7b6c901
-|
-java:S1128"9Remove this unused import 'edu.icet.pos.dto.OrderDetail'.(Ğ×‹–8ô¸¶˜‚2J$cce9147f-62e4-4737-8abb-d3bccfcfb585
-„
-java:S1128"<Remove this unused import 'edu.icet.pos.entity.OrderEntity'.(íº´ãşÿÿÿÿ8ô¸¶˜‚2J$812d4e48-fd5a-4464-9468-37b0ad03aa24
-
-java:S1128">Remove this unused import 'org.hibernate.query.MutationQuery'.(Àòä¬8ô¸¶˜‚2J$43fcce9c-0c4f-4c3e-a331-98580a459a1b
+java:S1168,"+Return an empty collection instead of null.(¥¹ï8„Å»Ò‚2J$5b2a092d-8023-4b0b-8e76-bde130e33d9c

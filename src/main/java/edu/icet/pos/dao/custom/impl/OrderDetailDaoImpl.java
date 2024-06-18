@@ -1,14 +1,12 @@
 package edu.icet.pos.dao.custom.impl;
 
 import edu.icet.pos.dao.custom.OrderDetailDao;
-import edu.icet.pos.dto.OrderDetail;
 import edu.icet.pos.entity.OrderDetailEntity;
 import edu.icet.pos.entity.OrderEntity;
 import edu.icet.pos.util.HibernateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.MutationQuery;
 import org.hibernate.query.Query;
 
 import java.util.List;
@@ -52,12 +50,12 @@ public class OrderDetailDaoImpl implements OrderDetailDao {
     }
 
     @Override
-    public List<OrderDetailEntity> retrieveByOrderId(String orderId) {
-        String sql = "SELECT sum(O.price) price FROM OrderDetailEntity O WHERE O.orderId=:orderId";
+    public List<OrderDetailEntity> retrieveByOrderId(OrderEntity orderEntity) {
+        String sql = "FROM OrderDetailEntity O WHERE O.orderEntity=:orderEntity";
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
         Query<OrderDetailEntity> query = session.createQuery(sql, OrderDetailEntity.class);
-        query.setParameter("orderId", orderId);
+        query.setParameter("orderEntity", orderEntity);
         transaction.commit();
         List<OrderDetailEntity> list = query.list();
         session.close();
@@ -65,8 +63,8 @@ public class OrderDetailDaoImpl implements OrderDetailDao {
     }
 
     @Override
-    public int retrieveCountOrderId(String orderId) {
-        String hql = "SELECT COUNT(distinct O.orderId) FROM OrderDetailEntity.O WHERE O.orderId='"+orderId+"'";
+    public int retrieveCountOrderId(OrderEntity orderEntity) {
+        String hql = "SELECT COUNT(distinct O.orderEntity) FROM OrderDetailEntity O WHERE O.orderEntity='"+orderEntity+"'";
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
         Query<Integer> query = session.createQuery(hql, Integer.class);

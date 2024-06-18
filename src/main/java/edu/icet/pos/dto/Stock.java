@@ -19,6 +19,7 @@ public class Stock {
     private int initialQty;
     private int availableQty;
     private double unitPrice;
+    private float discount;
     private Boolean isActive;
     private Date createDateTime;
 

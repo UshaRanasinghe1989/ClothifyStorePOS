@@ -8,6 +8,6 @@ import edu.icet.pos.entity.OrderEntity;
 import java.util.List;
 
 public interface OrderDetailDao extends CrudDao<OrderDetailEntity> {
-    List<OrderDetailEntity> retrieveByOrderId(String orderId);
-    int retrieveCountOrderId(String orderId);
+    List<OrderDetailEntity> retrieveByOrderId(OrderEntity orderEntity);
+    int retrieveCountOrderId(OrderEntity orderEntity);
 }
