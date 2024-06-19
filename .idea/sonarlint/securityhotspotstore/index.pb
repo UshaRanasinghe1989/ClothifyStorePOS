@@ -167,3 +167,15 @@ p
 -src/main/java/edu/icet/pos/util/UserType.java,a\4\a4de74a929946c8e01832b3e75bed474a7cb4c72
 f
 6src/main/java/edu/icet/pos/dto/tableDto/CartTable.java,b\8\b8fbb2cc70e680446d8492a70c8ef2c18e44844b
+\
+,src/main/java/edu/icet/pos/dto/Customer.java,4\8\481209b9d7ef8ddfa90199ec92ed7239c14ac8fd
+e
+5src/main/java/edu/icet/pos/entity/CustomerEntity.java,e\7\e7f208438525b3e66220e718e972729df8a00061
+f
+6src/main/java/edu/icet/pos/dao/custom/CustomerDao.java,8\6\8693121b002cc3556988bed8ca408ed1117d092e
+o
+?src/main/java/edu/icet/pos/dao/custom/impl/CustomerDaoImpl.java,7\7\77bc8688de181216cc633a27d9a239ff9317bb20
+d
+4src/main/java/edu/icet/pos/bo/custom/CustomerBo.java,9\4\94be88b67624ecbb46ebb25c18b5e72ae09e54af
+m
+=src/main/java/edu/icet/pos/bo/custom/impl/CustomerBoImpl.java,0\6\06376304439bca88a7a5312c89e5edc6345f7c90

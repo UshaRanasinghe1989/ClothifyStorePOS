@@ -1,6 +1,7 @@
 package edu.icet.pos.bo;
 
 import edu.icet.pos.bo.custom.impl.*;
+import edu.icet.pos.dao.custom.impl.CategoryDaoImpl;
 import edu.icet.pos.util.BoType;
 
 public class BoFactory implements SuperBo{
@@ -22,6 +23,7 @@ public class BoFactory implements SuperBo{
             case STOCK: return (T) new StockBoImpl();
             case ORDERS: return (T) new OrderBoImpl();
             case ORDER_DETAIL: return (T) new OrderDetailBoImpl();
+            case CUSTOMER: return (T) new CustomerBoImpl();
         }
         return null;
     }
