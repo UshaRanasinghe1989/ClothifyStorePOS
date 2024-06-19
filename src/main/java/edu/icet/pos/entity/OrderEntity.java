@@ -34,6 +34,10 @@ public class OrderEntity {
     @OneToMany(mappedBy = "orderEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<OrderDetailEntity> orderDetailEntitySet = new HashSet<>();
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "customerId", nullable = true)
+    private CustomerEntity customerEntity;
+
     @Column(name = "no_products", nullable = false)
     private int noOfProducts;
 
@@ -58,6 +62,16 @@ public class OrderEntity {
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date orderDate;
+
+    public OrderEntity(String id, CustomerEntity customerEntity, int noOfProducts, double grossAmount, double discount, double netAmount, Date orderDate){
+        this.id = id;
+        this.customerEntity = customerEntity;
+        this.noOfProducts = noOfProducts;
+        this.grossAmount = grossAmount;
+        this.discount = discount;
+        this.netAmount = netAmount;
+        this.orderDate = orderDate;
+    }
 
     public void addOrderDetail(OrderDetailEntity orderDetailEntity){
         this.orderDetailEntitySet.add(orderDetailEntity);

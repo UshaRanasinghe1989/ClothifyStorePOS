@@ -36,7 +36,7 @@
     <center>
         <AnchorPane maxHeight="1.7976931348623157E308" prefHeight="610.0" prefWidth="897.0" style="-fx-background-color: #dae0db;" BorderPane.alignment="CENTER">
             <children>
-                <Button layoutX="1262.0" layoutY="555.0" mnemonicParsing="false" onAction="#placeOrderBtnOnAction" prefHeight="40.0" prefWidth="223.0" style="-fx-background-color: #2cbf4e;" text="Checkout">
+                <Button fx:id="checkOutBtn" layoutX="1355.0" layoutY="555.0" mnemonicParsing="false" onAction="#placeOrderBtnOnAction" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #2cbf4e;" text="Checkout">
                     <font>
                         <Font size="18.0" />
                     </font>
@@ -90,8 +90,8 @@
             <ComboBox fx:id="selectProductNameCombo" layoutX="536.0" layoutY="17.0" onAction="#selectProductComboOnAction" prefWidth="150.0" promptText="Select product" />
             <Label fx:id="productNameLbl" layoutX="536.0" layoutY="101.0" prefHeight="18.0" prefWidth="152.0" />
             <Label fx:id="productDescriptionLbl" layoutX="536.0" layoutY="133.0" prefHeight="18.0" prefWidth="152.0" />
-            <Label fx:id="productSizeLbl" layoutX="538.0" layoutY="171.0" prefHeight="18.0" prefWidth="152.0" />
-            <TextField fx:id="requiredQtyTxt" layoutX="540.0" layoutY="285.0" onAction="#quantityTxtOnAction" prefHeight="26.0" prefWidth="77.0" />
+            <Label fx:id="productSizeLbl" layoutX="535.0" layoutY="171.0" prefHeight="18.0" prefWidth="152.0" />
+            <TextField fx:id="requiredQtyTxt" layoutX="532.0" layoutY="284.0" onAction="#quantityTxtOnAction" prefHeight="26.0" prefWidth="77.0" />
             <Button layoutX="639.0" layoutY="367.0" mnemonicParsing="false" onAction="#addToCartBtnOnAction" text="Add to cart" />
             <Label layoutX="780.0" layoutY="617.0" prefHeight="27.0" prefWidth="112.0" text="Gross amount :">
                <font>
@@ -124,7 +124,7 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <Label fx:id="productIdLbl" layoutX="536.0" layoutY="65.0" prefHeight="18.0" prefWidth="152.0" />
+            <Label fx:id="productIdLbl" layoutX="535.0" layoutY="63.0" prefHeight="18.0" prefWidth="152.0" />
             <Label layoutX="471.0" layoutY="449.0" text="Customer Details">
                <font>
                   <Font name="System Bold" size="18.0" />
@@ -147,15 +147,15 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <Label fx:id="unitPriceLbl" layoutX="539.0" layoutY="210.0" prefHeight="18.0" prefWidth="152.0" />
-            <Label fx:id="activeStockIdLbl" layoutX="539.0" layoutY="248.0" prefHeight="18.0" prefWidth="152.0" />
-            <Label fx:id="priceLbl" layoutX="543.0" layoutY="371.0" prefHeight="18.0" prefWidth="76.0" />
+            <Label fx:id="unitPriceLbl" layoutX="535.0" layoutY="210.0" prefHeight="18.0" prefWidth="152.0" />
+            <Label fx:id="activeStockIdLbl" layoutX="535.0" layoutY="248.0" prefHeight="18.0" prefWidth="152.0" />
+            <Label fx:id="priceLbl" layoutX="533.0" layoutY="371.0" prefHeight="18.0" prefWidth="76.0" />
             <Label layoutX="406.0" layoutY="331.0" text="Discount (%)">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <Label fx:id="stockDiscountLbl" layoutX="540.0" layoutY="331.0" prefHeight="18.0" prefWidth="152.0" />
+            <Label fx:id="stockDiscountLbl" layoutX="534.0" layoutY="331.0" prefHeight="18.0" prefWidth="152.0" />
             <Label layoutX="780.0" layoutY="580.0" prefHeight="27.0" prefWidth="112.0" text="Discount :">
                <font>
                   <Font name="System Bold" size="14.0" />
@@ -178,8 +178,13 @@
             </Label>
             <TextField fx:id="customerNameTxt" layoutX="536.0" layoutY="543.0" />
             <Button fx:id="updateCustomerBtn" layoutX="555.0" layoutY="618.0" mnemonicParsing="false" onAction="#updateCustomerBtnOnAction" text="UPDATE" visible="false" />
-            <Button fx:id="addCustomerBtn" layoutX="634.0" layoutY="618.0" mnemonicParsing="false" onAction="#addCustomerBtnOnAction" text="ADD" />
+            <Button fx:id="addCustomerBtn" layoutX="645.0" layoutY="618.0" mnemonicParsing="false" onAction="#addCustomerBtnOnAction" text="ADD" />
             <Label fx:id="selectedCustomerId" layoutX="674.0" layoutY="496.0" />
+            <Button fx:id="paymentBtn" layoutX="1194.0" layoutY="557.0" mnemonicParsing="false" onAction="#paymentBtnOnAction" prefHeight="40.0" prefWidth="134.0" style="-fx-background-color: #e4132c;" text="Payment">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
             </children>
         </AnchorPane>
     </center>

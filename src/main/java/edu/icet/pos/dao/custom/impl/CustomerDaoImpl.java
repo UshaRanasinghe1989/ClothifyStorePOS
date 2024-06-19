@@ -5,11 +5,13 @@ import edu.icet.pos.entity.CategoryEntity;
 import edu.icet.pos.entity.CustomerEntity;
 import edu.icet.pos.util.HibernateUtil;
 import jakarta.persistence.Query;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
 
+@Slf4j
 public class CustomerDaoImpl implements CustomerDao {
     @Override
     public boolean save(CustomerEntity entity) {

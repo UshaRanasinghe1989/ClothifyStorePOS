@@ -86,6 +86,10 @@ public class ManageOrderFormController extends SuperFormController implements In
     public Button addCustomerBtn;
     @FXML
     public Label selectedCustomerId;
+    @FXML
+    public Button checkOutBtn;
+    @FXML
+    public Button paymentBtn;
 
     double unitPrice;
     Product selectedProduct;
@@ -102,11 +106,12 @@ public class ManageOrderFormController extends SuperFormController implements In
         getCurrentTime(timerLbl);
         loadId();
         loadProductNamesCombo();
+        selectedCustomerId.setVisible(false);
+        paymentBtn.setVisible(false);
     }
 
-    public void placeOrderBtnOnAction() throws IOException {
+    public void placeOrderBtnOnAction(){
         save();
-        loadPaymentForm();
     }
 
     public void selectProductComboOnAction() {
@@ -178,31 +183,16 @@ public class ManageOrderFormController extends SuperFormController implements In
             new Alert(Alert.AlertType.ERROR, "Try again !").show();
         }
     }
+    public void paymentBtnOnAction() {
+        loadPaymentForm();
+    }
 
     public void clearOrderBtnOnAction(ActionEvent actionEvent) {
     }
     @Override
     void save() {
-        String orderId = orderIdLbl.getText();
-        //ORDER
-        double grossAmount = 0.0;
-        double discount = 0.0;
-        double netAmount = 0.0;
+        Orders newOrder = getOrderObject();
 
-        for (CartTable table : cartTableList) {
-            grossAmount += table.getPrice();
-            discount += table.getDiscount();
-            netAmount = grossAmount - discount;
-        }
-
-        Orders newOrder = new Orders(
-                orderId,
-                cartTableList.size(),
-                grossAmount,
-                discount,
-                netAmount,
-                new Date()
-        );
         boolean isOrderSaved = orderBo.save(newOrder);
         if (isOrderSaved){
             boolean isDetailListSaved = orderDetailBo.save(generateOrderDetailList(newOrder));
@@ -210,6 +200,8 @@ public class ManageOrderFormController extends SuperFormController implements In
                 int updatedRowCount = stockBo.updateStockQty(cartTableList);
                 if(updatedRowCount>0){
                     new Alert(Alert.AlertType.CONFIRMATION, "Order saved successfully !").show();
+                    paymentBtn.setVisible(true);
+                    checkOutBtn.setVisible(false);
                 }
             }
         }else {
@@ -233,7 +225,7 @@ public class ManageOrderFormController extends SuperFormController implements In
 
     @Override
     void loadId() {
-        String lastId=null;
+        String lastId;
         int number=0;
         try {
             List<String> list = orderBo.retrieveAllId();
@@ -320,7 +312,7 @@ public class ManageOrderFormController extends SuperFormController implements In
 
     private List<OrderDetail> generateOrderDetailList(Orders newOrder){
         List<OrderDetail> orderDetailList = new ArrayList<>();
-        OrderDetail newOrderDetail=null;
+        OrderDetail newOrderDetail;
 
         for (CartTable cartTable : cartTableList) {
             newOrderDetail = new OrderDetail(
@@ -362,7 +354,7 @@ public class ManageOrderFormController extends SuperFormController implements In
             log.info(e.getMessage());
         }
     }
-    private void loadPaymentForm() throws IOException{
+    private void loadPaymentForm(){
         String orderId = orderIdLbl.getText();
         Orders orders = orderBo.retrieveById(orderId).get(0);
 
@@ -375,5 +367,35 @@ public class ManageOrderFormController extends SuperFormController implements In
         }catch (IOException e){
             log.info(e.getMessage());
         }
+    }
+    private Customer getCustomerObject(){
+        return new Customer(
+                customerPhoneTxt.getText(),
+                customerNameTxt.getText(),
+                customerEmailTxt.getText()
+        );
+    }
+    private Orders getOrderObject(){
+        String orderId = orderIdLbl.getText();
+        //ORDER
+        double grossAmount = 0.0;
+        double discount = 0.0;
+        double netAmount = 0.0;
+
+        for (CartTable table : cartTableList) {
+            grossAmount += table.getPrice();
+            discount += table.getDiscount();
+            netAmount = grossAmount - discount;
+        }
+
+        return new Orders(
+                orderId,
+                getCustomerObject(),
+                cartTableList.size(),
+                grossAmount,
+                discount,
+                netAmount,
+                new Date()
+        );
     }
 }

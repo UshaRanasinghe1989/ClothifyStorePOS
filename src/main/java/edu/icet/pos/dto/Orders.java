@@ -12,6 +12,7 @@ import java.util.Date;
 @ToString
 public class Orders {
     private String orderId;
+    private Customer customer;
     //private String sellerId;
     //private String cashierId;
     private int noOfProducts;

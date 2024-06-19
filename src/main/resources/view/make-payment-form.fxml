@@ -41,7 +41,7 @@
                         <Font name="System Bold" size="13.0" />
                     </font>
                 </Label>
-                <TextField fx:id="paidAmountTxt" layoutX="574.0" layoutY="79.0" prefHeight="26.0" prefWidth="176.0" promptText="0.0" />
+                <TextField fx:id="paidAmountTxt" layoutX="574.0" layoutY="79.0" onAction="#paidAmountTxtOnAction" prefHeight="26.0" prefWidth="176.0" promptText="0.0" />
                 <Button layoutX="427.0" layoutY="215.0" mnemonicParsing="false" onAction="#savePaymentBtnOnAction" prefHeight="34.0" prefWidth="322.0" style="-fx-background-color: #f04330;" text="Save Payment">
                     <font>
                         <Font size="14.0" />
@@ -57,7 +57,6 @@
                     </columns>
                 </TableView>
                 <Separator layoutX="33.0" layoutY="273.0" prefHeight="2.0" prefWidth="879.0" />
-                <Label fx:id="userNameLbl" layoutX="493.0" layoutY="88.0" prefHeight="18.0" prefWidth="174.0" />
                 <Label layoutX="31.0" layoutY="87.0" text="Payment type">
                     <font>
                         <Font name="System Bold" size="13.0" />

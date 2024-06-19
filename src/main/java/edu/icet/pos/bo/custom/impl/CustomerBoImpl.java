@@ -33,7 +33,7 @@ public class CustomerBoImpl implements CustomerBo {
         List<CustomerEntity> customerEntityList = customerDao.retrieveByContactNo(contactNo);
         Customer customer=null;
         if(!customerEntityList.isEmpty()){
-            new ModelMapper().map(customerEntityList.get(0), Customer.class);
+           customer = new ModelMapper().map(customerEntityList.get(0), Customer.class);
         }
 
         return customer;

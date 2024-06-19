@@ -21,7 +21,17 @@ public class OrderBoImpl implements OrderBo {
 
     @Override
     public boolean save(Orders dto) {
-        return orderDao.save(new ModelMapper().map(dto, OrderEntity.class));
+        CustomerEntity customerEntity = new ModelMapper().map(dto.getCustomer(), CustomerEntity.class);
+        OrderEntity orderEntity = new OrderEntity(
+                dto.getOrderId(),
+                customerEntity,
+                dto.getNoOfProducts(),
+                dto.getGrossAmount(),
+                dto.getDiscount(),
+                dto.getNetAmount(),
+                dto.getOrderDate()
+        );
+        return orderDao.save(orderEntity);
     }
 
     @Override
