@@ -36,7 +36,7 @@
     <center>
         <AnchorPane maxHeight="1.7976931348623157E308" prefHeight="610.0" prefWidth="897.0" style="-fx-background-color: #dae0db;" BorderPane.alignment="CENTER">
             <children>
-                <Button layoutX="1262.0" layoutY="555.0" mnemonicParsing="false" onAction="#placeOrderBtnOnAction" prefHeight="40.0" prefWidth="223.0" style="-fx-background-color: #2cbf4e;" text="Place Order">
+                <Button layoutX="1262.0" layoutY="555.0" mnemonicParsing="false" onAction="#placeOrderBtnOnAction" prefHeight="40.0" prefWidth="223.0" style="-fx-background-color: #2cbf4e;" text="Checkout">
                     <font>
                         <Font size="18.0" />
                     </font>

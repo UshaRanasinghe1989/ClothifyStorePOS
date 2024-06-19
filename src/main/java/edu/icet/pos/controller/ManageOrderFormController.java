@@ -4,17 +4,22 @@ import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.*;
 import edu.icet.pos.dto.*;
 import edu.icet.pos.dto.tableDto.CartTable;
+import edu.icet.pos.dto.holderDto.OrderDetailsHolder;
 import edu.icet.pos.util.BoType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -99,8 +104,9 @@ public class ManageOrderFormController extends SuperFormController implements In
         loadProductNamesCombo();
     }
 
-    public void placeOrderBtnOnAction() {
+    public void placeOrderBtnOnAction() throws IOException {
         save();
+        loadPaymentForm();
     }
 
     public void selectProductComboOnAction() {
@@ -353,6 +359,20 @@ public class ManageOrderFormController extends SuperFormController implements In
             selectProductNameCombo.setItems(productNamesObservableList);
 
         }catch (NullPointerException e){
+            log.info(e.getMessage());
+        }
+    }
+    private void loadPaymentForm() throws IOException{
+        String orderId = orderIdLbl.getText();
+        Orders orders = orderBo.retrieveById(orderId).get(0);
+
+        try {
+            OrderDetailsHolder holder = OrderDetailsHolder.getInstance();
+            holder.setOrders(orders);
+            Stage stage = new Stage();
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/make-payment-form.fxml"))));
+            stage.show();
+        }catch (IOException e){
             log.info(e.getMessage());
         }
     }
