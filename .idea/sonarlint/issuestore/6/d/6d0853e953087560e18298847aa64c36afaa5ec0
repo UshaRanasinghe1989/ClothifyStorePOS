@@ -1,9 +1,9 @@
 
-c
-java:S1126("AReplace this if-then-else statement by a single return statement.(¢¢Û«ûÿÿÿÿ8£íÉè‚2
+‰
+java:S1126*"AReplace this if-then-else statement by a single return statement.(¢¢Û«ûÿÿÿÿ8¢˜Ğ¼ƒ2J$48b542af-2f72-46b3-bcce-057e8533e932
 n
-java:S11680"+Return an empty collection instead of null.(¥¹ï8Ü»Çè‚2J$a35c75e1-df98-4cb0-8302-010f963ebb95
+java:S11682"+Return an empty collection instead of null.(¥¹ï8£˜Ğ¼ƒ2J$4e17b62b-343c-479f-967e-3d7a930b5ea5
 n
-java:S1168A"+Return an empty collection instead of null.(¥¹ï8Ş»Çè‚2J$790326ed-831d-4c49-924e-b4343e313bab
-o
-java:S1602N",Remove useless curly braces around statement(Ú‘ğ±8ß»Çè‚2J$114def5e-6ceb-46c6-8e50-106ad770ffc4
+java:S1168C"+Return an empty collection instead of null.(¥¹ï8¥˜Ğ¼ƒ2J$071d9cd5-71cf-4d02-9d27-2675f312ce10
+t
+java:S1602i",Remove useless curly braces around statement(‚éÇ¹úÿÿÿÿ8§˜Ğ¼ƒ2J$17819f02-4167-4588-ae70-ba78ba58ba46

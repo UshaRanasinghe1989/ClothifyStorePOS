@@ -5,6 +5,7 @@ import edu.icet.pos.dao.DaoFactory;
 import edu.icet.pos.dao.custom.OrderDetailDao;
 import edu.icet.pos.dto.OrderDetail;
 import edu.icet.pos.dto.Orders;
+import edu.icet.pos.dto.Product;
 import edu.icet.pos.entity.OrderDetailEntity;
 import edu.icet.pos.entity.OrderEntity;
 import edu.icet.pos.entity.ProductEntity;
@@ -32,7 +33,8 @@ public class OrderDetailBoImpl implements OrderDetailBo {
                     dto.getStockId(),
                     dto.getQuantity(),
                     dto.getPrice(),
-                    dto.getDiscount()
+                    dto.getDiscount(),
+                    dto.isReturned()
             );
 
             isSaved=orderDetailDao.save(orderDetailEntity);
@@ -76,16 +78,39 @@ public class OrderDetailBoImpl implements OrderDetailBo {
         List<OrderDetailEntity> orderDetailEntityList = orderDetailDao.retrieveByOrderId(orderEntity);
         List<OrderDetail> orderDetailList = new ArrayList<>();
         orderDetailEntityList.forEach(orderDetailEntity -> {
-            orderDetailList.add(
-                    new ModelMapper().map(orderDetailEntity, OrderDetail.class)
+            OrderDetail orderDetail = new OrderDetail(
+                    orderDetailEntity.getDetailId(),
+                    new ModelMapper().map(orderDetailEntity.getOrderEntity(), Orders.class),
+                    new ModelMapper().map(orderDetailEntity.getProductEntity(), Product.class),
+                    orderDetailEntity.getStockId(),
+                    orderDetailEntity.getQuantity(),
+                    orderDetailEntity.getPrice(),
+                    orderDetailEntity.getDiscount(),
+                    orderDetailEntity.isReturned()
             );
+
+            orderDetailList.add(orderDetail);
         });
 
         return orderDetailList;
     }
 
     @Override
-    public int retrieveCountOrderId(Orders dto) {
-        return orderDetailDao.retrieveCountOrderId(new ModelMapper().map(dto, OrderEntity.class));
+    public List<Product> retrieveProductsByOrderId(Orders dto) {
+        List<Product> productList = new ArrayList<>();
+        List<ProductEntity> productEntityList =
+                orderDetailDao.retrieveProductsByOrderId(
+                        new ModelMapper().map(dto, OrderEntity.class));
+
+        productEntityList.forEach(productEntity -> {
+            productList.add(new ModelMapper().map(productEntity, Product.class));
+        });
+
+        return productList;
+    }
+
+    @Override
+    public int updateReturnStatus(Orders ordersDto, Product productDto) {
+        return 0;
     }
 }

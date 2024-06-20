@@ -321,7 +321,8 @@ public class ManageOrderFormController extends SuperFormController implements In
                     cartTable.getStockId(),
                     cartTable.getProductQuantity(),
                     cartTable.getPrice(),
-                    cartTable.getDiscount()
+                    cartTable.getDiscount(),
+                    false
             );
             orderDetailList.add(newOrderDetail);
         }

@@ -3,6 +3,7 @@ package edu.icet.pos.dao.custom.impl;
 import edu.icet.pos.dao.custom.OrderDetailDao;
 import edu.icet.pos.entity.OrderDetailEntity;
 import edu.icet.pos.entity.OrderEntity;
+import edu.icet.pos.entity.ProductEntity;
 import edu.icet.pos.util.HibernateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
@@ -70,5 +71,29 @@ public class OrderDetailDaoImpl implements OrderDetailDao {
         Query<Integer> query = session.createQuery(hql, Integer.class);
         transaction.commit();
         return query.uniqueResult();
+    }
+
+    @Override
+    public List<ProductEntity> retrieveProductsByOrderId(OrderEntity entity) {
+        String hql = "SELECT O.productEntity FROM OrderDetailEntity O WHERE O.orderEntity=:entity";
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+        Query<ProductEntity> query = session.createQuery(hql, ProductEntity.class);
+        query.setParameter("entity", entity);
+        transaction.commit();
+        return query.list();
+    }
+
+    @Override
+    public List<OrderDetailEntity> retrieveByOrderAndProduct(OrderEntity orderEntity, ProductEntity productEntity) {
+        String hql = "SELECT O.productEntity FROM OrderDetailEntity O " +
+                "WHERE O.orderEntity=:orderEntity AND O.productEntity";
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+        Query<OrderDetailEntity> query = session.createQuery(hql, OrderDetailEntity.class);
+        query.setParameter("orderEntity", orderEntity);
+        query.setParameter("productEntity", productEntity);
+        transaction.commit();
+        return query.list();
     }
 }

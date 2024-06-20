@@ -25,7 +25,9 @@ public class CustomerBoImpl implements CustomerBo {
 
     @Override
     public Customer retrieveById(String id) {
-        return null;
+        List<CustomerEntity> customerEntityList = customerDao.retrieveById(id);
+
+        return new ModelMapper().map(customerEntityList.get(0), Customer.class);
     }
 
     @Override

@@ -16,13 +16,15 @@ public class OrderDetail {
     private int quantity;
     private double price;
     private double discount;
+    private boolean isReturned;
 
-    public OrderDetail(Orders orders, Product product, String stockId, int quantity, Double price, double discount) {
+    public OrderDetail(Orders orders, Product product, String stockId, int quantity, Double price, double discount, boolean isReturned) {
         this.orders = orders;
         this.product = product;
         this.stockId = stockId;
         this.quantity = quantity;
         this.price = price;
         this.discount = discount;
+        this.isReturned = isReturned;
     }
 }
