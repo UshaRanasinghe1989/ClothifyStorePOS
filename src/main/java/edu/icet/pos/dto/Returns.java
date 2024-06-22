@@ -20,15 +20,17 @@ public class Returns {
     private double price;
     private ReturnReason returnReason;
     private String description;
+    private boolean isCreditNoteGenerated;
     private Date returnDate;
 
-    public Returns(Orders orders, String productId, int returnedQty, double price, ReturnReason returnReason, String description, Date returnDate){
+    public Returns(Orders orders, String productId, int returnedQty, double price, ReturnReason returnReason, String description, boolean isCreditNoteGenerated, Date returnDate){
         this.orders = orders;
         this.productId = productId;
         this.returnedQty = returnedQty;
         this.price = price;
         this.returnReason = returnReason;
         this.description = description;
+        this.isCreditNoteGenerated = isCreditNoteGenerated;
         this.returnDate = returnDate;
     }
 }

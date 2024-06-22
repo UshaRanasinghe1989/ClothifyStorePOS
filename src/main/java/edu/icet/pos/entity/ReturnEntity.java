@@ -33,16 +33,19 @@ public class ReturnEntity {
     private ReturnReason returnReason;
     @Column(name = "description", nullable = false)
     private String description;
+    @Column(nullable = false)
+    private boolean isCreditNoteGenerated;
     @Column(name = "return_date", nullable = false)
     private Date returnDate;
 
-    public ReturnEntity(OrderEntity orderEntity, String productId, int returnedQty, double price, ReturnReason returnReason, String description, Date returnDate){
+    public ReturnEntity(OrderEntity orderEntity, String productId, int returnedQty, double price, ReturnReason returnReason, String description, boolean isCreditNoteGenerated, Date returnDate){
         this.orderEntity = orderEntity;
         this.productId = productId;
         this.returnedQty = returnedQty;
         this.price = price;
         this.returnReason = returnReason;
         this.description = description;
+        this.isCreditNoteGenerated = isCreditNoteGenerated;
         this.returnDate = returnDate;
     }
 }

@@ -301,6 +301,7 @@ public class ManageReturnFormController implements ReturnInterface, Initializabl
                 Double.parseDouble(returnedProductPriceLbl.getText()),
                 selectReturnReasonCombo.getValue(),
                 returnDescriptionTxtArea.getText(),
+                false,
                 new Date()
         );
     }

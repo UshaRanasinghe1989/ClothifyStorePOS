@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="381.0" prefWidth="614.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.GenerateCreditNoteFormController">
+    <top>
+        <AnchorPane prefHeight="72.0" prefWidth="756.0" style="-fx-background-color: #240750;" BorderPane.alignment="CENTER">
+            <children>
+                <Label layoutX="264.0" layoutY="18.0" text="Generate Credit Note" textFill="#57a6a1">
+                    <font>
+                        <Font name="System Bold" size="25.0" />
+                    </font>
+                </Label>
+                <Label fx:id="currentDateLbl" layoutX="14.0" layoutY="21.0" text="00-00-0000" textFill="#9a9c9e">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font>
+                </Label>
+                <Label fx:id="timerLbl" layoutX="128.0" layoutY="21.0" prefHeight="26.0" prefWidth="112.0" text="00:00:00" textAlignment="CENTER" textFill="#9a9c9e">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+    </top>
+    <center>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #dae0db;" BorderPane.alignment="CENTER">
+            <children>
+                <Label fx:id="categoryIdTxt" layoutX="273.0" layoutY="32.0" prefHeight="18.0" prefWidth="114.0" />
+                <ComboBox fx:id="selectOrderIdCombo" layoutX="345.0" layoutY="50.0" onAction="#orderIdComboOnAction" prefWidth="150.0" promptText="Select Order Id" />
+                <Label layoutX="161.0" layoutY="154.0" prefHeight="19.0" prefWidth="149.0" text="Credit note amount(Rs)">
+                    <font>
+                        <Font name="System Bold" size="13.0" />
+                    </font>
+                </Label>
+                <Button layoutX="161.0" layoutY="220.0" mnemonicParsing="false" onAction="#saveBtnOnAction" prefHeight="34.0" prefWidth="337.0" style="-fx-background-color: #2cbf4e;" text="Save" />
+            <Label layoutX="161.0" layoutY="53.0" prefHeight="18.0" prefWidth="113.0" text="Select order id">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="selectReturnIdCombo" layoutX="345.0" layoutY="97.0" onAction="#returnIdComboOnAction" prefWidth="150.0" promptText="Select Return Id" />
+            <Label layoutX="161.0" layoutY="100.0" prefHeight="18.0" prefWidth="113.0" text="Select return id">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="creditNoteAmount" layoutX="346.0" layoutY="155.0" prefHeight="18.0" prefWidth="148.0" />
+            </children>
+        </AnchorPane>
+    </center>
+</BorderPane>
