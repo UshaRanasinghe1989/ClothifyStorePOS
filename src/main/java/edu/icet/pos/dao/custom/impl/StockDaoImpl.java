@@ -122,4 +122,20 @@ public class StockDaoImpl implements StockDao {
         }
         return noRowsUpdated;
     }
+
+    @Override
+    public int updateStockQtyReturned(String id, int qty) {
+        String sql = "UPDATE StockEntity S " +
+                "SET S.availableQty = S.availableQty + :qty " +
+                "WHERE S.id= :id";
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+        MutationQuery query = session.createMutationQuery(sql);
+        query.setParameter("qty", qty);
+        query.setParameter("id", id);
+        int noRowsUpdated = query.executeUpdate();
+        transaction.commit();
+        session.close();
+        return noRowsUpdated;
+    }
 }

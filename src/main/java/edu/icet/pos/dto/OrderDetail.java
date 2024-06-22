@@ -16,9 +16,9 @@ public class OrderDetail {
     private int quantity;
     private double price;
     private double discount;
-    private boolean isReturned;
+    private Boolean isReturned;
 
-    public OrderDetail(Orders orders, Product product, String stockId, int quantity, Double price, double discount, boolean isReturned) {
+    public OrderDetail(Orders orders, Product product, String stockId, int quantity, Double price, double discount, Boolean isReturned) {
         this.orders = orders;
         this.product = product;
         this.stockId = stockId;

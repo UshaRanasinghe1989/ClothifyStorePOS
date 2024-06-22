@@ -3,19 +3,20 @@ package edu.icet.pos.bo.custom.impl;
 import edu.icet.pos.bo.custom.StockBo;
 import edu.icet.pos.dao.DaoFactory;
 import edu.icet.pos.dao.custom.StockDao;
-import edu.icet.pos.dto.OrderDetail;
 import edu.icet.pos.dto.Product;
 import edu.icet.pos.dto.Stock;
 import edu.icet.pos.dto.tableDto.CartTable;
 import edu.icet.pos.entity.ProductEntity;
 import edu.icet.pos.entity.StockEntity;
 import edu.icet.pos.util.DaoType;
+import edu.icet.pos.util.GetModelMapper;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class StockBoImpl implements StockBo {
+    private final ModelMapper mapper = GetModelMapper.getInstance().getModelMapper();
     StockDao stockDao = DaoFactory.getInstance().getDao(DaoType.STOCK);
 
     @Override
@@ -31,30 +32,18 @@ public class StockBoImpl implements StockBo {
                 dto.getCreateDateTime()
         );*/
         //return stockDao.save(stockEntity);
-        return stockDao.save(new ModelMapper().map(dto, StockEntity.class));
+        return stockDao.save(mapper.map(dto, StockEntity.class));
     }
     @Override
     public List<Stock> retrieveAll() {
         List<StockEntity> stockEntityList = stockDao.retrieveAll();
-        List<Stock> stockList = new ArrayList<>();
-
-        stockEntityList.forEach(stockEntity ->
-                stockList.add(
-                        new ModelMapper().map(stockEntity, Stock.class)
-                ));
-        return stockList;
+        return mapper.map(stockEntityList, new TypeToken<List<Stock>>() {}.getType());
     }
 
     @Override
     public List<Stock> retrieveById(String id) {
         List<StockEntity> stockEntityList = stockDao.retrieveById(id);
-        List<Stock> stockList = new ArrayList<>();
-
-        stockEntityList.forEach(stockEntity ->
-                stockList.add(
-                        new ModelMapper().map(stockEntity, Stock.class)
-                ));
-        return stockList;
+        return mapper.map(stockEntityList, new TypeToken<List<Stock>>() {}.getType());
     }
 
     @Override
@@ -64,7 +53,7 @@ public class StockBoImpl implements StockBo {
 
     @Override
     public int update(Stock dto) {
-        return stockDao.update(new ModelMapper().map(dto, StockEntity.class));
+        return stockDao.update(mapper.map(dto, StockEntity.class));
     }
 
     @Override
@@ -74,18 +63,18 @@ public class StockBoImpl implements StockBo {
 
     @Override
     public List<Stock> retrieveActiveStockByProduct(Product dto) {
-        List<StockEntity> stockEntityList = stockDao.retrieveActiveStockByProduct(new ModelMapper().map(dto, ProductEntity.class));
-        List<Stock> stockList = new ArrayList<>();
-
-        stockEntityList.forEach(stockEntity ->
-                stockList.add(
-                        new ModelMapper().map(stockEntity, Stock.class)
-                ));
-        return stockList;
+        List<StockEntity> stockEntityList = stockDao.retrieveActiveStockByProduct(
+                mapper.map(dto, ProductEntity.class));
+        return mapper.map(stockEntityList, new TypeToken<List<Stock>>() {}.getType());
     }
 
     @Override
     public int updateStockQty(List<CartTable> cartTableList) {
         return stockDao.updateStockQty(cartTableList);
+    }
+
+    @Override
+    public int updateStockQtyReturned(String id, int qty) {
+        return stockDao.updateStockQtyReturned(id, qty);
     }
 }

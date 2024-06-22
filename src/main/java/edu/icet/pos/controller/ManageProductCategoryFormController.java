@@ -5,6 +5,7 @@ import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.CategoryBo;
 import edu.icet.pos.dto.Category;
 import edu.icet.pos.util.BoType;
+import edu.icet.pos.util.GetModelMapper;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -47,6 +48,7 @@ public class ManageProductCategoryFormController extends SuperFormController imp
     @FXML
     public Label timerLbl;
 
+    ModelMapper mapper = GetModelMapper.getInstance().getModelMapper();
     CategoryBo categoryBo = BoFactory.getInstance().getBo(BoType.CATEGORY);
 
     @Override
@@ -116,7 +118,7 @@ public class ManageProductCategoryFormController extends SuperFormController imp
     void searchDetailById() {
         String selectedCategory = selectCategoryIdCombo.getValue();
         List<Category> categoryList = categoryBo.retrieveById(selectedCategory);
-        Category category = new ModelMapper().map(categoryList.get(0), Category.class);
+        Category category = mapper.map(categoryList.get(0), Category.class);
         categoryNameTxt.setText(category.getName());
     }
 

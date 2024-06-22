@@ -1,14 +1,12 @@
 package edu.icet.pos.dao.custom.impl;
 
 import edu.icet.pos.dao.custom.UserDao;
-import edu.icet.pos.dto.User;
-import edu.icet.pos.entity.EmployeeEntity;
 import edu.icet.pos.entity.UserEntity;
 import edu.icet.pos.util.HibernateUtil;
 import jakarta.persistence.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.modelmapper.ModelMapper;
+import org.hibernate.query.MutationQuery;
 
 import java.util.List;
 
@@ -107,6 +105,35 @@ public class UserDaoImpl implements UserDao {
         Query query = session.createQuery(sql, UserEntity.class);
         query.setParameter("isActive", entity.getIsActive());
         query.setParameter("id", entity.getId());
+        int noRowsUpdated = query.executeUpdate();
+        transaction.commit();
+        session.close();
+        return noRowsUpdated;
+    }
+
+    @Override
+    public List<String> retrieveByEmail(String email) {
+        String hql = "SELECT U.email FROM UserEntity U WHERE U.email=:email";
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery(hql, String.class);
+        query.setParameter("email", email);
+        List<String> emailList = query.getResultList();
+        transaction.commit();
+        session.close();
+        return emailList;
+    }
+
+    @Override
+    public int resetPassword(String email, String password) {
+        String hql = "UPDATE UserEntity U SET "+
+                "U.password = :pw "+
+                "WHERE U.email = :email";
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+        MutationQuery query = session.createMutationQuery(hql);
+        query.setParameter("pw", password);
+        query.setParameter("email", email);
         int noRowsUpdated = query.executeUpdate();
         transaction.commit();
         session.close();

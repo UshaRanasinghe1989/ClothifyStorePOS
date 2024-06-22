@@ -15,5 +15,5 @@ public interface OrderDetailBo extends SuperBo {
     int update(OrderDetail dto);
     List<OrderDetail> retrieveByOrderId(Orders dto);
     List<Product> retrieveProductsByOrderId(Orders dto);
-    int updateReturnStatus(Orders ordersDto, Product productDto);
+    int updateReturnStatus(int orderDetailId);
 }

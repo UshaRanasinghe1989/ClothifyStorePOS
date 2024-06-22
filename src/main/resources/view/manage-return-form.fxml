@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.returnController.ManageReturnFormController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.return_controller.ManageReturnFormController">
     <top>
         <AnchorPane prefHeight="72.0" prefWidth="756.0" style="-fx-background-color: #240750;" BorderPane.alignment="CENTER">
             <children>
@@ -42,12 +42,13 @@
                         <Font size="18.0" />
                     </font>
                 </Button>
-                <TableView fx:id="orderDetailTable" layoutX="776.0" layoutY="72.0" prefHeight="366.0" prefWidth="594.0">
+                <TableView fx:id="orderDetailTable" layoutX="776.0" layoutY="72.0" prefHeight="366.0" prefWidth="702.0">
                     <columns>
-                        <TableColumn fx:id="idCol" prefWidth="151.99993896484375" text="Detail Id" />
-                        <TableColumn fx:id="qtyCol" minWidth="0.0" prefWidth="144.800048828125" text="Qty" />
-                        <TableColumn fx:id="discountCol" minWidth="0.0" prefWidth="144.800048828125" text="Product Discount (Rs)" />
-                        <TableColumn fx:id="priceCol" prefWidth="168.00006103515625" text="Price (Rs.)" />
+                        <TableColumn fx:id="idCol" prefWidth="110.4000244140625" text="Detail Id" />
+                        <TableColumn fx:id="qtyCol" minWidth="0.0" prefWidth="83.199951171875" text="Qty" />
+                        <TableColumn fx:id="discountCol" minWidth="0.0" prefWidth="139.2000732421875" text="Product Discount (Rs)" />
+                        <TableColumn fx:id="priceCol" prefWidth="143.2000732421875" text="Price (Rs.)" />
+                        <TableColumn fx:id="isReturnedCol" prefWidth="307.199951171875" text="Is Returned" />
                     </columns>
                 </TableView>
                 <Label fx:id="orderIdLbl" layoutX="884.0" layoutY="12.0" prefHeight="18.0" prefWidth="92.0">
@@ -97,7 +98,7 @@
                         <Font name="System Bold" size="13.0" />
                     </font>
                 </Label>
-                <ComboBox fx:id="selectReturnReasonCombo" layoutX="569.0" layoutY="275.0" prefWidth="150.0" promptText="Reason to return" />
+                <ComboBox fx:id="selectReturnReasonCombo" layoutX="569.0" layoutY="275.0" onAction="#returnReasonComboOnAction" prefWidth="150.0" promptText="Reason to return" />
                 <TextArea fx:id="returnDescriptionTxtArea" layoutX="406.0" layoutY="362.0" prefHeight="118.0" prefWidth="315.0" />
                 <Label layoutX="406.0" layoutY="326.0" text="Return description">
                     <font>
@@ -132,12 +133,12 @@
                 <Label fx:id="netAmountLbl" layoutX="942.0" layoutY="562.0" prefHeight="18.0" prefWidth="150.0" />
                 <Label fx:id="customerNameLbl" layoutX="1274.0" layoutY="18.0" prefHeight="18.0" prefWidth="150.0" />
                 <Label fx:id="customerIdLbl" layoutX="884.0" layoutY="18.0" prefHeight="18.0" prefWidth="150.0" />
-            <Label layoutX="406.0" layoutY="230.0" text="Returned price(Rs)">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-            <Label fx:id="returnedProductPriceLbl" layoutX="571.0" layoutY="230.0" prefHeight="18.0" prefWidth="150.0" />
+                <Label layoutX="406.0" layoutY="230.0" text="Returned price(Rs)">
+                    <font>
+                        <Font name="System Bold" size="13.0" />
+                    </font>
+                </Label>
+                <Label fx:id="returnedProductPriceLbl" layoutX="571.0" layoutY="230.0" prefHeight="18.0" prefWidth="150.0" />
             </children>
         </AnchorPane>
     </center>

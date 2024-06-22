@@ -38,9 +38,9 @@ public class OrderDetailEntity {
     @ColumnDefault("0.0")
     private double discount;
 
-    private boolean isReturned;
+    private Boolean isReturned;
 
-    public OrderDetailEntity(OrderEntity orderEntity, ProductEntity productEntity, String stockId, int quantity, double price, double discount, boolean isReturned){
+    public OrderDetailEntity(OrderEntity orderEntity, ProductEntity productEntity, String stockId, int quantity, double price, double discount, Boolean isReturned){
         this.orderEntity = orderEntity;
         this.productEntity = productEntity;
         this.stockId = stockId;

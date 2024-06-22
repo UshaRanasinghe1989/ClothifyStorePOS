@@ -17,4 +17,5 @@ public interface StockBo extends SuperBo {
     int deactivateById(String id);
     List<Stock> retrieveActiveStockByProduct(Product product);
     int updateStockQty(List<CartTable> cartTableList);
+    int updateStockQtyReturned(String id, int qty);
 }

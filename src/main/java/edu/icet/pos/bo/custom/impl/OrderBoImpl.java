@@ -7,8 +7,10 @@ import edu.icet.pos.dto.OrderDetail;
 import edu.icet.pos.dto.Orders;
 import edu.icet.pos.entity.*;
 import edu.icet.pos.util.DaoType;
+import edu.icet.pos.util.GetModelMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,11 +19,12 @@ import java.util.Set;
 
 @Slf4j
 public class OrderBoImpl implements OrderBo {
+    private static final ModelMapper mapper = GetModelMapper.getInstance().getModelMapper();
     private final OrderDao orderDao = DaoFactory.getInstance().getDao(DaoType.ORDERS);
 
     @Override
     public boolean save(Orders dto) {
-        CustomerEntity customerEntity = new ModelMapper().map(dto.getCustomer(), CustomerEntity.class);
+        CustomerEntity customerEntity = mapper.map(dto.getCustomer(), CustomerEntity.class);
         OrderEntity orderEntity = new OrderEntity(
                 dto.getOrderId(),
                 customerEntity,
@@ -31,31 +34,21 @@ public class OrderBoImpl implements OrderBo {
                 dto.getNetAmount(),
                 dto.getOrderDate()
         );
+
         return orderDao.save(orderEntity);
     }
 
     @Override
     public List<Orders> retrieveAll() {
         List<OrderEntity> orderEntityList = orderDao.retrieveAll();
-        List<Orders> ordersList = new ArrayList<>();
-
-        orderEntityList.forEach(orderEntity ->
-                ordersList.add(
-                        new ModelMapper().map(orderEntity, Orders.class)));
-
-        return ordersList;
+        return mapper.map(orderEntityList, new TypeToken<List<Orders>>() {}.getType());
     }
 
     @Override
     public List<Orders> retrieveById(String id) {
         List<OrderEntity> orderEntityList = orderDao.retrieveById(id);
-        List<Orders> ordersList = new ArrayList<>();
 
-        orderEntityList.forEach(orderEntity ->
-                ordersList.add(
-                        new ModelMapper().map(orderEntity, Orders.class)));
-
-        return ordersList;
+        return mapper.map(orderEntityList, new TypeToken<List<Orders>>() {}.getType());
     }
 
     @Override
@@ -70,14 +63,14 @@ public class OrderBoImpl implements OrderBo {
 
     @Override
     public void addOrderDetail(OrderDetail orderDetailDto) {
-
         OrderDetailEntity orderDetailEntity = new OrderDetailEntity(
-                new ModelMapper().map(orderDetailDto.getOrders(), OrderEntity.class),
-                new ModelMapper().map(orderDetailDto.getProduct(), ProductEntity.class),
+                mapper.map(orderDetailDto.getOrders(), OrderEntity.class),
+                mapper.map(orderDetailDto.getProduct(), ProductEntity.class),
                 orderDetailDto.getStockId(),
                 orderDetailDto.getQuantity(),
                 orderDetailDto.getPrice(),
-                orderDetailDto.getDiscount()
+                orderDetailDto.getDiscount(),
+                orderDetailDto.getIsReturned()
         );
 
         new OrderEntity().addOrderDetail(orderDetailEntity);
@@ -86,12 +79,7 @@ public class OrderBoImpl implements OrderBo {
     @Override
     public Set<OrderDetail> retrieveOrderDetailSet() {
         Set<OrderDetailEntity> orderDetailEntitySet = orderDao.retrieveOrderDetailSet();
-        Set<OrderDetail> orderDetailSet = new HashSet<>();
 
-        orderDetailEntitySet.forEach(orderDetailEntity -> {
-            OrderDetail orderDetail = new ModelMapper().map(orderDetailEntity, OrderDetail.class);
-            orderDetailSet.add(orderDetail);
-        });
-        return orderDetailSet;
+        return mapper.map(orderDetailEntitySet, new TypeToken<List<Orders>>() {}.getType());
     }
 }

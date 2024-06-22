@@ -6,42 +6,31 @@ import edu.icet.pos.dao.custom.SupplierDao;
 import edu.icet.pos.dto.Supplier;
 import edu.icet.pos.entity.SupplierEntity;
 import edu.icet.pos.util.DaoType;
+import edu.icet.pos.util.GetModelMapper;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SupplierBoImpl implements SupplierBo {
+    private final ModelMapper mapper = GetModelMapper.getInstance().getModelMapper();
     SupplierDao supplierDao = DaoFactory.getInstance().getDao(DaoType.SUPPLIER);
     @Override
     public boolean save(Supplier dto) {
-        return supplierDao.save(new ModelMapper().map(dto, SupplierEntity.class));
+        return supplierDao.save(mapper.map(dto, SupplierEntity.class));
     }
 
     @Override
     public List<Supplier> retrieveAll() {
         List<SupplierEntity> supplierEntityList = supplierDao.retrieveAll();
-        List<Supplier> supplierList = new ArrayList<>();
-
-        supplierEntityList.forEach(supplierEntity ->
-                supplierList.add(
-                        new ModelMapper().map(supplierEntity, Supplier.class)
-                ));
-
-        return supplierList;
+        return mapper.map(supplierEntityList, new TypeToken<List<Supplier>>() {}.getType());
     }
 
     @Override
     public List<Supplier> retrieveById(String id) {
         List<SupplierEntity> supplierEntityList = supplierDao.retrieveById(id);
-        List<Supplier> supplierList = new ArrayList<>();
-
-        supplierEntityList.forEach(supplierEntity ->
-                supplierList.add(
-                        new ModelMapper().map(supplierEntity, Supplier.class)
-                ));
-
-        return supplierList;
+        return mapper.map(supplierEntityList, new TypeToken<List<Supplier>>() {}.getType());
     }
 
     @Override
@@ -51,7 +40,7 @@ public class SupplierBoImpl implements SupplierBo {
 
     @Override
     public int update(Supplier dto) {
-        return supplierDao.update(new ModelMapper().map(dto, SupplierEntity.class));
+        return supplierDao.update(mapper.map(dto, SupplierEntity.class));
     }
 
     @Override

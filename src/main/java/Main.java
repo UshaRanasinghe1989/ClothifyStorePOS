@@ -10,9 +10,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/manage-return-form.fxml"))));
-        //stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/manage-stock-form.fxml"))));
-
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/user-login-form.fxml"))));
         stage.show();
     }
 }

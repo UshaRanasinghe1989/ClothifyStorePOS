@@ -12,11 +12,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 
+@Slf4j
 public class LoginFormController extends PasswordBasedEncryption {
     @FXML
     public TextField userNameTxt;
@@ -51,5 +52,12 @@ public class LoginFormController extends PasswordBasedEncryption {
     public String getSecuredPassword(String username){
         User user = userBo.retrieveByUsername(username);
         return user.getPassword();
+    }
+
+    public void resetPasswordLinkOnAction() throws IOException {
+        //LOAD PASSWORD RESET FORM
+        Stage stage = new Stage();
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/reset-password-form.fxml"))));
+        stage.show();
     }
 }

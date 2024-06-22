@@ -11,4 +11,5 @@ public interface StockDao extends CrudDao<StockEntity> {
     int deactivateById(String id);
     List<StockEntity> retrieveActiveStockByProduct(ProductEntity entity);
     int updateStockQty(List<CartTable> cartTableList);
+    int updateStockQtyReturned(String id, int qty);
 }

@@ -1,8 +1,8 @@
 
 v
-java:S1121".Extract the assignment out of this expression.(ÒÛÛÅúÿÿÿÿ8•ÉŒ2J$ee2baa93-357d-4ea1-ba7a-46bff27cf84e
+java:S1121".Extract the assignment out of this expression.(ÒÛÛÅúÿÿÿÿ8ù¤Şãƒ2J$733f8289-9946-4acd-978c-8375ac31d22a
 Ü
-java:S6548"˜A Singleton implementation was detected. Make sure the use of the Singleton pattern is required and the implementation is the right one for the context.(‡‰“·8••ÉŒ2J$39bbc704-e202-4814-9679-d7465d6a25be
-›	java:S131"YComplete cases by adding the missing enum constants or add a default case to this switch.(ÜŸ•8˜•ÉŒ2J$12088743-48e7-4885-958e-da6857fe3441
-‘
-java:S1128"IRemove this unused import 'edu.icet.pos.dao.custom.impl.CategoryDaoImpl'.(Îå Çÿÿÿÿÿ8û““ƒ2J$c25388d7-2aaf-4e0b-90f5-80909512f2c3
+java:S6548"˜A Singleton implementation was detected. Make sure the use of the Singleton pattern is required and the implementation is the right one for the context.(‡‰“·8ı¤Şãƒ2J$f955abab-4b3b-4599-801a-bafb7c3261e3
+u	java:S131"YComplete cases by adding the missing enum constants or add a default case to this switch.(ÜŸ•8úÛŒ„2
+k
+java:S1128"IRemove this unused import 'edu.icet.pos.dao.custom.impl.CategoryDaoImpl'.(Îå Çÿÿÿÿÿ8™úÛŒ„2

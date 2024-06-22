@@ -14,4 +14,5 @@ public interface OrderDetailDao extends CrudDao<OrderDetailEntity> {
     int retrieveCountOrderId(OrderEntity orderEntity);
     List<ProductEntity> retrieveProductsByOrderId(OrderEntity entity);
     List<OrderDetailEntity> retrieveByOrderAndProduct(OrderEntity orderEntity, ProductEntity productEntity);
+    int updateReturnStatus(int orderDetailId);
 }

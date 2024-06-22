@@ -27,7 +27,7 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Button>
-            <Hyperlink layoutX="414.0" layoutY="344.0" text="Reset password" />
+            <Hyperlink layoutX="414.0" layoutY="344.0" onAction="#resetPasswordLinkOnAction" text="Reset password" />
             <ImageView fx:id="loginImageView" fitHeight="150.0" fitWidth="200.0" layoutX="96.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true" />
             <Label layoutX="74.0" layoutY="236.0" text="Clothify Store POS" textFill="#d0d3d9">
                <font>

@@ -65,6 +65,9 @@ public class ProductEntity {
     @OneToMany(mappedBy = "productEntity", cascade = CascadeType.MERGE)
     private List<StockEntity> stockEntityList;
 
+    @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL)
+    private Set<DamagedStockEntity> damagedStockEntitySet;
+
     public ProductEntity(String id, CategoryEntity categoryEntity, SupplierEntity supplierEntity, String name, String description, ProductSizes size, Date createDateTime, List<ProductImageEntity> productImageEntityList, List<StockEntity> stockEntityList) {
         this.id = id;
         this.categoryEntity = categoryEntity;
@@ -79,5 +82,9 @@ public class ProductEntity {
 
     public void addOrderDetail(OrderDetailEntity orderDetailEntity){
         this.orderDetailEntitySet.add(orderDetailEntity);
+    }
+
+    public void addDamagedStock(DamagedStockEntity damagedStockEntity){
+        damagedStockEntitySet.add(damagedStockEntity);
     }
 }

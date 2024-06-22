@@ -1,6 +1,4 @@
-package edu.icet.pos.controller.returnController;
-
-import javafx.scene.control.Label;
+package edu.icet.pos.controller.return_controller;
 
 public interface ReturnInterface {
     void loadOrdersCombo();

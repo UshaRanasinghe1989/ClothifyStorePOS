@@ -1,9 +1,7 @@
 
 ‰
-java:S1126*"AReplace this if-then-else statement by a single return statement.(¢¢Û«ûÿÿÿÿ8¢˜Ğ¼ƒ2J$48b542af-2f72-46b3-bcce-057e8533e932
+java:S1126-"AReplace this if-then-else statement by a single return statement.(¢¢Û«ûÿÿÿÿ8Å¿’Úƒ2J$bf068cb3-b6aa-49ca-92f1-5f460c560ef4
 n
-java:S11682"+Return an empty collection instead of null.(¥¹ï8£˜Ğ¼ƒ2J$4e17b62b-343c-479f-967e-3d7a930b5ea5
+java:S11685"+Return an empty collection instead of null.(¥¹ï8Ç¿’Úƒ2J$f2540fbd-454f-4123-b089-7a7f6edd9efa
 n
-java:S1168C"+Return an empty collection instead of null.(¥¹ï8¥˜Ğ¼ƒ2J$071d9cd5-71cf-4d02-9d27-2675f312ce10
-t
-java:S1602i",Remove useless curly braces around statement(‚éÇ¹úÿÿÿÿ8§˜Ğ¼ƒ2J$17819f02-4167-4588-ae70-ba78ba58ba46
+java:S1168@"+Return an empty collection instead of null.(¥¹ï8È¿’Úƒ2J$919d64ae-d805-4508-b1cf-a4759f674d63

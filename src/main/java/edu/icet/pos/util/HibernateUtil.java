@@ -30,6 +30,7 @@ public class HibernateUtil {
                 .addAnnotatedClass(CustomerEntity.class)
                 .addAnnotatedClass(PaymentEntity.class)
                 .addAnnotatedClass(ReturnEntity.class)
+                .addAnnotatedClass(DamagedStockEntity.class)
                 .getMetadataBuilder()
                 .applyImplicitNamingStrategy(ImplicitNamingStrategyJpaCompliantImpl.INSTANCE)
                 .build();

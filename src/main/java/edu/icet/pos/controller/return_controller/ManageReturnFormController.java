@@ -1,10 +1,7 @@
-package edu.icet.pos.controller.returnController;
+package edu.icet.pos.controller.return_controller;
 
 import edu.icet.pos.bo.BoFactory;
-import edu.icet.pos.bo.custom.OrderBo;
-import edu.icet.pos.bo.custom.OrderDetailBo;
-import edu.icet.pos.bo.custom.ProductBo;
-import edu.icet.pos.bo.custom.ReturnBo;
+import edu.icet.pos.bo.custom.*;
 import edu.icet.pos.dto.*;
 import edu.icet.pos.util.BoType;
 import edu.icet.pos.util.ReturnReason;
@@ -13,6 +10,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -41,6 +39,8 @@ public class ManageReturnFormController implements ReturnInterface, Initializabl
     public TableColumn<OrderDetail, Double> discountCol;
     @FXML
     public TableColumn<OrderDetail, Double> priceCol;
+    @FXML
+    public TableColumn<OrderDetail, Boolean> isReturnedCol;
     @FXML
     public Label orderIdLbl;
     @FXML
@@ -72,14 +72,22 @@ public class ManageReturnFormController implements ReturnInterface, Initializabl
     @FXML
     public Label returnedProductPriceLbl;
 
+
     private static final OrderBo orderBo = BoFactory.getInstance().getBo(BoType.ORDERS);
     private static final OrderDetailBo orderDetailBo = BoFactory.getInstance().getBo(BoType.ORDER_DETAIL);
     private static final ProductBo productBo = BoFactory.getInstance().getBo(BoType.PRODUCT);
     private static final ReturnBo returnsBo = BoFactory.getInstance().getBo(BoType.RETURN);
+    private static final StockBo stockBo = BoFactory.getInstance().getBo(BoType.STOCK);
+    private static final DamagedStockBo damagedStockBo = BoFactory.getInstance().getBo(BoType.DAMAGED_STOCK);
+
     private String selectedOrderId;
     private Orders selectedOrderObj;
     private Product returnedProductObj;
     private double returnedProductUnitPrice;
+    private int returnedProductDetailId;
+    private String returnedProductStockId;
+    private ReturnReason returnReason;
+    private int returnedQty;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -95,8 +103,15 @@ public class ManageReturnFormController implements ReturnInterface, Initializabl
     public void saveReturnBtnOnAction() {
         boolean isSaved = save();
         if (isSaved){
-            new Alert(Alert.AlertType.CONFIRMATION, "Return saved successfully !").show();
-            clearForm();
+            int statusUpdatedCount = updateReturnStatus(returnedProductDetailId);
+
+            if (statusUpdatedCount>0) {
+                int stockUpdatedCount = updateStock(returnedProductStockId, returnedQty);
+                if(stockUpdatedCount>0) {
+                    new Alert(Alert.AlertType.CONFIRMATION, "Return saved successfully !").show();
+                    clearForm();
+                }
+            }
         }else {
             new Alert(Alert.AlertType.WARNING, "Please try again !").show();
         }
@@ -118,6 +133,10 @@ public class ManageReturnFormController implements ReturnInterface, Initializabl
 
     public void selectReturnProductComboOnAction() {
         loadProductDetails();
+    }
+
+    public void returnReasonComboOnAction() {
+        returnReason = selectReturnReasonCombo.getValue();
     }
 
     @Override
@@ -164,6 +183,7 @@ public class ManageReturnFormController implements ReturnInterface, Initializabl
         qtyCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         discountCol.setCellValueFactory(new PropertyValueFactory<>("discount"));
         priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+        isReturnedCol.setCellValueFactory(new PropertyValueFactory<>("isReturned"));
     }
 
     @Override
@@ -179,19 +199,24 @@ public class ManageReturnFormController implements ReturnInterface, Initializabl
     public void loadOrderProductsCombo() {
         selectedOrderId = selectOrderCombo.getValue();
         selectedOrderObj = orderBo.retrieveById(selectedOrderId).get(0);
-        List<Product> productsList = orderDetailBo.retrieveProductsByOrderId(selectedOrderObj);
-        List<String> productIdList = new ArrayList<>();
+        try {
+            List<Product> productsList = orderDetailBo.retrieveProductsByOrderId(selectedOrderObj);
+            List<String> productIdList = new ArrayList<>();
 
-        productsList.forEach(product -> productIdList.add(product.getId()));
+            productsList.forEach(product -> productIdList.add(product.getId()));
 
-        ObservableList<String> observableList = FXCollections.observableList(productIdList);
-        selectReturnProductCombo.setItems(observableList);
+            ObservableList<String> observableList = FXCollections.observableList(productIdList);
+            selectReturnProductCombo.setItems(observableList);
+        }catch (IndexOutOfBoundsException e){
+            new Alert(Alert.AlertType.WARNING, "All products in the order are already returned !").show();
+            log.info(e.getMessage());
+        }
     }
 
     @Override
     public void loadProductDetails() {
         String productId = selectReturnProductCombo.getValue();
-        Product returnedProductObj = productBo.retrieveById(productId).get(0);
+        returnedProductObj = productBo.retrieveById(productId).get(0);
 
         List<OrderDetail> orderDetailList = orderDetailBo.retrieveByOrderId(selectedOrderObj);
         for (OrderDetail orderDetail : orderDetailList) {
@@ -202,14 +227,16 @@ public class ManageReturnFormController implements ReturnInterface, Initializabl
                 productNameLbl.setText(productOnList.getName());
                 purchasedQtyLbl.setText(String.valueOf(orderDetail.getQuantity()));
                 returnedProductUnitPrice = orderDetail.getPrice()/orderDetail.getQuantity();
+                returnedProductDetailId = orderDetail.getDetailId();
+                returnedProductStockId = orderDetail.getStockId();
             }
         }
     }
 
     public void returnedQtyTxtOnAction() {
         try {
-            int returnedProductQty = Integer.parseInt(returnedQtyTxt.getText());
-            double returnedProductPrice = returnedProductUnitPrice*returnedProductQty;
+            returnedQty = Integer.parseInt(returnedQtyTxt.getText());
+            double returnedProductPrice = returnedProductUnitPrice*returnedQty;
             returnedProductPriceLbl.setText(String.valueOf(returnedProductPrice));
         }catch (NumberFormatException e){
             new Alert(Alert.AlertType.WARNING, "Invalid quantity !").show();
@@ -229,6 +256,8 @@ public class ManageReturnFormController implements ReturnInterface, Initializabl
         purchasedQtyLbl.setText("");
         returnedQtyTxt.setText("");
         returnDescriptionTxtArea.setText("");
+        returnedProductPriceLbl.setText("");
+        selectReturnReasonCombo.valueProperty().setValue(null);
     }
 
     @Override
@@ -268,14 +297,34 @@ public class ManageReturnFormController implements ReturnInterface, Initializabl
         return new Returns(
                 selectedOrderObj,
                 selectReturnProductCombo.getValue(),
-                Integer.parseInt(returnedQtyTxt.getText()),
+                returnedQty,
                 Double.parseDouble(returnedProductPriceLbl.getText()),
                 selectReturnReasonCombo.getValue(),
                 returnDescriptionTxtArea.getText(),
                 new Date()
         );
     }
-    private int updateReturnStatus(Orders ordersDto, Product productDto){
-        return orderDetailBo.updateReturnStatus(selectedOrderObj, returnedProductObj);
+    private int updateReturnStatus(int orderDetailId){
+        return orderDetailBo.updateReturnStatus(orderDetailId);
+    }
+    private int updateStock(String stockId, int returnedQty){
+        int updatedRowCount = 0;
+        if (returnReason==ReturnReason.CUSTOMER_LOST_INTEREST || returnReason==ReturnReason.WRONG_SIZE){
+            updatedRowCount = stockBo.updateStockQtyReturned(stockId, returnedQty);
+        }else if(returnReason==ReturnReason.DAMAGED && damagedStockBo.save(getDamagedStockObj())){
+            productBo.addDamagedStock(getDamagedStockObj());
+            updatedRowCount = 1;
+        }
+        return updatedRowCount;
+    }
+
+    private DamagedStock getDamagedStockObj(){
+        String description = returnDescriptionTxtArea.getText();
+        return new DamagedStock(
+                returnedProductObj,
+                returnedQty,
+                description,
+                new Date()
+        );
     }
 }

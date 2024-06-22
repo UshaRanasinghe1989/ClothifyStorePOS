@@ -8,6 +8,7 @@ import edu.icet.pos.util.HibernateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.MutationQuery;
 import org.hibernate.query.Query;
 
 import java.util.List;
@@ -75,11 +76,12 @@ public class OrderDetailDaoImpl implements OrderDetailDao {
 
     @Override
     public List<ProductEntity> retrieveProductsByOrderId(OrderEntity entity) {
-        String hql = "SELECT O.productEntity FROM OrderDetailEntity O WHERE O.orderEntity=:entity";
+        String hql = "SELECT O.productEntity FROM OrderDetailEntity O WHERE O.orderEntity=:entity AND O.isReturned=:isReturned";
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
         Query<ProductEntity> query = session.createQuery(hql, ProductEntity.class);
         query.setParameter("entity", entity);
+        query.setParameter("isReturned", false);
         transaction.commit();
         return query.list();
     }
@@ -95,5 +97,21 @@ public class OrderDetailDaoImpl implements OrderDetailDao {
         query.setParameter("productEntity", productEntity);
         transaction.commit();
         return query.list();
+    }
+
+    @Override
+    public int updateReturnStatus(int orderDetailId) {
+        String sql = "UPDATE OrderDetailEntity O "+
+                "SET O.isReturned = :isReturned "+
+                "WHERE O.id = :id";
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+        MutationQuery query = session.createMutationQuery(sql);
+        query.setParameter("isReturned", true);
+        query.setParameter("id", orderDetailId);
+        int noRowsUpdated = query.executeUpdate();
+        transaction.commit();
+        session.close();
+        return noRowsUpdated;
     }
 }
