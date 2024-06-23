@@ -53,19 +53,39 @@ public class ReportDashboardFormController implements Initializable {
 
     @FXML
     void generateOrderDetailReportBtnOnAction() {
+        try {
+            JasperDesign design = JRXmlLoader.load("src/main/resources/jasper_report/orderDetails.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(design);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, DBConnection.getDbConnection().getConnection());
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (JRException | ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
+    @FXML
+    void generateStockReportBtnOnAction() {
+        try {
+            JasperDesign design = JRXmlLoader.load("src/main/resources/jasper_report/stocks.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(design);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, DBConnection.getDbConnection().getConnection());
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (JRException | ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
     void generateProductReportBtnOnAction(ActionEvent event) {
-
+        try {
+            JasperDesign design = JRXmlLoader.load("src/main/resources/jasper_report/products.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(design);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, DBConnection.getDbConnection().getConnection());
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (JRException | ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
-
-    @FXML
-    void generateStockReportBtnOnAction(ActionEvent event) {
-
-    }
-
 
     @FXML
     void customersBtnOnAction(ActionEvent event) {
