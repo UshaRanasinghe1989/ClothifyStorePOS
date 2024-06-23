@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ordersList" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ce70cb65-1f2b-49cf-b28d-2beca1ce5837">
+	<property name="com.jaspersoft.studio.data.sql.tables" value="orders"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Clothify JDBC"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT * FROM orders]]>
+	</queryString>
+	<field name="order_id">
+		<property name="com.jaspersoft.studio.field.name" value="order_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="order_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="orders"/>
+	</field>
+	<field name="discount" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="discount"/>
+		<property name="com.jaspersoft.studio.field.label" value="discount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="orders"/>
+	</field>
+	<field name="gross_amount" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="gross_amount"/>
+		<property name="com.jaspersoft.studio.field.label" value="gross_amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="orders"/>
+	</field>
+	<field name="net_amount" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="net_amount"/>
+		<property name="com.jaspersoft.studio.field.label" value="net_amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="orders"/>
+	</field>
+	<field name="no_products" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="no_products"/>
+		<property name="com.jaspersoft.studio.field.label" value="no_products"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="orders"/>
+	</field>
+	<field name="orderDate" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="orderDate"/>
+		<property name="com.jaspersoft.studio.field.label" value="orderDate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="orders"/>
+	</field>
+	<field name="customerId" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="customerId"/>
+		<property name="com.jaspersoft.studio.field.label" value="customerId"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="orders"/>
+	</field>
+	<group name="order_id">
+		<groupExpression><![CDATA[$F{order_id}]]></groupExpression>
+	</group>
+	<group name="discount">
+		<groupExpression><![CDATA[$F{discount}]]></groupExpression>
+	</group>
+	<group name="gross_amount">
+		<groupExpression><![CDATA[$F{gross_amount}]]></groupExpression>
+	</group>
+	<group name="net_amount">
+		<groupExpression><![CDATA[$F{net_amount}]]></groupExpression>
+	</group>
+	<group name="no_products">
+		<groupExpression><![CDATA[$F{no_products}]]></groupExpression>
+	</group>
+	<group name="orderDate">
+		<groupExpression><![CDATA[$F{orderDate}]]></groupExpression>
+	</group>
+	<group name="customerId">
+		<groupExpression><![CDATA[$F{customerId}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="77" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="47" width="580" height="30" uuid="9cb5bd57-5f9e-495f-8abc-538828ba4be5"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Black" size="14"/>
+				</textElement>
+				<text><![CDATA[Orders List]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="32" splitType="Stretch">
+			<staticText>
+				<reportElement x="80" y="0" width="100" height="30" uuid="f19a271b-5c17-4b2f-b394-a2685256ee17">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2677c7b0-179a-45e7-baa7-a388745d1d97"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[No. of products]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="80" height="30" uuid="7bbc8329-c81b-4c34-a6b5-626b3cb8ada4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b1057d8a-3515-4978-8f2f-9534996d10b5"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Order No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="0" width="100" height="30" uuid="23d4f20e-e825-4741-972c-057260fa91af">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b5484dfc-3dae-436b-8b07-cbeb97821b41"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Gross amount(Rs)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="0" width="100" height="30" uuid="914382c4-f5a9-449b-af7f-9005e73530d7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d0c9c0d2-1bdb-4a85-832d-6d82407c3206"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Discount(Rs)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="0" width="100" height="30" uuid="f78dca92-acbd-4dcf-8af3-6cfafd76268c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7703579f-f50b-420c-8cee-71b3623db135"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Net amount(Rs)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="480" y="0" width="100" height="30" uuid="a40f4cf7-b480-40ca-bb52-7654fe4c42cb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="920ea175-d016-4ad9-ac81-644c59349f74"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Order date]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<textField>
+				<reportElement x="80" y="0" width="100" height="30" uuid="30d17eb8-dda5-4604-92d6-2cfc80ba5579">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2677c7b0-179a-45e7-baa7-a388745d1d97"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{no_products}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="80" height="30" uuid="9758a02f-a798-4fc5-9c08-852439b182ae">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b1057d8a-3515-4978-8f2f-9534996d10b5"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{order_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="181" y="0" width="100" height="30" uuid="28975cec-5a67-4b01-86f8-d498fc1920bd">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b5484dfc-3dae-436b-8b07-cbeb97821b41"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{gross_amount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="0" width="100" height="30" uuid="e6c906ec-e2fe-4e17-9e0a-a3050d2fde9e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d0c9c0d2-1bdb-4a85-832d-6d82407c3206"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{discount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="0" width="100" height="30" uuid="a9fb8a61-26c9-480c-a547-dd99bae337f2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7703579f-f50b-420c-8cee-71b3623db135"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{net_amount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="0" width="100" height="30" uuid="fbd7aef5-5279-4d80-a54f-f4dfad7fcbe0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="920ea175-d016-4ad9-ac81-644c59349f74"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{orderDate}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="1" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
