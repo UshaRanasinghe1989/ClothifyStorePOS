@@ -10,6 +10,7 @@ import edu.icet.pos.util.PasswordBasedEncryption;
 import edu.icet.pos.util.UserType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -17,43 +18,67 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
 @Slf4j
 public class ManageUserFormController extends SuperFormController implements Initializable {
     @FXML
+    private ComboBox<String> selectEmpIdCombo;
+    @FXML
+    private TextField nameSystemText;
+    @FXML
+    private TableView<User>userDetailsTable;
+    @FXML
+    private TableColumn<User, String>userIdCol;
+    @FXML
+    private TableColumn<User, String>userTypeCol;
+    @FXML
+    private TableColumn<User, String>nameSystemCol;
+    @FXML
+    private TableColumn<User, String>userNameCol;
+    @FXML
+    private Label userNameLbl;
+    @FXML
+    private ComboBox<UserType> userTypeCombo;
+    @FXML
+    private PasswordField passwordPw;
+    @FXML
+    private TextField userIdTxt;
+    //MENU FIELDS
+    @FXML
     public Label currentDateLbl;
     @FXML
     public Label timerLbl;
     @FXML
-    public ComboBox<String> selectEmpIdCombo;
+    public Label userLbl;
     @FXML
-    public TextField nameSystemText;
+    public Button dashboardBtn;
     @FXML
-    public TableView<User>userDetailsTable;
+    public Button ordersBtn;
     @FXML
-    public TableColumn<User, String>userIdCol;
+    public ComboBox<String> manageStockCombo;
     @FXML
-    public TableColumn<User, String>userTypeCol;
+    public Button supplierBtn;
     @FXML
-    public TableColumn<User, String>nameSystemCol;
+    public Button customerBtn;
     @FXML
-    public TableColumn<User, String>userNameCol;
+    public Button employeeBtn;
     @FXML
-    public Label userNameLbl;
+    public Button usersBtn;
     @FXML
-    private ComboBox<UserType> userTypeCombo;
+    public Button logoutBtn;
     @FXML
-    public PasswordField passwordPw;
-    @FXML
-    public TextField userIdTxt;
+    public ComboBox<String> manageReturnCombo;
+    private User currentUser;
     private static final String TRY_AGAIN = "Please try again !";
     private final UserBo userBo = BoFactory.getInstance().getBo(BoType.USER);
     private final EmployeeBo employeeBo = BoFactory.getInstance().getBo(BoType.EMPLOYEE);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        currentUser = setDisplayName();
         getCurrentDate(currentDateLbl);//LOAD CURRENT DATE
         getCurrentTime(timerLbl);
         loadEmpIdCombo();//LOAD EXISTING EMPLOYEE ID LIST
@@ -61,7 +86,6 @@ public class ManageUserFormController extends SuperFormController implements Ini
         loadUserTypeCombo();//LOAD USER TYPES
         loadDetailTable();
     }
-
     public void selectEmpComboOnAction() {
         loadEmail(String.valueOf(selectEmpIdCombo.getValue()));
         String empId = String.valueOf(selectEmpIdCombo.getValue());
@@ -134,29 +158,6 @@ public class ManageUserFormController extends SuperFormController implements Ini
         userTypeCombo.valueProperty().set(null);
         passwordPw.setText("");
     }
-
-    private void loadEmpIdCombo(){
-        ObservableList<String> list = FXCollections.observableList(employeeBo.retrieveAllId());
-        selectEmpIdCombo.setItems(list);
-    }
-
-    private void loadEmail(String empId){
-        Employee employee = new ModelMapper().map(employeeBo.retrieveById(empId), Employee.class);
-        userNameLbl.setText(employee.getEmail());
-    }
-
-    private void loadUserTypeCombo(){
-        ObservableList<UserType> typeOptions = FXCollections.observableArrayList();
-        typeOptions.add(UserType.ADMIN);
-        typeOptions.add(UserType.USER);
-        userTypeCombo.setItems(typeOptions);
-    }
-
-    //GENERATE ENCRYPTED PASSWORD
-    private String getEncryptedPassword(String password){
-        return PasswordBasedEncryption.generateSecurePassword(password);
-    }
-
     @Override
     void loadId() {
         int number=0;
@@ -171,7 +172,6 @@ public class ManageUserFormController extends SuperFormController implements Ini
         number++;
         userIdTxt.setText(String.format("USR%04d", number));
     }
-
     @Override
     void loadDetailTable() {
         ObservableList<User> userList = FXCollections.observableList(userBo.retrieveAll());//LOAD EXISTING USER RECORDS
@@ -182,7 +182,6 @@ public class ManageUserFormController extends SuperFormController implements Ini
         nameSystemCol.setCellValueFactory(new PropertyValueFactory<>("systemName"));
         userNameCol.setCellValueFactory(new PropertyValueFactory<>("email"));
     }
-
     @Override
     void searchDetailById() {
         User user = new ModelMapper().map(userBo.retrieveById(userIdTxt.getText()), User.class);
@@ -192,7 +191,6 @@ public class ManageUserFormController extends SuperFormController implements Ini
         selectEmpIdCombo.setValue(new ModelMapper().map(user.getEmployee(), Employee.class).getId());
         nameSystemText.setText(user.getSystemName());
     }
-
     @Override
     void updateById() {
         User user = new User(
@@ -213,4 +211,92 @@ public class ManageUserFormController extends SuperFormController implements Ini
             }
         }
     }
+    //MENU - LEFT BORDER
+    public User setDisplayName(){
+        return setUser(currentDateLbl);
+    }
+
+    //MENU FUNCTIONS
+    public void ordersBtnOnAction() {
+        try {
+            loadOrderForm(ordersBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+    public void manageStockComboOnAction() {
+        String comboOption = manageStockCombo.getValue();
+        try {
+            loadManageStockForms(manageStockCombo, comboOption);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+    public void employeesBtnOnAction() {
+        try {
+            loadEmployeeForm(employeeBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+    public void usersBtnOnAction() {
+        try {
+            loadUserForm(usersBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+    public void suppliersBtnOnAction() {
+        try {
+            loadSupplierForm(supplierBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+    public void customersBtnOnAction() {
+        try {
+            loadCustomerForm(customerBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+    public void manageReturnComboOnAction() {
+        String comboOption = manageReturnCombo.getValue();
+        try {
+            loadManageStockForms(manageReturnCombo, comboOption);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+    public void logoutBtnOnAction(ActionEvent event) {
+        //PENDING
+    }
+
+    public void dashboardBtnOnAction() {
+        try {
+            loadDashboardForm(dashboardBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+    //PRIVATE METHODS
+    private void loadEmpIdCombo(){
+        ObservableList<String> list = FXCollections.observableList(employeeBo.retrieveAllId());
+        selectEmpIdCombo.setItems(list);
+    }
+    private void loadEmail(String empId){
+        Employee employee = new ModelMapper().map(employeeBo.retrieveById(empId), Employee.class);
+        userNameLbl.setText(employee.getEmail());
+    }
+    private void loadUserTypeCombo(){
+        ObservableList<UserType> typeOptions = FXCollections.observableArrayList();
+        typeOptions.add(UserType.ADMIN);
+        typeOptions.add(UserType.USER);
+        userTypeCombo.setItems(typeOptions);
+    }
+    //GENERATE ENCRYPTED PASSWORD
+    private String getEncryptedPassword(String password){
+        return PasswordBasedEncryption.generateSecurePassword(password);
+    }
+
 }

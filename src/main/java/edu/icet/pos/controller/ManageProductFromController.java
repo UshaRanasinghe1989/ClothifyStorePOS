@@ -7,6 +7,7 @@ import edu.icet.pos.bo.custom.SupplierBo;
 import edu.icet.pos.dto.Category;
 import edu.icet.pos.dto.Product;
 import edu.icet.pos.dto.Supplier;
+import edu.icet.pos.dto.User;
 import edu.icet.pos.entity.CategoryEntity;
 import edu.icet.pos.entity.SupplierEntity;
 import edu.icet.pos.util.BoType;
@@ -23,6 +24,7 @@ import javafx.scene.image.ImageView;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.List;
@@ -31,54 +33,77 @@ import java.util.ResourceBundle;
 @Slf4j
 public class ManageProductFromController extends SuperFormController implements Initializable {
     @FXML
+    private TextField productNameText;
+    @FXML
+    private TextField imageOnePathTxt;
+    @FXML
+    private TextField imageTwoPathTxt;
+    @FXML
+    private TextField imageThreePathTxt;
+    @FXML
+    private TableView<Product> productDetailTable;
+    @FXML
+    private TableColumn<Product, String> idCol;
+    @FXML
+    private TableColumn<Product, String> nameCol;
+    @FXML
+    private TableColumn<Product, String> sizeCol;
+    @FXML
+    private TableColumn<Product, String> descriptionCol;
+    @FXML
+    private TextField productIdText;
+    @FXML
+    private ComboBox<String> categoryNameCombo;
+    @FXML
+    private TextField selectedCatIdHiddenTxt;
+    @FXML
+    private ComboBox<String> supplierNameCombo;
+    @FXML
+    private TextField selectedSupplierIdHiddenTxt;
+    @FXML
+    private ComboBox<ProductSizes> sizeCombo;
+    @FXML
+    private TextField descriptionTxt;
+    @FXML
+    private TextField imageFourPathTxt;
+    @FXML
+    private TextField imageFivePathTxt;
+    @FXML
+    private ImageView imageOne;
+    //MENU FIELDS
+    @FXML
     public Label currentDateLbl;
     @FXML
     public Label timerLbl;
     @FXML
-    public TextField productNameText;
+    public Label userLbl;
     @FXML
-    public TextField imageOnePathTxt;
+    public Button dashboardBtn;
     @FXML
-    public TextField imageTwoPathTxt;
+    public Button ordersBtn;
     @FXML
-    public TextField imageThreePathTxt;
+    public ComboBox<String> manageStockCombo;
     @FXML
-    public TableView<Product> productDetailTable;
+    public Button supplierBtn;
     @FXML
-    public TableColumn<Product, String> idCol;
+    public Button customerBtn;
     @FXML
-    public TableColumn<Product, String> nameCol;
+    public Button employeeBtn;
     @FXML
-    public TableColumn<Product, String> sizeCol;
+    public Button usersBtn;
     @FXML
-    public TableColumn<Product, String> descriptionCol;
+    public Button logoutBtn;
     @FXML
-    public TextField productIdText;
-    @FXML
-    public ComboBox<String> categoryNameCombo;
-    @FXML
-    public TextField selectedCatIdHiddenTxt;
-    @FXML
-    public ComboBox<String> supplierNameCombo;
-    @FXML
-    public TextField selectedSupplierIdHiddenTxt;
-    @FXML
-    public ComboBox<ProductSizes> sizeCombo;
-    @FXML
-    public TextField descriptionTxt;
-    @FXML
-    public TextField imageFourPathTxt;
-    @FXML
-    public TextField imageFivePathTxt;
-    @FXML
-    public ImageView imageOne;
+    public ComboBox<String> manageReturnCombo;
+    private User user;
 
-    ProductBo productBo = BoFactory.getInstance().getBo(BoType.PRODUCT);
-    CategoryBo categoryBo = BoFactory.getInstance().getBo(BoType.CATEGORY);
-    SupplierBo supplierBo = BoFactory.getInstance().getBo(BoType.SUPPLIER);
+    private final ProductBo productBo = BoFactory.getInstance().getBo(BoType.PRODUCT);
+    private final CategoryBo categoryBo = BoFactory.getInstance().getBo(BoType.CATEGORY);
+    private final SupplierBo supplierBo = BoFactory.getInstance().getBo(BoType.SUPPLIER);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        user = setDisplayName();
         getCurrentTime(timerLbl);
         getCurrentDate(currentDateLbl);
         loadId();
@@ -86,41 +111,6 @@ public class ManageProductFromController extends SuperFormController implements 
         loadSupplierNamesCombo();
         loadSizeCombo();
         loadDetailTable();
-    }
-
-    private void loadSizeCombo() {
-        ObservableList<ProductSizes> observableList = FXCollections.observableArrayList();
-        observableList.add(ProductSizes.X_SMALL);
-        observableList.add(ProductSizes.SMALL);
-        observableList.add(ProductSizes.MEDIUM);
-        observableList.add(ProductSizes.LARGE);
-        observableList.add(ProductSizes.X_LARGE);
-        observableList.add(ProductSizes.NEW_BORN);
-        observableList.add(ProductSizes.THREE_MONTHS);
-        observableList.add(ProductSizes.SIX_MONTHS);
-        observableList.add(ProductSizes.ONE_YEAR);
-        observableList.add(ProductSizes.TWO_YEARS);
-        sizeCombo.setItems(observableList);
-    }
-
-    private void loadSupplierNamesCombo() {
-        try {
-            List<String> list = categoryBo.retrieveCategoryNames();
-            ObservableList<String> observableList = FXCollections.observableList(list);
-            categoryNameCombo.setItems(observableList);
-        }catch (NullPointerException e){
-            log.info(e.getMessage());
-        }
-    }
-
-    private void loadCategoryNamesCombo() {
-        try {
-            List<String> list = supplierBo.retrieveSupplierNames();
-            ObservableList<String> observableList = FXCollections.observableList(list);
-            supplierNameCombo.setItems(observableList);
-        }catch (NullPointerException e){
-            log.info(e.getMessage());
-        }
     }
 
     public void saveBtnOnAction() {
@@ -138,11 +128,11 @@ public class ManageProductFromController extends SuperFormController implements 
     public void categoryNameComboOnAction() {
         try {
             String categoryName = categoryNameCombo.getValue();
-            if (categoryName!=null){
+            if (categoryName != null) {
                 List<String> list = categoryBo.retrieveCatIdByName(categoryName);
                 selectedCatIdHiddenTxt.setText(list.get(0));
             }
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             log.info(e.getMessage());
         }
     }
@@ -150,11 +140,11 @@ public class ManageProductFromController extends SuperFormController implements 
     public void supplierNameComboOnAction() {
         try {
             String supplierName = supplierNameCombo.getValue();
-            if (supplierName!=null) {
+            if (supplierName != null) {
                 List<String> list = supplierBo.retrieveSupplierIdByName(supplierName);
                 selectedSupplierIdHiddenTxt.setText(list.get(0));
             }
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             log.info(e.getMessage());
         }
     }
@@ -193,12 +183,12 @@ public class ManageProductFromController extends SuperFormController implements 
         );
 
         boolean isSaved = productBo.save(product);
-        if(isSaved){
+        if (isSaved) {
             new Alert(Alert.AlertType.CONFIRMATION, "Product saved successfully !").show();
             loadId();
             loadDetailTable();
             clearForm();
-        }else {
+        } else {
             new Alert(Alert.AlertType.ERROR, "Please try again !").show();
         }
     }
@@ -216,14 +206,14 @@ public class ManageProductFromController extends SuperFormController implements 
 
     @Override
     void loadId() {
-        String lastId=null;
-        int number=0;
+        String lastId = null;
+        int number = 0;
         try {
             List<String> list = productBo.retrieveAllId();
             ObservableList<String> observableList = FXCollections.observableList(list);
             lastId = observableList.get(observableList.size() - 1);
             number = Integer.parseInt(lastId.split("PRO")[1]);
-        }catch (NullPointerException | IndexOutOfBoundsException e){
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
             productIdText.setText("PRO0001");
         }
         number++;
@@ -241,7 +231,7 @@ public class ManageProductFromController extends SuperFormController implements 
             nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
             sizeCol.setCellValueFactory(new PropertyValueFactory<>("size"));
             descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             log.info(e.getMessage());
         }
     }
@@ -263,14 +253,14 @@ public class ManageProductFromController extends SuperFormController implements 
 
             sizeCombo.setValue(product.getSize());
             descriptionTxt.setText(product.getDescription());
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             log.info(e.getMessage());
         }
     }
 
     @Override
     void updateById() {
-        if(loadConfirmAlert("Confirm update ?")) {
+        if (loadConfirmAlert("Confirm update ?")) {
             try {
                 List<Category> categoryList = categoryBo.retrieveById(selectedCatIdHiddenTxt.getText());
                 Category category = categoryList.get(0);
@@ -288,7 +278,7 @@ public class ManageProductFromController extends SuperFormController implements 
                         new Date()
                 );
                 int updatedRowCount = productBo.update(product);
-                if (updatedRowCount>0) {
+                if (updatedRowCount > 0) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Product updated successfully !").show();
                     loadId();
                     loadDetailTable();
@@ -296,9 +286,119 @@ public class ManageProductFromController extends SuperFormController implements 
                 } else {
                     new Alert(Alert.AlertType.ERROR, "Please try again !").show();
                 }
-            }catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 log.info(e.getMessage());
             }
+        }
+    }
+
+    //MENU - LEFT BORDER
+    public User setDisplayName() {
+        return setUser(currentDateLbl);
+    }
+
+    //MENU FUNCTIONS
+    public void ordersBtnOnAction() {
+        try {
+            loadOrderForm(ordersBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+
+    public void manageStockComboOnAction() {
+        String comboOption = manageStockCombo.getValue();
+        try {
+            loadManageStockForms(manageStockCombo, comboOption);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+
+    public void employeesBtnOnAction() {
+        try {
+            loadEmployeeForm(employeeBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+
+    public void usersBtnOnAction() {
+        try {
+            loadUserForm(usersBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+
+    public void suppliersBtnOnAction() {
+        try {
+            loadSupplierForm(supplierBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+
+    public void customersBtnOnAction() {
+        try {
+            loadCustomerForm(customerBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+
+    public void manageReturnComboOnAction() {
+        String comboOption = manageReturnCombo.getValue();
+        try {
+            loadManageStockForms(manageReturnCombo, comboOption);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+
+    public void logoutBtnOnAction(ActionEvent event) {
+    }
+
+    public void dashboardBtnOnAction() {
+        try {
+            loadDashboardForm(dashboardBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+
+    private void loadSizeCombo() {
+        ObservableList<ProductSizes> observableList = FXCollections.observableArrayList();
+        observableList.add(ProductSizes.X_SMALL);
+        observableList.add(ProductSizes.SMALL);
+        observableList.add(ProductSizes.MEDIUM);
+        observableList.add(ProductSizes.LARGE);
+        observableList.add(ProductSizes.X_LARGE);
+        observableList.add(ProductSizes.NEW_BORN);
+        observableList.add(ProductSizes.THREE_MONTHS);
+        observableList.add(ProductSizes.SIX_MONTHS);
+        observableList.add(ProductSizes.ONE_YEAR);
+        observableList.add(ProductSizes.TWO_YEARS);
+        sizeCombo.setItems(observableList);
+    }
+
+    private void loadSupplierNamesCombo() {
+        try {
+            List<String> list = categoryBo.retrieveCategoryNames();
+            ObservableList<String> observableList = FXCollections.observableList(list);
+            categoryNameCombo.setItems(observableList);
+        } catch (NullPointerException e) {
+            log.info(e.getMessage());
+        }
+    }
+
+    private void loadCategoryNamesCombo() {
+        try {
+            List<String> list = supplierBo.retrieveSupplierNames();
+            ObservableList<String> observableList = FXCollections.observableList(list);
+            supplierNameCombo.setItems(observableList);
+        } catch (NullPointerException e) {
+            log.info(e.getMessage());
         }
     }
 }

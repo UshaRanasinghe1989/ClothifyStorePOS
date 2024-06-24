@@ -134,11 +134,33 @@
             </children>
         </AnchorPane>
     </center>
-   <bottom>
-      <AnchorPane prefHeight="23.0" prefWidth="1000.0" style="-fx-background-color: #240750;" BorderPane.alignment="CENTER">
-         <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="474.0" layoutY="3.0" text="Copyright" textAlignment="CENTER" textFill="#9a9c9e" />
-         </children>
-      </AnchorPane>
-   </bottom>
+    <bottom>
+        <AnchorPane prefHeight="23.0" prefWidth="1000.0" style="-fx-background-color: #240750;" BorderPane.alignment="CENTER">
+            <children>
+                <Label layoutX="724.0" layoutY="3.0" text="Copyright" textFill="#9a9c9e" />
+            </children>
+        </AnchorPane>
+    </bottom>
+    <left>
+        <AnchorPane prefHeight="662.0" prefWidth="223.0" style="-fx-background-color: #240750;" BorderPane.alignment="CENTER">
+            <children>
+                <Label layoutX="14.0" layoutY="20.0" prefHeight="30.0" prefWidth="36.0" text="User :" textAlignment="CENTER" textFill="#57a6a1">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Label>
+                <Label fx:id="userLbl" layoutX="61.0" layoutY="26.0" prefHeight="18.0" prefWidth="130.0" textFill="#57a6a1" />
+                <Button fx:id="dashboardBtn" layoutX="13.0" layoutY="119.0" mnemonicParsing="false" onAction="#dashboardBtnOnAction" prefHeight="26.0" prefWidth="199.0" style="-fx-background-color: #57A6A1;" text="Reports &amp; Charts" />
+                <Button fx:id="ordersBtn" layoutX="12.0" layoutY="158.0" mnemonicParsing="false" onAction="#ordersBtnOnAction" prefHeight="26.0" prefWidth="199.0" style="-fx-background-color: #57A6A1;" text="Orders" />
+                <ComboBox fx:id="manageStockCombo" layoutX="12.0" layoutY="264.0" onAction="#manageStockComboOnAction" prefHeight="26.0" prefWidth="200.0" promptText="Manage Stock" style="-fx-background-color: #57A6A1;" />
+                <Button fx:id="supplierBtn" layoutX="13.0" layoutY="306.0" mnemonicParsing="false" onAction="#suppliersBtnOnAction" prefHeight="26.0" prefWidth="199.0" style="-fx-background-color: #57A6A1;" text="Suppliers" />
+                <Button fx:id="customerBtn" layoutX="13.0" layoutY="346.0" mnemonicParsing="false" onAction="#customersBtnOnAction" prefHeight="26.0" prefWidth="199.0" style="-fx-background-color: #57A6A1;" text="Customers" />
+                <Button fx:id="employeeBtn" layoutX="13.0" layoutY="385.0" mnemonicParsing="false" onAction="#employeesBtnOnAction" prefHeight="26.0" prefWidth="199.0" style="-fx-background-color: #57A6A1;" text="Employees" />
+                <Button fx:id="usersBtn" layoutX="13.0" layoutY="425.0" mnemonicParsing="false" onAction="#usersBtnOnAction" prefHeight="26.0" prefWidth="199.0" style="-fx-background-color: #57A6A1;" text="Users" />
+                <Button fx:id="logoutBtn" layoutX="9.0" layoutY="628.0" mnemonicParsing="false" onAction="#logoutBtnOnAction" prefHeight="26.0" prefWidth="142.0" style="-fx-background-color: #f50a0a; " text="Logout" />
+                <Separator layoutX="13.0" layoutY="242.0" prefWidth="200.0" />
+                <ComboBox fx:id="manageReturnCombo" layoutX="12.0" layoutY="199.0" onAction="#manageReturnComboOnAction" prefHeight="26.0" prefWidth="200.0" promptText="Manage Return" style="-fx-background-color: #57A6A1;" />
+            </children>
+        </AnchorPane>
+    </left>
 </BorderPane>

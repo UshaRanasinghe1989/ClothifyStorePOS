@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
@@ -11,104 +12,164 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="682.0" prefWidth="846.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.ManageEmployeeFormController">
-   <top>
-      <AnchorPane prefHeight="72.0" prefWidth="756.0" style="-fx-background-color: #240750;" BorderPane.alignment="CENTER">
-         <children>
-            <Label layoutX="410.0" layoutY="13.0" text="Manage Employee" textFill="#57a6a1">
-               <font>
-                  <Font name="System Bold" size="25.0" />
-               </font>
-            </Label>
-            <Label fx:id="currentDateLbl" layoutX="14.0" layoutY="21.0" prefHeight="30.0" prefWidth="90.0" text="05-06-2024" textAlignment="CENTER" textFill="#9a9c9e">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Label>
-            <Label fx:id="timerLbl" layoutX="128.0" layoutY="21.0" prefHeight="30.0" prefWidth="67.0" text="00:00:00" textAlignment="CENTER" textFill="#9a9c9e">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-   </top>
-   <center>
-      <AnchorPane prefHeight="610.0" prefWidth="897.0" style="-fx-background-color: #dae0db;" BorderPane.alignment="CENTER">
-         <children>
-            <Label layoutX="21.0" layoutY="73.0" text="Name">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-            <Label layoutX="381.0" layoutY="74.0" text="Contact no.">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-            <Label layoutX="381.0" layoutY="111.0" text="Email address">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-            <Label layoutX="20.0" layoutY="149.0" text="NIC">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-            <Label layoutX="19.0" layoutY="111.0" text="Date of birth">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-            <Label layoutX="381.0" layoutY="149.0" text="Address">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-            <TextField fx:id="empNameText" layoutX="134.0" layoutY="71.0" prefHeight="26.0" prefWidth="178.0" />
-            <TextField fx:id="empNicText" layoutX="134.0" layoutY="146.0" prefHeight="26.0" prefWidth="176.0" />
-            <DatePicker fx:id="empDobDatePicker" layoutX="135.0" layoutY="108.0" />
-            <TextField fx:id="empContactNoText" layoutX="500.0" layoutY="70.0" prefHeight="26.0" prefWidth="174.0" />
-            <TextField fx:id="empEmailText" layoutX="500.0" layoutY="107.0" prefHeight="26.0" prefWidth="174.0" />
-            <TextField fx:id="empAddressText" layoutX="500.0" layoutY="146.0" prefHeight="26.0" prefWidth="334.0" />
-            <Button layoutX="381.0" layoutY="197.0" mnemonicParsing="false" onAction="#saveBtnOnAction" prefHeight="34.0" prefWidth="179.0" style="-fx-background-color: #f04330;" text="Save">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
-            <Button layoutX="587.0" layoutY="197.0" mnemonicParsing="false" onAction="#editBtnOnAction" prefHeight="34.0" prefWidth="99.0" style="-fx-background-color: #2cbf4e;" text="Update">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
-            <Button layoutX="706.0" layoutY="197.0" mnemonicParsing="false" onAction="#deleteBtnOnAction" prefHeight="34.0" prefWidth="95.0" style="-fx-background-color: #aaadab;" text="Delete">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
-            <TableView fx:id="empDetailTable" layoutX="23.0" layoutY="296.0" prefHeight="280.0" prefWidth="823.0">
-              <columns>
-                <TableColumn fx:id="idCol" prefWidth="75.0" text="Id" />
-                <TableColumn fx:id="nameCol" prefWidth="108.800048828125" text="Name" />
-                  <TableColumn fx:id="dobCol" prefWidth="91.99995422363281" text="DOB" />
-                  <TableColumn fx:id="nicCol" prefWidth="89.60003662109375" text="NIC" />
-                  <TableColumn fx:id="contactNoCol" prefWidth="100.79998779296875" text="Contact No." />
-                  <TableColumn fx:id="emailCol" prefWidth="154.4000244140625" text="Email" />
-                  <TableColumn fx:id="addressCol" prefWidth="202.4000244140625" text="Address" />
-              </columns>
-            </TableView>
-            <Separator layoutX="8.0" layoutY="244.0" prefWidth="828.0" />
-            <TextField fx:id="empIdText" layoutX="14.0" layoutY="28.0" prefHeight="26.0" prefWidth="174.0" promptText="Employee Id" />
-            <Button layoutX="216.0" layoutY="28.0" mnemonicParsing="false" onAction="#searchBtnOnAction" prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: #57A6A1;" text="Search" textFill="#240750">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Button>
-         </children>
-      </AnchorPane>
-   </center>
-   <bottom>
-      <Label prefHeight="18.0" prefWidth="942.0" style="-fx-background-color: #240750;" text="Copyright" textAlignment="CENTER" textFill="#f4f3f3" BorderPane.alignment="CENTER" />
-   </bottom>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0"
+            prefWidth="1500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.icet.pos.controller.ManageEmployeeFormController">
+    <top>
+        <AnchorPane prefHeight="72.0" prefWidth="1500.0" style="-fx-background-color: #240750;"
+                    BorderPane.alignment="CENTER">
+            <children>
+                <Label layoutX="628.0" layoutY="21.0" text="Manage Employee" textFill="#57a6a1">
+                    <font>
+                        <Font name="System Bold" size="25.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="currentDateLbl" layoutX="14.0" layoutY="21.0" prefHeight="30.0" prefWidth="90.0"
+                       text="05-06-2024" textAlignment="CENTER" textFill="#9a9c9e">
+                    <font>
+                        <Font name="System Bold" size="16.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="timerLbl" layoutX="128.0" layoutY="21.0" prefHeight="30.0" prefWidth="130.0"
+                       text="00:00:00" textAlignment="CENTER" textFill="#9a9c9e">
+                    <font>
+                        <Font name="System Bold" size="16.0"/>
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+    </top>
+    <center>
+        <AnchorPane prefHeight="610.0" prefWidth="897.0" style="-fx-background-color: #dae0db;"
+                    BorderPane.alignment="CENTER">
+            <children>
+                <Label layoutX="408.0" layoutY="87.0" text="Name">
+                    <font>
+                        <Font name="System Bold" size="13.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="768.0" layoutY="88.0" text="Contact no.">
+                    <font>
+                        <Font name="System Bold" size="13.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="768.0" layoutY="125.0" text="Email address">
+                    <font>
+                        <Font name="System Bold" size="13.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="407.0" layoutY="163.0" text="NIC">
+                    <font>
+                        <Font name="System Bold" size="13.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="406.0" layoutY="125.0" text="Date of birth">
+                    <font>
+                        <Font name="System Bold" size="13.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="768.0" layoutY="163.0" text="Address">
+                    <font>
+                        <Font name="System Bold" size="13.0"/>
+                    </font>
+                </Label>
+                <TextField fx:id="empNameText" layoutX="521.0" layoutY="85.0" prefHeight="26.0" prefWidth="178.0"/>
+                <TextField fx:id="empNicText" layoutX="521.0" layoutY="160.0" prefHeight="26.0" prefWidth="176.0"/>
+                <DatePicker fx:id="empDobDatePicker" layoutX="522.0" layoutY="122.0"/>
+                <TextField fx:id="empContactNoText" layoutX="887.0" layoutY="84.0" prefHeight="26.0" prefWidth="174.0"/>
+                <TextField fx:id="empEmailText" layoutX="887.0" layoutY="121.0" prefHeight="26.0" prefWidth="174.0"/>
+                <TextField fx:id="empAddressText" layoutX="887.0" layoutY="160.0" prefHeight="26.0" prefWidth="334.0"/>
+                <Button layoutX="768.0" layoutY="211.0" mnemonicParsing="false" onAction="#saveBtnOnAction"
+                        prefHeight="34.0" prefWidth="179.0" style="-fx-background-color: #f04330;" text="Save">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Button>
+                <Button layoutX="974.0" layoutY="211.0" mnemonicParsing="false" onAction="#editBtnOnAction"
+                        prefHeight="34.0" prefWidth="99.0" style="-fx-background-color: #2cbf4e;" text="Update">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Button>
+                <Button layoutX="1093.0" layoutY="211.0" mnemonicParsing="false" onAction="#deleteBtnOnAction"
+                        prefHeight="34.0" prefWidth="95.0" style="-fx-background-color: #aaadab;" text="Delete">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Button>
+                <TableView fx:id="empDetailTable" layoutX="406.0" layoutY="296.0" prefHeight="280.0" prefWidth="823.0">
+                    <columns>
+                        <TableColumn fx:id="idCol" prefWidth="75.0" text="Id"/>
+                        <TableColumn fx:id="nameCol" prefWidth="108.800048828125" text="Name"/>
+                        <TableColumn fx:id="dobCol" prefWidth="91.99995422363281" text="DOB"/>
+                        <TableColumn fx:id="nicCol" prefWidth="89.60003662109375" text="NIC"/>
+                        <TableColumn fx:id="contactNoCol" prefWidth="100.79998779296875" text="Contact No."/>
+                        <TableColumn fx:id="emailCol" prefWidth="154.4000244140625" text="Email"/>
+                        <TableColumn fx:id="addressCol" prefWidth="202.4000244140625" text="Address"/>
+                    </columns>
+                </TableView>
+                <Separator layoutX="406.0" layoutY="272.0" prefWidth="828.0"/>
+                <TextField fx:id="empIdText" layoutX="406.0" layoutY="28.0" prefHeight="26.0" prefWidth="174.0"
+                           promptText="Employee Id"/>
+                <Button layoutX="591.0" layoutY="28.0" mnemonicParsing="false" onAction="#searchBtnOnAction"
+                        prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: #57A6A1;" text="Search"
+                        textFill="#240750">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                </Button>
+            </children>
+        </AnchorPane>
+    </center>
+    <bottom>
+        <AnchorPane prefHeight="23.0" prefWidth="1000.0" style="-fx-background-color: #240750;"
+                    BorderPane.alignment="CENTER">
+            <children>
+                <Label layoutX="724.0" layoutY="3.0" text="Copyright" textFill="#9a9c9e"/>
+            </children>
+        </AnchorPane>
+    </bottom>
+    <left>
+        <AnchorPane prefHeight="662.0" prefWidth="223.0" style="-fx-background-color: #240750;"
+                    BorderPane.alignment="CENTER">
+            <children>
+                <Label layoutX="14.0" layoutY="20.0" prefHeight="30.0" prefWidth="36.0" text="User :"
+                       textAlignment="CENTER" textFill="#57a6a1">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="userLbl" layoutX="61.0" layoutY="26.0" prefHeight="18.0" prefWidth="130.0"
+                       textFill="#57a6a1"/>
+                <Button fx:id="dashboardBtn" layoutX="13.0" layoutY="119.0" mnemonicParsing="false"
+                        onAction="#dashboardBtnOnAction" prefHeight="26.0" prefWidth="199.0"
+                        style="-fx-background-color: #57A6A1;" text="Reports &amp; Charts"/>
+                <Button fx:id="ordersBtn" layoutX="12.0" layoutY="158.0" mnemonicParsing="false"
+                        onAction="#ordersBtnOnAction" prefHeight="26.0" prefWidth="199.0"
+                        style="-fx-background-color: #57A6A1;" text="Orders"/>
+                <ComboBox fx:id="manageStockCombo" layoutX="12.0" layoutY="264.0" onAction="#manageStockComboOnAction"
+                          prefHeight="26.0" prefWidth="200.0" promptText="Manage Stock"
+                          style="-fx-background-color: #57A6A1;"/>
+                <Button fx:id="supplierBtn" layoutX="13.0" layoutY="306.0" mnemonicParsing="false"
+                        onAction="#suppliersBtnOnAction" prefHeight="26.0" prefWidth="199.0"
+                        style="-fx-background-color: #57A6A1;" text="Suppliers"/>
+                <Button fx:id="customerBtn" layoutX="13.0" layoutY="346.0" mnemonicParsing="false"
+                        onAction="#customersBtnOnAction" prefHeight="26.0" prefWidth="199.0"
+                        style="-fx-background-color: #57A6A1;" text="Customers"/>
+                <Button fx:id="employeeBtn" layoutX="13.0" layoutY="385.0" mnemonicParsing="false"
+                        onAction="#employeesBtnOnAction" prefHeight="26.0" prefWidth="199.0"
+                        style="-fx-background-color: #57A6A1;" text="Employees"/>
+                <Button fx:id="usersBtn" layoutX="13.0" layoutY="425.0" mnemonicParsing="false"
+                        onAction="#usersBtnOnAction" prefHeight="26.0" prefWidth="199.0"
+                        style="-fx-background-color: #57A6A1;" text="Users"/>
+                <Button fx:id="logoutBtn" layoutX="9.0" layoutY="628.0" mnemonicParsing="false"
+                        onAction="#logoutBtnOnAction" prefHeight="26.0" prefWidth="142.0"
+                        style="-fx-background-color: #f50a0a; " text="Logout"/>
+                <Separator layoutX="13.0" layoutY="242.0" prefWidth="200.0"/>
+                <ComboBox fx:id="manageReturnCombo" layoutX="12.0" layoutY="199.0" onAction="#manageReturnComboOnAction"
+                          prefHeight="26.0" prefWidth="200.0" promptText="Manage Return"
+                          style="-fx-background-color: #57A6A1;"/>
+            </children>
+        </AnchorPane>
+    </left>
 </BorderPane>

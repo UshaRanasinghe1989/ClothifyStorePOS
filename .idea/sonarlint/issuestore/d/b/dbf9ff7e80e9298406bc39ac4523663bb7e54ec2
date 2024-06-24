@@ -1,0 +1,7 @@
+
+Ê
+java:S1186Ÿ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(õÖ¼„ùÿÿÿÿ8“™–Û„2J$c4520533-cd9a-4872-8ed8-1ddb7ce585fe
+›
+java:S1450Q"SRemove the "user" field and declare it as a local variable in the relevant methods.(’Ø¾ıÿÿÿÿ8Üğ’Û„2J$7e4a67e9-b11b-4631-a610-208247863be9
+p
+java:S1068Q"(Remove this unused "user" private field.(’Ø¾ıÿÿÿÿ8îğ’Û„2J$64f8ce39-3b7c-4148-afdb-ae309d592919

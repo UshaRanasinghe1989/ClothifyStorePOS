@@ -3,6 +3,7 @@ package edu.icet.pos.controller;
 import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.SupplierBo;
 import edu.icet.pos.dto.Supplier;
+import edu.icet.pos.dto.User;
 import edu.icet.pos.util.BoType;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -18,6 +19,7 @@ import javafx.util.Duration;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 
+import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
@@ -29,39 +31,62 @@ import java.util.ResourceBundle;
 @Slf4j
 public class ManageSupplierFormController extends SuperFormController implements Initializable {
     @FXML
-    public TextField supplierIdTxt;
+    private TextField supplierIdTxt;
     @FXML
-    public TextField supplierNameTxt;
+    private TextField supplierNameTxt;
     @FXML
-    public TextField contactPersonTxt;
+    private TextField contactPersonTxt;
     @FXML
-    public TextField contactNoTxt;
+    private TextField contactNoTxt;
     @FXML
-    public TextField emailTxt;
+    private TextField emailTxt;
     @FXML
-    public TextField addressTxt;
+    private TextField addressTxt;
     @FXML
-    public TableView<Supplier> supplierDetailTable;
+    private TableView<Supplier> supplierDetailTable;
     @FXML
-    public TableColumn<Supplier, String> idCol;
+    private TableColumn<Supplier, String> idCol;
     @FXML
-    public TableColumn<Supplier, String> nameCol;
+    private TableColumn<Supplier, String> nameCol;
     @FXML
-    public TableColumn<Supplier, String> contactPersonCol;
+    private TableColumn<Supplier, String> contactPersonCol;
     @FXML
-    public TableColumn<Supplier, String> contactNoCol;
+    private TableColumn<Supplier, String> contactNoCol;
     @FXML
-    public TableColumn<Supplier, String> emailCol;
+    private TableColumn<Supplier, String> emailCol;
     @FXML
-    public TableColumn<Supplier, String> addressCol;
+    private TableColumn<Supplier, String> addressCol;
+    //MENU FIELDS
     @FXML
     public Label currentDateLbl;
     @FXML
     public Label timerLbl;
+    @FXML
+    public Label userLbl;
+    @FXML
+    public Button dashboardBtn;
+    @FXML
+    public Button ordersBtn;
+    @FXML
+    public ComboBox<String> manageStockCombo;
+    @FXML
+    public Button supplierBtn;
+    @FXML
+    public Button customerBtn;
+    @FXML
+    public Button employeeBtn;
+    @FXML
+    public Button usersBtn;
+    @FXML
+    public Button logoutBtn;
+    @FXML
+    public ComboBox<String> manageReturnCombo;
+    private User user;
     private final SupplierBo supplierBo = BoFactory.getInstance().getBo(BoType.SUPPLIER);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        user = setDisplayName();
         getCurrentDate(currentDateLbl);
         getCurrentTime(timerLbl);
         loadId();
@@ -92,15 +117,15 @@ public class ManageSupplierFormController extends SuperFormController implements
         );
         try {
             boolean isSaved = supplierBo.save(supplier);
-            if (isSaved){
+            if (isSaved) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Supplier saved successfully !").show();
                 loadId();
                 loadDetailTable();
                 clearForm();
-            }else {
+            } else {
                 new Alert(Alert.AlertType.ERROR, "Please try again !").show();
             }
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             log.info(e.getMessage());
         }
     }
@@ -116,12 +141,12 @@ public class ManageSupplierFormController extends SuperFormController implements
 
     @Override
     void loadId() {
-        int number=0;
+        int number = 0;
         try {
             List<String> supplierList = supplierBo.retrieveAllId();
             String lastSupId = supplierList.get(supplierList.size() - 1);
             number = Integer.parseInt(lastSupId.split("SUP")[1]);
-        }catch (NullPointerException | IndexOutOfBoundsException e){
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
             supplierIdTxt.setText("SUP0001");
         }
         number++;
@@ -141,7 +166,7 @@ public class ManageSupplierFormController extends SuperFormController implements
             contactNoCol.setCellValueFactory(new PropertyValueFactory<>("contactNo"));
             emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
             addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             log.info(e.getMessage());
         }
     }
@@ -158,7 +183,7 @@ public class ManageSupplierFormController extends SuperFormController implements
             contactNoTxt.setText(supplier.getContactNo());
             emailTxt.setText(supplier.getEmail());
             addressTxt.setText(supplier.getAddress());
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             log.info(e.getMessage());
         }
     }
@@ -173,21 +198,96 @@ public class ManageSupplierFormController extends SuperFormController implements
                 emailTxt.getText(),
                 addressTxt.getText()
         );
-        if (loadConfirmAlert("Confirm update ?")){
+        if (loadConfirmAlert("Confirm update ?")) {
             try {
                 int updatedRowCount = supplierBo.update(supplier);
 
-                if (updatedRowCount>0){
+                if (updatedRowCount > 0) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Supplier updated successfully !").show();
                     loadId();
                     loadDetailTable();
                     clearForm();
-                }else {
+                } else {
                     new Alert(Alert.AlertType.ERROR, "Please try again !").show();
                 }
-            }catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 log.info(e.getMessage());
             }
+        }
+    }
+
+    //MENU - LEFT BORDER
+    public User setDisplayName() {
+        return setUser(currentDateLbl);
+    }
+
+    //MENU FUNCTIONS
+    public void ordersBtnOnAction() {
+        try {
+            loadOrderForm(ordersBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+
+    public void manageStockComboOnAction() {
+        String comboOption = manageStockCombo.getValue();
+        try {
+            loadManageStockForms(manageStockCombo, comboOption);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+
+    public void employeesBtnOnAction() {
+        try {
+            loadEmployeeForm(employeeBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+
+    public void usersBtnOnAction() {
+        try {
+            loadUserForm(usersBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+
+    public void suppliersBtnOnAction() {
+        try {
+            loadSupplierForm(supplierBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+
+    public void customersBtnOnAction() {
+        try {
+            loadCustomerForm(customerBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+
+    public void manageReturnComboOnAction() {
+        String comboOption = manageReturnCombo.getValue();
+        try {
+            loadManageStockForms(manageReturnCombo, comboOption);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+
+    public void logoutBtnOnAction(ActionEvent event) {
+    }
+
+    public void dashboardBtnOnAction() {
+        try {
+            loadDashboardForm(dashboardBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
         }
     }
 }

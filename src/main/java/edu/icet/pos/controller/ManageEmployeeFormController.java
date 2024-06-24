@@ -3,73 +3,108 @@ package edu.icet.pos.controller;
 import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.EmployeeBo;
 import edu.icet.pos.dto.Employee;
+import edu.icet.pos.dto.User;
 import edu.icet.pos.util.BoType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
+@Slf4j
 public class ManageEmployeeFormController extends SuperFormController implements Initializable {
     @FXML
-    public TextField empNameText;
+    private TextField empNameText;
     @FXML
-    public TextField empNicText;
+    private TextField empNicText;
     @FXML
-    public DatePicker empDobDatePicker;
+    private DatePicker empDobDatePicker;
     @FXML
-    public TextField empContactNoText;
+    private TextField empContactNoText;
     @FXML
-    public TextField empEmailText;
+    private TextField empEmailText;
     @FXML
-    public TextField empAddressText;
+    private TextField empAddressText;
     @FXML
-    public TableColumn<Employee, String> idCol;
+    private TableColumn<Employee, String> idCol;
     @FXML
-    public TableColumn<Employee, String> nameCol;
+    private TableColumn<Employee, String> nameCol;
     @FXML
-    public TableColumn<Employee, String> dobCol;
+    private TableColumn<Employee, String> dobCol;
     @FXML
-    public TableColumn<Employee, String> nicCol;
+    private TableColumn<Employee, String> nicCol;
     @FXML
-    public TableColumn<Employee, String> contactNoCol;
+    private TableColumn<Employee, String> contactNoCol;
     @FXML
-    public TableColumn<Employee, String> emailCol;
+    private TableColumn<Employee, String> emailCol;
     @FXML
-    public TableColumn<Employee, String> addressCol;
+    private TableColumn<Employee, String> addressCol;
     @FXML
-    public Label currentDateLbl;
+    private Label currentDateLbl;
     @FXML
-    public Label timerLbl;
+    private Label timerLbl;
     @FXML
-    public TableView<Employee> empDetailTable;
+    private TableView<Employee> empDetailTable;
     @FXML
-    public TextField empIdText;
+    private TextField empIdText;
+    //MENU FIELDS
+    @FXML
+    public Label userLbl;
+    @FXML
+    public Button dashboardBtn;
+    @FXML
+    public ComboBox<String> manageStockCombo;
+    @FXML
+    public Button usersBtn;
+    @FXML
+    public ComboBox<String> manageReturnCombo;
+    @FXML
+    public Button ordersBtn;
+    @FXML
+    public Button supplierBtn;
+    @FXML
+    public Button customerBtn;
+    @FXML
+    public Button employeeBtn;
+    @FXML
+    public Button logoutBtn;
 
     private final EmployeeBo employeeBo = BoFactory.getInstance().getBo(BoType.EMPLOYEE);
 
     private static final String TRYAGAIN = "Please try again !";
+    private User user;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        user = setDisplayName();
+        loadMenu(userLbl, dashboardBtn, usersBtn);
         getCurrentDate(currentDateLbl);
         getCurrentTime(timerLbl);
+        loadManageStockCombo(manageStockCombo);
+        loadManageReturnCombo(manageReturnCombo);
+
         loadId();
         loadDetailTable();
     }
+
     public void saveBtnOnAction() {
         save();
     }
+
     public void editBtnOnAction() {
         updateById();
     }
+
     public void deleteBtnOnAction() {
         if (loadConfirmAlert("Confirm delete ?")) {
             int noRowsDeleted = employeeBo.deleteById(empIdText.getText());
@@ -83,6 +118,7 @@ public class ManageEmployeeFormController extends SuperFormController implements
             }
         }
     }
+
     public void searchBtnOnAction() {
         searchDetailById();
     }
@@ -100,18 +136,18 @@ public class ManageEmployeeFormController extends SuperFormController implements
                 new Date()
         );
         boolean isSaved = employeeBo.save(employeeDto);
-        if(isSaved){//TRUE
+        if (isSaved) {//TRUE
             new Alert(Alert.AlertType.CONFIRMATION, "Employee added successfully !").show();
             clearForm();
             loadId();
             loadDetailTable();
-        }else {
+        } else {
             new Alert(Alert.AlertType.ERROR, TRYAGAIN).show();
         }
     }
 
     @Override
-    public void clearForm(){
+    public void clearForm() {
         empNameText.setText("");
         empDobDatePicker.setValue(null);
         empNicText.setText("");
@@ -122,13 +158,13 @@ public class ManageEmployeeFormController extends SuperFormController implements
 
     @Override
     void loadId() {
-        int number=0;
+        int number = 0;
         try {
             List<String> list = employeeBo.retrieveAllId();
             ObservableList<String> observableList = FXCollections.observableList(list);
             String lastId = observableList.get(observableList.size() - 1);
             number = Integer.parseInt(lastId.split("EMP")[1]);
-        }catch (NullPointerException | IndexOutOfBoundsException e){
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
             empIdText.setText("EMP0001");
         }
         number++;
@@ -138,7 +174,7 @@ public class ManageEmployeeFormController extends SuperFormController implements
     @Override
     void loadDetailTable() {
         List<Employee> employeeList = employeeBo.retrieveAll();
-        ObservableList<Employee> observableList= FXCollections.observableList(employeeList);
+        ObservableList<Employee> observableList = FXCollections.observableList(employeeList);
 
         empDetailTable.setItems(observableList);
 
@@ -164,7 +200,7 @@ public class ManageEmployeeFormController extends SuperFormController implements
 
     @Override
     void updateById() {
-        if (loadConfirmAlert("Confirm update ?")){
+        if (loadConfirmAlert("Confirm update ?")) {
             Employee employee = new Employee(
                     empIdText.getText(),
                     empNameText.getText(),
@@ -176,14 +212,89 @@ public class ManageEmployeeFormController extends SuperFormController implements
                     new Date()
             );
             int updatedRowCount = employeeBo.update(employee);
-            if(updatedRowCount>0){
+            if (updatedRowCount > 0) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Employee updated successfully !").show();
                 clearForm();
                 loadId();
                 loadDetailTable();
-            }else {
+            } else {
                 new Alert(Alert.AlertType.ERROR, TRYAGAIN).show();
             }
+        }
+    }
+
+    //MENU - LEFT BORDER
+    public User setDisplayName() {
+        return setUser(currentDateLbl);
+    }
+
+    //MENU FUNCTIONS
+    public void ordersBtnOnAction() {
+        try {
+            loadOrderForm(ordersBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+
+    public void manageStockComboOnAction() {
+        String comboOption = manageStockCombo.getValue();
+        try {
+            loadManageStockForms(manageStockCombo, comboOption);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+
+    public void employeesBtnOnAction() {
+        try {
+            loadEmployeeForm(employeeBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+
+    public void usersBtnOnAction() {
+        try {
+            loadUserForm(usersBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+
+    public void suppliersBtnOnAction() {
+        try {
+            loadSupplierForm(supplierBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+
+    public void customersBtnOnAction() {
+        try {
+            loadCustomerForm(customerBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+
+    public void manageReturnComboOnAction() {
+        String comboOption = manageReturnCombo.getValue();
+        try {
+            loadManageStockForms(manageReturnCombo, comboOption);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+
+    public void logoutBtnOnAction(ActionEvent event) {
+    }
+
+    public void dashboardBtnOnAction() {
+        try {
+            loadDashboardForm(dashboardBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
         }
     }
 }

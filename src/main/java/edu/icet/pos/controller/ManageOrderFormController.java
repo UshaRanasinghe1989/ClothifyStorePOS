@@ -90,6 +90,26 @@ public class ManageOrderFormController extends SuperFormController implements In
     public Button checkOutBtn;
     @FXML
     public Button paymentBtn;
+    @FXML
+    public Label userLbl;
+    @FXML
+    public Button dashboardBtn;
+    @FXML
+    public Button ordersBtn;
+    @FXML
+    public ComboBox<String> manageStockCombo;
+    @FXML
+    public Button supplierBtn;
+    @FXML
+    public Button customerBtn;
+    @FXML
+    public Button employeeBtn;
+    @FXML
+    public Button usersBtn;
+    @FXML
+    public Button logoutBtn;
+    @FXML
+    public ComboBox<String> manageReturnCombo;
 
     double unitPrice;
     Product selectedProduct;
@@ -277,6 +297,73 @@ public class ManageOrderFormController extends SuperFormController implements In
     @Override
     void updateById() {
 
+    }
+    //MENU - LEFT BORDER
+    public User setDisplayName(){
+        return setUser(currentDateLbl);
+    }
+
+    //MENU FUNCTIONS
+    public void ordersBtnOnAction() {
+        try {
+            loadOrderForm(ordersBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+    public void manageStockComboOnAction() {
+        String comboOption = manageStockCombo.getValue();
+        try {
+            loadManageStockForms(manageStockCombo, comboOption);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+    public void employeesBtnOnAction() {
+        try {
+            loadEmployeeForm(employeeBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+    public void usersBtnOnAction() {
+        try {
+            loadUserForm(usersBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+    public void suppliersBtnOnAction() {
+        try {
+            loadSupplierForm(supplierBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+    public void customersBtnOnAction() {
+        try {
+            loadCustomerForm(customerBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+    public void manageReturnComboOnAction() {
+        String comboOption = manageReturnCombo.getValue();
+        try {
+            loadManageStockForms(manageReturnCombo, comboOption);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+    public void logoutBtnOnAction(ActionEvent event) {
+    }
+
+    public void dashboardBtnOnAction() {
+        try {
+            loadDashboardForm(dashboardBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
     }
 
     private ObservableList<CartTable> getCartTables() {

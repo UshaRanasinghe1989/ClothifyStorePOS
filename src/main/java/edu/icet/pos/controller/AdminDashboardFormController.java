@@ -8,7 +8,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -27,6 +26,7 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 public class AdminDashboardFormController implements Initializable {
+    //MENU FIELDS
     @FXML
     private ComboBox<String> manageStockCombo;
     @FXML
@@ -41,47 +41,120 @@ public class AdminDashboardFormController implements Initializable {
     private Button dashboardBtn;
     @FXML
     private Button usersBtn;
+    @FXML
+    public Button ordersBtn;
+    @FXML
+    public Button supplierBtn;
+    @FXML
+    public Button customerBtn;
+    @FXML
+    public Button employeeBtn;
+    @FXML
+    public Button logoutBtn;
+
+    private User user;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        user = setDisplayName();
         loadDateTime();
         loadMenu();
         loadManageStockCombo();
         loadManageReturnCombo();
     }
-    public void dashboardBtnOnAction(ActionEvent actionEvent) {
+    public void dashboardBtnOnAction() throws IOException {
+        //CLOSE CURRENT FORM
+        Stage currentForm = (Stage) dashboardBtn.getScene().getWindow();
+        currentForm.close();
+        //LOAD ADMIN DASH BOARD FORM
+        Stage stage = new Stage();
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/admin-dashboard-form.fxml"))));
+        stage.show();
     }
 
-    public void ordersBtnOnAction(ActionEvent actionEvent) {
+    public void ordersBtnOnAction() throws IOException {
+        //CLOSE CURRENT FORM
+        Stage currentForm = (Stage) ordersBtn.getScene().getWindow();
+        currentForm.close();
+        //LOAD MANAGE ORDER FORM
+        Stage stage = new Stage();
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/manage-orders-form.fxml"))));
+        stage.show();
+    }
+    public void manageStockComboOnAction() throws IOException {
+        String comboOption = manageStockCombo.getValue();
+        //CLOSE CURRENT FORM
+        Stage currentForm = (Stage) manageStockCombo.getScene().getWindow();
+        currentForm.close();
+        if (comboOption.equals("Manage Stocks")){
+            //LOAD MANAGE STOCK FORM
+            Stage stage = new Stage();
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/manage-stock-form.fxml"))));
+            stage.show();
+        } else if (comboOption.equals("Manage Products")) {
+            //LOAD MANAGE PRODUCT FORM
+            Stage stage = new Stage();
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/manage-product-form.fxml"))));
+            stage.show();
+        }
+    }
+    public void suppliersBtnOnAction() throws IOException {
+        //CLOSE CURRENT FORM
+        Stage currentForm = (Stage) supplierBtn.getScene().getWindow();
+        currentForm.close();
+        //LOAD SUPPLIER FORM
+        Stage stage = new Stage();
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/manage-supplier-form.fxml"))));
+        stage.show();
     }
 
-    public void returnBtnOnAction(ActionEvent actionEvent) {
-    }
-
-    public void manageStockComboOnAction(ActionEvent actionEvent) {
-    }
-
-    public void suppliersBtnOnAction(ActionEvent actionEvent) {
-    }
-
-    public void customersBtnOnAction(ActionEvent actionEvent) {
+    public void customersBtnOnAction() {
     }
 
     public void employeesBtnOnAction() throws IOException {
-        //LOAD MANAGE EMPLOYEE MODULE
+        //CLOSE CURRENT FORM
+        Stage currentForm = (Stage) employeeBtn.getScene().getWindow();
+        currentForm.close();
+        //LOAD MANAGE EMPLOYEE FORM
         Stage stage = new Stage();
         stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/manage-employee-form.fxml"))));
         stage.show();
     }
-
-    public void usersBtnOnAction() {
-
+    public void usersBtnOnAction() throws IOException {
+        //CLOSE CURRENT FORM
+        Stage currentForm = (Stage) usersBtn.getScene().getWindow();
+        currentForm.close();
+        //LOAD USER FORM
+        Stage stage = new Stage();
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/manage-user-form.fxml"))));
+        stage.show();
     }
-
-    public void logoutBtnOnAction(ActionEvent actionEvent) {
+    public void logoutBtnOnAction() {
+        //CLOSE CURRENT FORM
+        Stage currentForm = (Stage) logoutBtn.getScene().getWindow();
+        currentForm.close();
     }
-
-    public void manageReturnComboOnAction(ActionEvent event) {
+    public void manageReturnComboOnAction() throws IOException {
+        String comboOption = manageReturnCombo.getValue();
+        //CLOSE CURRENT FORM
+        Stage currentForm = (Stage) manageReturnCombo.getScene().getWindow();
+        currentForm.close();
+        if (comboOption.equals("Generate Return Note")){
+            //LOAD MANAGE RETURN NOTE FORM
+            Stage stage = new Stage();
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/manage-return-form.fxml"))));
+            stage.show();
+        } else if (comboOption.equals("Generate Credit Note")) {
+            //LOAD MANAGE CREDIT NOTE FORM
+            Stage stage = new Stage();
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/generate-creditnote-form.fxml"))));
+            stage.show();
+        }
+    }
+    private User setDisplayName(){
+        User userObj = CurrentUserHolder.getInstance().getUser();
+        userLbl.setText(userObj.getSystemName());
+        return userObj;
     }
     private void loadDateTime() {
         currentDateLbl.setText(getCurrentDate());
@@ -116,9 +189,9 @@ public class AdminDashboardFormController implements Initializable {
     }
     private void loadMenu(){
         CurrentUserHolder currentUserHolder = CurrentUserHolder.getInstance();
-        User user = currentUserHolder.getUser();
-        if (user.getType().equals(UserType.USER)){
-            userLbl.setText(user.getSystemName());
+        User userObj = currentUserHolder.getUser();
+        if (userObj.getType().equals(UserType.USER)){
+            userLbl.setText(userObj.getSystemName());
             dashboardBtn.setVisible(false);
             usersBtn.setVisible(false);
         }else {

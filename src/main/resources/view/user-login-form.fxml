@@ -30,9 +30,8 @@
             </Button>
             <Hyperlink layoutX="414.0" layoutY="344.0" onAction="#resetPasswordLinkOnAction" text="Reset password" />
             <ImageView fx:id="padlockImageView" fitHeight="150.0" fitWidth="200.0" layoutX="130.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../java/edu/icet/pos/img/padlock.png" />
-               </image></ImageView>
+               <Image url="@../../java/edu/icet/pos/img/padlock.png" />
+            </ImageView>
             <Label layoutX="74.0" layoutY="236.0" text="Clothify Store POS" textFill="#d0d3d9">
                <font>
                   <Font name="System Bold" size="28.0" />

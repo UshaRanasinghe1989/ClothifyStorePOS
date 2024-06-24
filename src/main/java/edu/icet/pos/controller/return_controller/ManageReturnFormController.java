@@ -3,8 +3,10 @@ package edu.icet.pos.controller.return_controller;
 import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.*;
 import edu.icet.pos.dto.*;
+import edu.icet.pos.dto.holder_dto.CurrentUserHolder;
 import edu.icet.pos.util.BoType;
 import edu.icet.pos.util.ReturnReason;
+import edu.icet.pos.util.UserType;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -12,12 +14,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
@@ -26,60 +32,79 @@ import java.util.*;
 @Slf4j
 public class ManageReturnFormController implements ReturnInterface, Initializable {
     @FXML
-    public Label currentDateLbl;
+    private TableView<OrderDetail> orderDetailTable;
     @FXML
-    public Label timerLbl;
+    private TableColumn<OrderDetail, Integer> idCol;
     @FXML
-    public TableView<OrderDetail> orderDetailTable;
+    private TableColumn<OrderDetail, Integer> qtyCol;
     @FXML
-    public TableColumn<OrderDetail, Integer> idCol;
+    private TableColumn<OrderDetail, Double> discountCol;
     @FXML
-    public TableColumn<OrderDetail, Integer> qtyCol;
+    private TableColumn<OrderDetail, Double> priceCol;
     @FXML
-    public TableColumn<OrderDetail, Double> discountCol;
+    private TableColumn<OrderDetail, Boolean> isReturnedCol;
     @FXML
-    public TableColumn<OrderDetail, Double> priceCol;
+    private Label orderIdLbl;
     @FXML
-    public TableColumn<OrderDetail, Boolean> isReturnedCol;
+    private ComboBox<String> selectOrderCombo;
     @FXML
-    public Label orderIdLbl;
+    private Label productIdLbl;
     @FXML
-    public ComboBox<String> selectOrderCombo;
+    private ComboBox<String> selectReturnProductCombo;
     @FXML
-    public Label productIdLbl;
+    private Label productNameLbl;
     @FXML
-    public ComboBox<String> selectReturnProductCombo;
+    private Label purchasedQtyLbl;
     @FXML
-    public Label productNameLbl;
+    private ComboBox<ReturnReason> selectReturnReasonCombo;
     @FXML
-    public Label purchasedQtyLbl;
+    private TextArea returnDescriptionTxtArea;
     @FXML
-    public ComboBox<ReturnReason> selectReturnReasonCombo;
+    private Label customerNameLbl;
     @FXML
-    public TextArea returnDescriptionTxtArea;
+    private Label customerIdLbl;
     @FXML
-    public Label customerNameLbl;
+    private Label grossAmountLbl;
     @FXML
-    public Label customerIdLbl;
+    private Label orderDiscountLbl;
     @FXML
-    public Label grossAmountLbl;
+    private Label netAmountLbl;
     @FXML
-    public Label orderDiscountLbl;
+    private TextField returnedQtyTxt;
     @FXML
-    public Label netAmountLbl;
+    private Label returnedProductPriceLbl;
+    //MENU FIELDS
     @FXML
-    public TextField returnedQtyTxt;
+    private Label currentDateLbl;
     @FXML
-    public Label returnedProductPriceLbl;
-
-
+    private Label timerLbl;
+    @FXML
+    private Label userLbl;
+    @FXML
+    private Button dashboardBtn;
+    @FXML
+    private Button ordersBtn;
+    @FXML
+    private ComboBox<String> manageStockCombo;
+    @FXML
+    private Button supplierBtn;
+    @FXML
+    private Button customerBtn;
+    @FXML
+    private Button employeeBtn;
+    @FXML
+    private Button usersBtn;
+    @FXML
+    private Button logoutBtn;
+    @FXML
+    private ComboBox<String> manageReturnCombo;
+    private User currentUser;
     private static final OrderBo orderBo = BoFactory.getInstance().getBo(BoType.ORDERS);
     private static final OrderDetailBo orderDetailBo = BoFactory.getInstance().getBo(BoType.ORDER_DETAIL);
     private static final ProductBo productBo = BoFactory.getInstance().getBo(BoType.PRODUCT);
     private static final ReturnBo returnsBo = BoFactory.getInstance().getBo(BoType.RETURN);
     private static final StockBo stockBo = BoFactory.getInstance().getBo(BoType.STOCK);
     private static final DamagedStockBo damagedStockBo = BoFactory.getInstance().getBo(BoType.DAMAGED_STOCK);
-
     private String selectedOrderId;
     private Orders selectedOrderObj;
     private Product returnedProductObj;
@@ -91,10 +116,15 @@ public class ManageReturnFormController implements ReturnInterface, Initializabl
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        currentUser = setUser();
+
         getCurrentDate();
         getCurrentTime();
         loadOrdersCombo();
         loadReturnReasonCombo();
+        loadManageStockCombo();
+        loadManageReturnCombo();
+        loadMenu();
 
         //
         selectReturnProductCombo.setDisable(true);
@@ -292,7 +322,93 @@ public class ManageReturnFormController implements ReturnInterface, Initializabl
 
         return isConfirm;
     }
-
+    public void dashboardBtnOnAction() throws IOException {
+        //CLOSE CURRENT FORM
+        Stage currentForm = (Stage) dashboardBtn.getScene().getWindow();
+        currentForm.close();
+        //LOAD ADMIN DASH BOARD FORM
+        Stage stage = new Stage();
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/admin-dashboard-form.fxml"))));
+        stage.show();
+    }
+    public void ordersBtnOnAction() throws IOException {
+        //CLOSE CURRENT FORM
+        Stage currentForm = (Stage) ordersBtn.getScene().getWindow();
+        currentForm.close();
+        //LOAD MANAGE ORDER FORM
+        Stage stage = new Stage();
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/manage-orders-form.fxml"))));
+        stage.show();
+    }
+    public void manageStockComboOnAction() throws IOException {
+        String comboOption = manageStockCombo.getValue();
+        //CLOSE CURRENT FORM
+        Stage currentForm = (Stage) manageStockCombo.getScene().getWindow();
+        currentForm.close();
+        if (comboOption.equals("Manage Stocks")){
+            //LOAD MANAGE STOCK FORM
+            Stage stage = new Stage();
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/manage-stock-form.fxml"))));
+            stage.show();
+        } else if (comboOption.equals("Manage Products")) {
+            //LOAD MANAGE PRODUCT FORM
+            Stage stage = new Stage();
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/manage-product-form.fxml"))));
+            stage.show();
+        }
+    }
+    public void manageReturnComboOnAction() throws IOException {
+        String comboOption = manageReturnCombo.getValue();
+        //CLOSE CURRENT FORM
+        Stage currentForm = (Stage) manageReturnCombo.getScene().getWindow();
+        currentForm.close();
+        if (comboOption.equals("Generate Return Note")){
+            //LOAD MANAGE RETURN NOTE FORM
+            Stage stage = new Stage();
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/manage-return-form.fxml"))));
+            stage.show();
+        } else if (comboOption.equals("Generate Credit Note")) {
+            //LOAD MANAGE CREDIT NOTE FORM
+            Stage stage = new Stage();
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/generate-creditnote-form.fxml"))));
+            stage.show();
+        }
+    }
+    public void customersBtnOnAction() {
+        //CLOSE CURRENT FORM
+        Stage currentForm = (Stage) customerBtn.getScene().getWindow();
+        currentForm.close();
+    }
+    public void suppliersBtnOnAction() throws IOException {
+        //CLOSE CURRENT FORM
+        Stage currentForm = (Stage) supplierBtn.getScene().getWindow();
+        currentForm.close();
+        //LOAD SUPPLIER FORM
+        Stage stage = new Stage();
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/manage-supplier-form.fxml"))));
+        stage.show();
+    }
+    public void usersBtnOnAction() throws IOException {
+        //CLOSE CURRENT FORM
+        Stage currentForm = (Stage) usersBtn.getScene().getWindow();
+        currentForm.close();
+        //LOAD USER FORM
+        Stage stage = new Stage();
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/manage-user-form.fxml"))));
+        stage.show();
+    }
+    public void employeesBtnOnAction() throws IOException {
+        //CLOSE CURRENT FORM
+        Stage currentForm = (Stage) employeeBtn.getScene().getWindow();
+        currentForm.close();
+        //LOAD MANAGE EMPLOYEE FORM
+        Stage stage = new Stage();
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/manage-employee-form.fxml"))));
+        stage.show();
+    }
+    public void logoutBtnOnAction() {
+        //PENDING
+    }
     private Returns getReturnObject(){
         return new Returns(
                 selectedOrderObj,
@@ -318,7 +434,6 @@ public class ManageReturnFormController implements ReturnInterface, Initializabl
         }
         return updatedRowCount;
     }
-
     private DamagedStock getDamagedStockObj(){
         String description = returnDescriptionTxtArea.getText();
         return new DamagedStock(
@@ -327,5 +442,37 @@ public class ManageReturnFormController implements ReturnInterface, Initializabl
                 description,
                 new Date()
         );
+    }
+
+    private User setUser() {
+        User user = CurrentUserHolder.getInstance().getUser();
+        userLbl.setText(user.getSystemName());
+        return user;
+    }
+
+    private void loadMenu() {
+        CurrentUserHolder currentUserHolder = CurrentUserHolder.getInstance();
+        User user = currentUserHolder.getUser();
+        if (user.getType().equals(UserType.USER)) {
+            userLbl.setText(user.getSystemName());
+            dashboardBtn.setVisible(false);
+            usersBtn.setVisible(false);
+        } else {
+            userLbl.setText("Admin");
+        }
+    }
+
+    private void loadManageStockCombo() {
+        ObservableList<String> typeOptions = FXCollections.observableArrayList();
+        typeOptions.add("Manage Stocks");
+        typeOptions.add("Manage Products");
+        manageStockCombo.setItems(typeOptions);
+    }
+
+    private void loadManageReturnCombo() {
+        ObservableList<String> typeOptions = FXCollections.observableArrayList();
+        typeOptions.add("Generate Return Note");
+        typeOptions.add("Generate Credit Note");
+        manageReturnCombo.setItems(typeOptions);
     }
 }

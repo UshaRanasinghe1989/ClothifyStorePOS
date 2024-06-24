@@ -4,6 +4,7 @@ import com.mysql.cj.log.Log;
 import edu.icet.pos.bo.BoFactory;
 import edu.icet.pos.bo.custom.CategoryBo;
 import edu.icet.pos.dto.Category;
+import edu.icet.pos.dto.User;
 import edu.icet.pos.util.BoType;
 import edu.icet.pos.util.GetModelMapper;
 import javafx.animation.Animation;
@@ -21,6 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.hibernate.query.sqm.UnknownEntityException;
 import org.modelmapper.ModelMapper;
 
+import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
@@ -32,27 +34,48 @@ import java.util.ResourceBundle;
 @Slf4j
 public class ManageProductCategoryFormController extends SuperFormController implements Initializable {
     @FXML
-    public Label categoryIdTxt;
+    private Label categoryIdTxt;
     @FXML
-    public ComboBox<String> selectCategoryIdCombo;
+    private ComboBox<String> selectCategoryIdCombo;
     @FXML
-    public TextField categoryNameTxt;
+    private TextField categoryNameTxt;
     @FXML
-    public TableView<Category> categoryTableView;
+    private TableView<Category> categoryTableView;
     @FXML
-    public TableColumn<Category, String> categoryIdCol;
+    private TableColumn<Category, String> categoryIdCol;
     @FXML
-    public TableColumn<Category, String> categoryNameCol;
+    private TableColumn<Category, String> categoryNameCol;
     @FXML
     public Label currentDateLbl;
     @FXML
     public Label timerLbl;
-
-    ModelMapper mapper = GetModelMapper.getInstance().getModelMapper();
-    CategoryBo categoryBo = BoFactory.getInstance().getBo(BoType.CATEGORY);
+    @FXML
+    public Label userLbl;
+    @FXML
+    public Button dashboardBtn;
+    @FXML
+    public Button ordersBtn;
+    @FXML
+    public ComboBox<String> manageStockCombo;
+    @FXML
+    public Button supplierBtn;
+    @FXML
+    public Button customerBtn;
+    @FXML
+    public Button employeeBtn;
+    @FXML
+    public Button usersBtn;
+    @FXML
+    public Button logoutBtn;
+    @FXML
+    public ComboBox<String> manageReturnCombo;
+    private final ModelMapper mapper = GetModelMapper.getInstance().getModelMapper();
+    private final CategoryBo categoryBo = BoFactory.getInstance().getBo(BoType.CATEGORY);
+    private User user;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        user = setDisplayName();
         getCurrentDate(currentDateLbl);
         getCurrentTime(timerLbl);
         loadId();
@@ -153,6 +176,74 @@ public class ManageProductCategoryFormController extends SuperFormController imp
 
     public void catIdComboOnAction() {
         searchDetailById();
+    }
+
+    //MENU - LEFT BORDER
+    public User setDisplayName(){
+        return setUser(currentDateLbl);
+    }
+
+    //MENU FUNCTIONS
+    public void ordersBtnOnAction() {
+        try {
+            loadOrderForm(ordersBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+    public void manageStockComboOnAction() {
+        String comboOption = manageStockCombo.getValue();
+        try {
+            loadManageStockForms(manageStockCombo, comboOption);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+    public void employeesBtnOnAction() {
+        try {
+            loadEmployeeForm(employeeBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+    public void usersBtnOnAction() {
+        try {
+            loadUserForm(usersBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+    public void suppliersBtnOnAction() {
+        try {
+            loadSupplierForm(supplierBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+    public void customersBtnOnAction() {
+        try {
+            loadCustomerForm(customerBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+    public void manageReturnComboOnAction() {
+        String comboOption = manageReturnCombo.getValue();
+        try {
+            loadManageStockForms(manageReturnCombo, comboOption);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+    public void logoutBtnOnAction() {
+    }
+
+    public void dashboardBtnOnAction() {
+        try {
+            loadDashboardForm(dashboardBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
     }
 
     private void loadCategoryIdCombo(){

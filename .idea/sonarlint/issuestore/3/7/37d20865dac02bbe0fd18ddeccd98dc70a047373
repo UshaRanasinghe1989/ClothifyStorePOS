@@ -1,11 +1,17 @@
 
 Ê
-java:S1186¢"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(µ•Õÿÿÿÿÿ8ß³¥ì2J$22e0447f-ba1c-40aa-8938-f3f89be16a78
+java:S1186˜"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(µ•Õÿÿÿÿÿ8“œÛ„2J$00bb5bb9-70c4-49ad-b2f4-dcc674dd34f6
 Å
-java:S1186¥"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(‘ˆ¾§8ß³¥ì2J$0ed8bc54-7263-49dc-a160-2d1df36d1899
+java:S1186›"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(‘ˆ¾§8”œÛ„2J$88248a8b-193b-47d2-872f-1ccc8bc37a77
 Å
-java:S1186¨"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(©¸×ƒ8ß³¥ì2J$dd9b7eca-c133-4c42-a419-770ded2ae80e
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(©¸×ƒ8”œÛ„2J$2ca8827f-956b-4d32-9008-240bc3ea384d
 Å
-java:S1186«"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(´şö¾8ß³¥ì2J$00684e8e-62a8-470f-9c92-05c05056bf07
+java:S1186¡"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(´şö¾8”œÛ„2J$06ca1a26-0cdb-4bb3-b310-552fab5ed871
 Ê
-java:S1186®"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÍÎ¼œÿÿÿÿÿ8à³¥ì2J$fed820ca-60fc-41e4-86c9-cc0af195d30a
+java:S1186¤"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÍÎ¼œÿÿÿÿÿ8”œÛ„2J$048531bc-e6a9-4987-a92e-e959232d3e4d
+Ê
+java:S1186ç"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(õÖ¼„ùÿÿÿÿ8”œÛ„2J$dee9571a-f917-4a4f-94cc-55a4b1c5734d
+›
+java:S1450b"SRemove the "user" field and declare it as a local variable in the relevant methods.(’Ø¾ıÿÿÿÿ8–œÛ„2J$d73281db-39f6-4e0c-87d1-60ce50fa800f
+p
+java:S1068b"(Remove this unused "user" private field.(’Ø¾ıÿÿÿÿ8¦œÛ„2J$93a585bf-d857-4a97-826e-2b9698b73bde

@@ -74,7 +74,7 @@
     <bottom>
         <AnchorPane prefHeight="15.0" prefWidth="1500.0" style="-fx-background-color: #240750;" BorderPane.alignment="CENTER">
             <children>
-                <Label alignment="CENTER" contentDisplay="CENTER" text="Copyright" textAlignment="CENTER" textFill="#dae0db" />
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="252.0" text="Copyright" textAlignment="CENTER" textFill="#dae0db" />
             </children>
         </AnchorPane>
     </bottom>
