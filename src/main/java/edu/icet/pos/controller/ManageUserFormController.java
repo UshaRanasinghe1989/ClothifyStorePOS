@@ -6,6 +6,7 @@ import edu.icet.pos.bo.custom.UserBo;
 import edu.icet.pos.dto.Employee;
 import edu.icet.pos.dto.User;
 import edu.icet.pos.util.BoType;
+import edu.icet.pos.util.GetModelMapper;
 import edu.icet.pos.util.PasswordBasedEncryption;
 import edu.icet.pos.util.UserType;
 import javafx.collections.FXCollections;
@@ -75,6 +76,7 @@ public class ManageUserFormController extends SuperFormController implements Ini
     private static final String TRY_AGAIN = "Please try again !";
     private final UserBo userBo = BoFactory.getInstance().getBo(BoType.USER);
     private final EmployeeBo employeeBo = BoFactory.getInstance().getBo(BoType.EMPLOYEE);
+    private final ModelMapper mapper = GetModelMapper.getInstance().getModelMapper();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -184,11 +186,12 @@ public class ManageUserFormController extends SuperFormController implements Ini
     }
     @Override
     void searchDetailById() {
-        User user = new ModelMapper().map(userBo.retrieveById(userIdTxt.getText()), User.class);
+        String userId = userIdTxt.getText();
+        User user = userBo.retrieveById(userId).get(0);
         userIdTxt.setText(user.getId());
         userTypeCombo.setValue(user.getType());
         userNameLbl.setText(user.getEmail());
-        selectEmpIdCombo.setValue(new ModelMapper().map(user.getEmployee(), Employee.class).getId());
+        selectEmpIdCombo.setValue(mapper.map(user.getEmployee(), Employee.class).getId());
         nameSystemText.setText(user.getSystemName());
     }
     @Override
@@ -263,7 +266,7 @@ public class ManageUserFormController extends SuperFormController implements Ini
     public void manageReturnComboOnAction() {
         String comboOption = manageReturnCombo.getValue();
         try {
-            loadManageStockForms(manageReturnCombo, comboOption);
+            loadManageReturnForms(manageReturnCombo, comboOption);
         } catch (IOException e) {
             log.info(e.getMessage());
         }

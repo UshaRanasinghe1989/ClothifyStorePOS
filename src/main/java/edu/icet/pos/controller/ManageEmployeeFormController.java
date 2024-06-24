@@ -5,6 +5,7 @@ import edu.icet.pos.bo.custom.EmployeeBo;
 import edu.icet.pos.dto.Employee;
 import edu.icet.pos.dto.User;
 import edu.icet.pos.util.BoType;
+import edu.icet.pos.util.GetModelMapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,9 +18,11 @@ import org.modelmapper.ModelMapper;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
 
 @Slf4j
 public class ManageEmployeeFormController extends SuperFormController implements Initializable {
@@ -56,7 +59,7 @@ public class ManageEmployeeFormController extends SuperFormController implements
     @FXML
     private TableView<Employee> empDetailTable;
     @FXML
-    private TextField empIdText;
+    public TextField empIdText;
     //MENU FIELDS
     @FXML
     public Label userLbl;
@@ -80,9 +83,10 @@ public class ManageEmployeeFormController extends SuperFormController implements
     public Button logoutBtn;
 
     private final EmployeeBo employeeBo = BoFactory.getInstance().getBo(BoType.EMPLOYEE);
-
+    private final ModelMapper mapper = GetModelMapper.getInstance().getModelMapper();
     private static final String TRYAGAIN = "Please try again !";
     private User user;
+    private String selectedEmpId;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -118,24 +122,20 @@ public class ManageEmployeeFormController extends SuperFormController implements
             }
         }
     }
-
+    @FXML
     public void searchBtnOnAction() {
+        selectedEmpId = empIdText.getText();
+        searchDetailById();
+    }
+    @FXML
+    public void empIdTextOnAction() {
+        selectedEmpId = empIdText.getText();
         searchDetailById();
     }
 
     @Override
     void save() {
-        Employee employeeDto = new Employee(
-                empIdText.getText(),
-                empNameText.getText(),
-                empDobDatePicker.getValue(),
-                empNicText.getText(),
-                empContactNoText.getText(),
-                empEmailText.getText(),
-                empAddressText.getText(),
-                new Date()
-        );
-        boolean isSaved = employeeBo.save(employeeDto);
+        boolean isSaved = employeeBo.save(getEmployeeObj());
         if (isSaved) {//TRUE
             new Alert(Alert.AlertType.CONFIRMATION, "Employee added successfully !").show();
             clearForm();
@@ -188,8 +188,9 @@ public class ManageEmployeeFormController extends SuperFormController implements
     }
 
     @Override
-    void searchDetailById() {
-        Employee employee = new ModelMapper().map(employeeBo.retrieveById(empIdText.getText()), Employee.class);
+    public void searchDetailById() {
+        List<Employee> employeeList = employeeBo.retrieveById(selectedEmpId);
+        Employee employee = employeeList.get(0);
         empNameText.setText(employee.getName());
         empDobDatePicker.setValue(employee.getDob());
         empNicText.setText(employee.getNic());
@@ -201,17 +202,7 @@ public class ManageEmployeeFormController extends SuperFormController implements
     @Override
     void updateById() {
         if (loadConfirmAlert("Confirm update ?")) {
-            Employee employee = new Employee(
-                    empIdText.getText(),
-                    empNameText.getText(),
-                    empDobDatePicker.getValue(),
-                    empNicText.getText(),
-                    empContactNoText.getText(),
-                    empEmailText.getText(),
-                    empAddressText.getText(),
-                    new Date()
-            );
-            int updatedRowCount = employeeBo.update(employee);
+            int updatedRowCount = employeeBo.update(getEmployeeObj());
             if (updatedRowCount > 0) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Employee updated successfully !").show();
                 clearForm();
@@ -281,13 +272,14 @@ public class ManageEmployeeFormController extends SuperFormController implements
     public void manageReturnComboOnAction() {
         String comboOption = manageReturnCombo.getValue();
         try {
-            loadManageStockForms(manageReturnCombo, comboOption);
+            loadManageReturnForms(manageReturnCombo, comboOption);
         } catch (IOException e) {
             log.info(e.getMessage());
         }
     }
 
-    public void logoutBtnOnAction(ActionEvent event) {
+    public void logoutBtnOnAction() {
+        //PENDING
     }
 
     public void dashboardBtnOnAction() {
@@ -296,5 +288,35 @@ public class ManageEmployeeFormController extends SuperFormController implements
         } catch (IOException e) {
             log.info(e.getMessage());
         }
+    }
+    private Employee getEmployeeObj(){
+        Employee employeeDto=null;
+        String id = empIdText.getText();
+        String name = empNameText.getText();
+        LocalDate dob = empDobDatePicker.getValue();
+        String nic = empNicText.getText();
+        String contactNo = empContactNoText.getText();
+        String email = empEmailText.getText();
+        String address = empAddressText.getText();
+
+        if (id.isEmpty() || name.isEmpty() || nic.isEmpty() || contactNo.isEmpty() || email.isEmpty() || address.isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please fill all details !").show();
+        } else if (!emailFormatMatcher(email).matches()) {
+            new Alert(Alert.AlertType.WARNING, "Wrong email format !").show();
+        } else if (!phoneNoFormatMatcher(contactNo).matches()) {
+            new Alert(Alert.AlertType.WARNING, "Wrong phone number format !").show();
+        } else {
+            employeeDto = new Employee(
+                    id,
+                    name,
+                    dob,
+                    nic,
+                    contactNo,
+                    email,
+                    address,
+                    new Date()
+            );
+        }
+        return employeeDto;
     }
 }

@@ -7,18 +7,26 @@ import edu.icet.pos.dto.Employee;
 import edu.icet.pos.entity.EmployeeEntity;
 import edu.icet.pos.util.DaoType;
 import edu.icet.pos.util.GetModelMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 
 import java.util.List;
 
+@Slf4j
 public class EmployeeBoImpl implements EmployeeBo {
     private static final ModelMapper mapper = GetModelMapper.getInstance().getModelMapper();
     private static final EmployeeDao employeeDao = DaoFactory.getInstance().getDao(DaoType.EMPLOYEE);
 
     @Override
     public boolean save(Employee dto) {
-        return employeeDao.save(mapper.map(dto, EmployeeEntity.class));
+        EmployeeEntity entity = null;
+        try {
+            entity = mapper.map(dto, EmployeeEntity.class);
+        }catch (NullPointerException e){
+            log.info(e.getMessage());
+        }
+        return employeeDao.save(entity);
     }
 
     @Override
@@ -29,7 +37,7 @@ public class EmployeeBoImpl implements EmployeeBo {
 
     @Override
     public List<Employee> retrieveById(String id) throws NullPointerException {
-        List<EmployeeEntity> employeeEntityList = employeeDao.retrieveAll();
+        List<EmployeeEntity> employeeEntityList = employeeDao.retrieveById(id);
         return mapper.map(employeeEntityList, new TypeToken<List<Employee>>() {}.getType());
     }
 
@@ -38,7 +46,13 @@ public class EmployeeBoImpl implements EmployeeBo {
 
     @Override
     public int update(Employee dto) {
-        return employeeDao.update(mapper.map(dto, EmployeeEntity.class));
+        int rowCount = 0;
+        try {
+            rowCount = employeeDao.update(mapper.map(dto, EmployeeEntity.class));
+        }catch (NullPointerException e){
+            log.info(e.getMessage());
+        }
+        return rowCount;
     }
 
     @Override

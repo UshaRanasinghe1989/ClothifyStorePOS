@@ -1,7 +1,9 @@
 
-Ê
-java:S1186¢"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(õÖ¼„ùÿÿÿÿ8ƒù¾Ø„2J$94b162dc-eb40-43c1-881b-2790c5ebed98
+¦
+java:S4144ƒ"bUpdate this method so that its implementation is not identical to "searchBtnOnAction" on line 126.(¤È°·8¹ŸÌá„2J$71157cd5-f768-462f-8a2b-45ab6c99ae94
 ›
-java:S1450U"SRemove the "user" field and declare it as a local variable in the relevant methods.(’Ø¾ıÿÿÿÿ8…ù¾Ø„2J$547a9f2d-da49-4f9e-9508-430acf02bed4
+java:S1450X"SRemove the "user" field and declare it as a local variable in the relevant methods.(’Ø¾ıÿÿÿÿ8»ŸÌá„2J$82eb6177-5eee-4774-babd-9237452915e8
+r
+java:S1068V"*Remove this unused "mapper" private field.(©°¥‹ÿÿÿÿÿ8ĞŸÌá„2J$1b94701c-e656-47cd-a0c6-98ad43f4b1df
 p
-java:S1068U"(Remove this unused "user" private field.(’Ø¾ıÿÿÿÿ8–ù¾Ø„2J$efec35f5-07fd-4a39-9f4f-e39124cf67f9
+java:S1068X"(Remove this unused "user" private field.(’Ø¾ıÿÿÿÿ8ĞŸÌá„2J$b253b946-0baf-4a98-b8db-67c7a363518a

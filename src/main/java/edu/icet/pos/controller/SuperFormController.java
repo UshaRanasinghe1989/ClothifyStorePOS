@@ -1,5 +1,6 @@
 package edu.icet.pos.controller;
 
+import edu.icet.pos.controller.form_validation.FormValidationController;
 import edu.icet.pos.dto.User;
 import edu.icet.pos.dto.holder_dto.CurrentUserHolder;
 import edu.icet.pos.util.UserType;
@@ -20,7 +21,7 @@ import java.time.LocalTime;
 import java.util.Date;
 import java.util.Optional;
 
-public abstract class SuperFormController {
+public abstract class SuperFormController extends FormValidationController {
     //ABSTRACT METHODS
     abstract void save();
     abstract void clearForm();
@@ -171,4 +172,6 @@ public abstract class SuperFormController {
         stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/admin-dashboard-form.fxml"))));
         stage.show();
     }
+
+    //INPUT VALIDATION
 }

@@ -279,7 +279,7 @@ public class ManageStockFormController extends SuperFormController implements In
     public void manageReturnComboOnAction() {
         String comboOption = manageReturnCombo.getValue();
         try {
-            loadManageStockForms(manageReturnCombo, comboOption);
+            loadManageReturnForms(manageReturnCombo, comboOption);
         } catch (IOException e) {
             log.info(e.getMessage());
         }
