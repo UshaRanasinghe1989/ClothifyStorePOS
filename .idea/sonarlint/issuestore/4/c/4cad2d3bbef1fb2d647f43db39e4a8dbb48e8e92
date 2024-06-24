@@ -1,27 +1,19 @@
 
-|
-java:S1104"ZMake currentDateLbl a static final constant or non-public and provide accessors if needed.(ï®Æ¾ûÿÿÿÿ8Œ‰òœ2
-q
-java:S1104"TMake timerLbl a static final constant or non-public and provide accessors if needed.(—ûÆå8Œ‰òœ2
-u
-java:S1104"SMake userLbl a static final constant or non-public and provide accessors if needed.(›…òòûÿÿÿÿ8Œ‰òœ2
-£
-java:S11864"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(®³¬¥øÿÿÿÿ8Ì‰òœ2
-
-java:S11868"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(‚–Æ´8Ì‰òœ2
-
-java:S1186;"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(êÏ£8Ì‰òœ2
-£
-java:S1186>"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÿ­¯üøÿÿÿÿ8Ì‰òœ2
-
-java:S1186A"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ıÈÁA8Ì‰òœ2
-£
-java:S1186D"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Èëİˆşÿÿÿÿ8Ì‰òœ2
-£
-java:S1186G"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ËÖÖŸüÿÿÿÿ8Ì‰òœ2
-
-java:S1186Q"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¹™æ‰8Ì‰òœ2
-£
-java:S1186T"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Õ‰Ş–ùÿÿÿÿ8Ì‰òœ2
-[
-java:S11444"9Remove this unused private "loadManageStockCombo" method.(®³¬¥øÿÿÿÿ8„Šòœ2
+Ä
+java:S11864"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(‚–Æ´8ëÖŞÄ„2J$1e661c33-a2f7-4767-ab0c-ec815bb10b41
+Ä
+java:S11867"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(êÏ£8ìÖŞÄ„2J$e26e84d4-fdec-4199-b854-ab9283713c60
+É
+java:S1186:"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÿ­¯üøÿÿÿÿ8ìÖŞÄ„2J$880d4de0-15e7-4900-a10b-b000d8d5df1a
+Ã
+java:S1186="€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ıÈÁA8ìÖŞÄ„2J$602cd09d-b55b-4646-a234-e07ec1a8f11c
+É
+java:S1186@"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Èëİˆşÿÿÿÿ8ìÖŞÄ„2J$3405f92c-7767-46ad-a499-02256ee38bd2
+É
+java:S1186C"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ËÖÖŸüÿÿÿÿ8ìÖŞÄ„2J$29589a33-af3f-418d-b6c5-41ee8d277043
+Ä
+java:S1186M"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(”Í‚Â8ìÖŞÄ„2J$b07beef3-afd6-44a6-9111-c248ce503970
+É
+java:S1186Q"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Õ‰Ş–ùÿÿÿÿ8ìÖŞÄ„2J$f04d7701-8987-45eb-b30c-23a6af2e05ec
+Ä
+java:S1186T"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Š±ƒ±8ìÖŞÄ„2J$42ff2238-571f-4bf3-9fae-2e27c0c3f88c

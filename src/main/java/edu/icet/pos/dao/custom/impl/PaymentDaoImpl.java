@@ -1,6 +1,6 @@
 package edu.icet.pos.dao.custom.impl;
 
-import edu.icet.pos.dao.PaymentDao;
+import edu.icet.pos.dao.custom.PaymentDao;
 import edu.icet.pos.entity.PaymentEntity;
 import edu.icet.pos.util.HibernateUtil;
 import org.hibernate.Session;

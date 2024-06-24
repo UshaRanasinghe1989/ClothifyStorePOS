@@ -2,7 +2,7 @@ package edu.icet.pos.bo.custom.impl;
 
 import edu.icet.pos.bo.custom.PaymentBo;
 import edu.icet.pos.dao.DaoFactory;
-import edu.icet.pos.dao.PaymentDao;
+import edu.icet.pos.dao.custom.PaymentDao;
 import edu.icet.pos.dto.Payment;
 import edu.icet.pos.entity.OrderEntity;
 import edu.icet.pos.entity.PaymentEntity;

@@ -1,4 +1,4 @@
-package edu.icet.pos.dto.tableDto;
+package edu.icet.pos.dto.table_dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

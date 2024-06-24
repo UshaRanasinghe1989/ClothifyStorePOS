@@ -1,7 +1,7 @@
 package edu.icet.pos.dao.custom;
 
 import edu.icet.pos.dao.CrudDao;
-import edu.icet.pos.dto.tableDto.CartTable;
+import edu.icet.pos.dto.table_dto.CartTable;
 import edu.icet.pos.entity.ProductEntity;
 import edu.icet.pos.entity.StockEntity;
 

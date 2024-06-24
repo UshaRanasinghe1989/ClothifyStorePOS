@@ -6,6 +6,7 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -28,13 +29,16 @@
                </font>
             </Button>
             <Hyperlink layoutX="414.0" layoutY="344.0" onAction="#resetPasswordLinkOnAction" text="Reset password" />
-            <ImageView fx:id="loginImageView" fitHeight="150.0" fitWidth="200.0" layoutX="96.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="padlockImageView" fitHeight="150.0" fitWidth="200.0" layoutX="130.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../java/edu/icet/pos/img/padlock.png" />
+               </image></ImageView>
             <Label layoutX="74.0" layoutY="236.0" text="Clothify Store POS" textFill="#d0d3d9">
                <font>
                   <Font name="System Bold" size="28.0" />
                </font>
             </Label>
-            <PasswordField fx:id="passwordPw" layoutX="461.0" layoutY="175.0" prefHeight="26.0" prefWidth="236.0" promptText="Password" />
+            <PasswordField fx:id="passwordPw" layoutX="461.0" layoutY="175.0" onAction="#passwordOnAction" prefHeight="26.0" prefWidth="236.0" promptText="Password" />
          </children>
       </AnchorPane>
    </center>

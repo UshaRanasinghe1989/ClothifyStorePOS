@@ -6,17 +6,14 @@ import edu.icet.pos.bo.custom.PaymentBo;
 import edu.icet.pos.dto.OrderDetail;
 import edu.icet.pos.dto.Orders;
 import edu.icet.pos.dto.Payment;
-import edu.icet.pos.dto.holderDto.OrderDetailsHolder;
+import edu.icet.pos.dto.holder_dto.OrderDetailsHolder;
 import edu.icet.pos.util.BoType;
 import edu.icet.pos.util.PaymentType;
-import edu.icet.pos.util.UserType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.URL;

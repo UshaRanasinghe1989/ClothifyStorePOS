@@ -1,10 +1,9 @@
 package edu.icet.pos.bo.custom;
 
 import edu.icet.pos.bo.SuperBo;
-import edu.icet.pos.dto.OrderDetail;
 import edu.icet.pos.dto.Product;
 import edu.icet.pos.dto.Stock;
-import edu.icet.pos.dto.tableDto.CartTable;
+import edu.icet.pos.dto.table_dto.CartTable;
 
 import java.util.List;
 

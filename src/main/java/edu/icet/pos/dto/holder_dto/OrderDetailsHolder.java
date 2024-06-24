@@ -1,4 +1,4 @@
-package edu.icet.pos.dto.holderDto;
+package edu.icet.pos.dto.holder_dto;
 
 import edu.icet.pos.dto.Orders;
 import lombok.AllArgsConstructor;

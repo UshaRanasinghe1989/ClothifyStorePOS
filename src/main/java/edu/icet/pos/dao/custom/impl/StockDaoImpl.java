@@ -1,7 +1,7 @@
 package edu.icet.pos.dao.custom.impl;
 
 import edu.icet.pos.dao.custom.StockDao;
-import edu.icet.pos.dto.tableDto.CartTable;
+import edu.icet.pos.dto.table_dto.CartTable;
 import edu.icet.pos.entity.ProductEntity;
 import edu.icet.pos.entity.StockEntity;
 import edu.icet.pos.util.HibernateUtil;
