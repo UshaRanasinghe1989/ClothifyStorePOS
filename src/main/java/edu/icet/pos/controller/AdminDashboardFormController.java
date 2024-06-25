@@ -1,5 +1,6 @@
 package edu.icet.pos.controller;
 
+import edu.icet.pos.db_connection.DBConnection;
 import edu.icet.pos.dto.User;
 import edu.icet.pos.dto.holder_dto.CurrentUserHolder;
 import edu.icet.pos.util.UserType;
@@ -8,6 +9,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,14 +19,21 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import lombok.extern.slf4j.Slf4j;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+@Slf4j
 public class AdminDashboardFormController implements Initializable {
     //MENU FIELDS
     @FXML
@@ -61,6 +70,51 @@ public class AdminDashboardFormController implements Initializable {
         loadMenu();
         loadManageStockCombo();
         loadManageReturnCombo();
+        loadCharts();
+    }
+    @FXML
+    void generateOrderReportBtnOnAction() {
+        try {
+            JasperDesign design = JRXmlLoader.load("src/main/resources/jasper_report/ordersList.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(design);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, DBConnection.getDbConnection().getConnection());
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (JRException | ClassNotFoundException | SQLException e) {
+            log.info(e.getMessage());
+        }
+    }
+    @FXML
+    void generateOrderDetailReportBtnOnAction() {
+        try {
+            JasperDesign design = JRXmlLoader.load("src/main/resources/jasper_report/orderDetails.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(design);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, DBConnection.getDbConnection().getConnection());
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (JRException | ClassNotFoundException | SQLException e) {
+            log.info(e.getMessage());
+        }
+    }
+    @FXML
+    void generateStockReportBtnOnAction() {
+        try {
+            JasperDesign design = JRXmlLoader.load("src/main/resources/jasper_report/stocks.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(design);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, DBConnection.getDbConnection().getConnection());
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (JRException | ClassNotFoundException | SQLException e) {
+            log.info(e.getMessage());
+        }
+    }
+    @FXML
+    void generateProductReportBtnOnAction(ActionEvent event) {
+        try {
+            JasperDesign design = JRXmlLoader.load("src/main/resources/jasper_report/products.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(design);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, DBConnection.getDbConnection().getConnection());
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (JRException | ClassNotFoundException | SQLException e) {
+            log.info(e.getMessage());
+        }
     }
     public void dashboardBtnOnAction() throws IOException {
         //CLOSE CURRENT FORM
@@ -196,6 +250,16 @@ public class AdminDashboardFormController implements Initializable {
             usersBtn.setVisible(false);
         }else {
             userLbl.setText("Admin");
+        }
+    }
+    private void loadCharts(){
+        try {
+            JasperDesign design = JRXmlLoader.load("src/main/resources/jasper_charts/sales_chart.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(design);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, DBConnection.getDbConnection().getConnection());
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (JRException | ClassNotFoundException | SQLException e) {
+            log.info(e.getMessage());
         }
     }
 }

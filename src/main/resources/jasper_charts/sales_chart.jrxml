@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sales_chart" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="04c359a1-ab60-4bfb-9588-f2b0b5cf62cb">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Clothify JDBC"/>
+	<queryString language="SQL">
+		<![CDATA[select sum(gross_amount), orderDate from orders group by orderDate]]>
+	</queryString>
+	<field name="sum(gross_amount)" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="sum(gross_amount)"/>
+		<property name="com.jaspersoft.studio.field.label" value="sum(gross_amount)"/>
+	</field>
+	<field name="orderDate" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="orderDate"/>
+		<property name="com.jaspersoft.studio.field.label" value="orderDate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="orders"/>
+	</field>
+	<group name="sum(gross_amount)">
+		<groupExpression><![CDATA[$F{sum(gross_amount)}]]></groupExpression>
+	</group>
+	<group name="orderDate">
+		<groupExpression><![CDATA[$F{orderDate}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="33" width="780" height="30" uuid="ea25ed52-56f2-41aa-8551-0612f2f5ec6a"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Daily Sales]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="332" splitType="Stretch">
+			<pieChart>
+				<chart evaluationTime="Report">
+					<reportElement x="80" y="40" width="390" height="292" uuid="2abab581-e5d9-4a91-96b6-50d238c327ec"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{orderDate}]]></keyExpression>
+					<valueExpression><![CDATA[$F{sum(gross_amount)}]]></valueExpression>
+					<labelExpression><![CDATA[$F{orderDate}.toString()]]></labelExpression>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+		</band>
+	</detail>
+</jasperReport>

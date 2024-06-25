@@ -30,6 +30,47 @@
          </children>
       </AnchorPane>
    </top>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #dce0e0;" BorderPane.alignment="CENTER">
+         <children>
+            <Button layoutX="52.0" layoutY="81.0" mnemonicParsing="false" onAction="#generateOrderReportBtnOnAction" prefHeight="54.0" prefWidth="127.0" style="-fx-background-color: #240750;" text="Order Reports" textFill="#b4b1b1">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button layoutX="191.0" layoutY="81.0" mnemonicParsing="false" onAction="#generateOrderDetailReportBtnOnAction" prefHeight="54.0" prefWidth="162.0" style="-fx-background-color: #240750;" text="Order Detail Reports" textFill="#b4b1b1">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button layoutX="367.0" layoutY="81.0" mnemonicParsing="false" onAction="#generateStockReportBtnOnAction" prefHeight="54.0" prefWidth="122.0" style="-fx-background-color: #240750;" text="Stock Reports" textFill="#b4b1b1">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button layoutX="502.0" layoutY="81.0" mnemonicParsing="false" onAction="#generateProductReportBtnOnAction" prefHeight="52.0" prefWidth="136.0" style="-fx-background-color: #240750;" text="Product Reports" textFill="#b4b1b1">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Label layoutX="58.0" layoutY="25.0" text="Reports">
+               <font>
+                  <Font name="System Bold" size="19.0" />
+               </font>
+            </Label>
+            <Label layoutX="58.0" layoutY="173.0" text="Charts">
+               <font>
+                  <Font name="System Bold" size="19.0" />
+               </font>
+            </Label>
+            <Button layoutX="52.0" layoutY="227.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="126.0" style="-fx-background-color: #57A6A1;" text="Daily Sales" textFill="#240750">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </center>
    <bottom>
       <AnchorPane prefHeight="23.0" prefWidth="1000.0" style="-fx-background-color: #240750;" BorderPane.alignment="CENTER">
          <children>
@@ -59,7 +100,4 @@
          </children>
       </AnchorPane>
    </left>
-   <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #dae0db;" BorderPane.alignment="CENTER" />
-   </center>
 </BorderPane>
