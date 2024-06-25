@@ -18,12 +18,14 @@ public class Payment {
     private double paidAmount;
     private double balanceAmount;
     private Date paymentDateTime;
+    private String cashier;
 
-    public Payment(Orders orders, PaymentType paymentType, double paidAmount, double balanceAmount, Date dateTime){
+    public Payment(Orders orders, PaymentType paymentType, double paidAmount, double balanceAmount, Date dateTime, String cashier){
         this.orders = orders;
         this.paymentType = paymentType;
         this.paidAmount = paidAmount;
         this.balanceAmount = balanceAmount;
         paymentDateTime = dateTime;
+        this.cashier = cashier;
     }
 }

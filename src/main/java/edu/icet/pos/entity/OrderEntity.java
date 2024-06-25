@@ -40,14 +40,6 @@ public class OrderEntity {
 
     @Column(name = "no_products", nullable = false)
     private int noOfProducts;
-
-    //ONE ORDER SHOULD HAVE ONE SELLER
-    //private String sellerId;
-
-    //ONE ORDER SHOULD HAVE ONE CASHIER
-    //private String cashierId;
-
-
     @Column(name = "gross_amount", nullable = false)
     private double grossAmount;
 
@@ -58,18 +50,25 @@ public class OrderEntity {
     private double netAmount;
 
     //private int terminalId;
-
+    @Column(name = "seller_id", nullable = false)
+    //ONE ORDER SHOULD HAVE ONE SELLER
+    private String seller;
+    @Column(name = "cashier_id", nullable = false)
+    //ONE ORDER SHOULD HAVE ONE CASHIER
+    private String cashier;
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date orderDate;
 
-    public OrderEntity(String id, CustomerEntity customerEntity, int noOfProducts, double grossAmount, double discount, double netAmount, Date orderDate){
+    public OrderEntity(String id, CustomerEntity customerEntity, int noOfProducts, double grossAmount, double discount, double netAmount, String seller, String cashier, Date orderDate){
         this.id = id;
         this.customerEntity = customerEntity;
         this.noOfProducts = noOfProducts;
         this.grossAmount = grossAmount;
         this.discount = discount;
         this.netAmount = netAmount;
+        this.seller = seller;
+        this.cashier = cashier;
         this.orderDate = orderDate;
     }
 

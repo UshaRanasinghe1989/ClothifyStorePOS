@@ -1,13 +1,7 @@
 
 Ê
-java:S1186Ó"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(î˜úúıÿÿÿÿ8±‰–ò„2J$7a73fa0e-0c1a-4c3f-befc-dc0c8aeb9730
+java:S1186¿"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(–€Â„ÿÿÿÿÿ8•Êìú„2J$f9b00316-6e05-42be-98fa-924275a6ed52
 Ê
-java:S1186¯"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(–€Â„ÿÿÿÿÿ8²‰–ò„2J$93d474cb-114a-4159-b38f-684cffe5ae99
-Ê
-java:S1186ë"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(õÖ¼„ùÿÿÿÿ8²‰–ò„2J$e83dfee8-7ed9-4444-946a-cf01be028a2c
-
-java:S1450q"ZRemove the "currentUser" field and declare it as a local variable in the relevant methods.(ûË¥ó8¶‰–ò„2J$e97dbf9b-a86e-4225-92e4-9ea4b8e4c989
+java:S1186ü"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(õÖ¼„ùÿÿÿÿ8•Êìú„2J$ba1c102f-39f3-40d2-b26e-715d4e52655f
 ¡
-java:S1450s"^Remove the "selectedProduct" field and declare it as a local variable in the relevant methods.(ñÀèß8·‰–ò„2J$1cb18d67-0fb3-4579-ad3f-2bfc9a4dffa1
-r
-java:S1068q"/Remove this unused "currentUser" private field.(ûË¥ó8ß‰–ò„2J$64da5b42-f251-4ae1-aa4e-a398cb010275
+java:S1450v"^Remove the "selectedProduct" field and declare it as a local variable in the relevant methods.(ñÀèß8˜Êìú„2J$04a6210e-c27c-40f4-98cc-649574fb85c3

@@ -22,6 +22,7 @@ import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class ManageStockFormController extends SuperFormController implements Initializable {
@@ -146,8 +147,8 @@ public class ManageStockFormController extends SuperFormController implements In
         int number=0;
         try {
             List<String> list = stockBo.retrieveAllId();
-            ObservableList<String> observableList = FXCollections.observableList(list);
-            lastId = observableList.get(observableList.size() - 1);
+            List<String> sortedList = list.stream().sorted().collect(Collectors.toList());
+            lastId = sortedList.get(sortedList.size() - 1);
             number = Integer.parseInt(lastId.split("STK")[1]);
         }catch (NullPointerException | IndexOutOfBoundsException e){
             stockIdTxt.setText("STK0001");

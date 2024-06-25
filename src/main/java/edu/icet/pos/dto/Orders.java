@@ -13,12 +13,12 @@ import java.util.Date;
 public class Orders {
     private String orderId;
     private Customer customer;
-    //private String sellerId;
-    //private String cashierId;
     private int noOfProducts;
     private double grossAmount;
     private double discount;
     private double netAmount;
     //private int terminalId;
+    private String seller;
+    private String cashier;
     private Date orderDate;
 }

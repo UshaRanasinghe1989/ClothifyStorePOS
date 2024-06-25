@@ -27,6 +27,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class ManageSupplierFormController extends SuperFormController implements Initializable {
@@ -135,8 +136,9 @@ public class ManageSupplierFormController extends SuperFormController implements
     void loadId() {
         int number = 0;
         try {
-            List<String> supplierList = supplierBo.retrieveAllId();
-            String lastSupId = supplierList.get(supplierList.size() - 1);
+            List<String> list = supplierBo.retrieveAllId();
+            List<String> sortedList = list.stream().sorted().collect(Collectors.toList());
+            String lastSupId = sortedList.get(sortedList.size() - 1);
             number = Integer.parseInt(lastSupId.split("SUP")[1]);
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             supplierIdTxt.setText("SUP0001");

@@ -98,13 +98,24 @@ public class PaymentFormController implements Initializable {
         selectPaymentTypeCombo.setItems(typeOptions);
     }
     private Payment getPaymentObject(){
-        return new Payment(
-                getOrderObject(),
-                selectPaymentTypeCombo.getValue(),
-                Double.parseDouble(paidAmountTxt.getText()),
-                Double.parseDouble(balanceTxt.getText()),
-                new Date()
-        );
+        Payment paymentObj=null;
+        PaymentType paymentType = selectPaymentTypeCombo.getValue();
+        double paidAmount = Double.parseDouble(paidAmountTxt.getText());
+        double balanceAmount = Double.parseDouble(balanceTxt.getText());
+
+        if (getOrderObject()==null || paymentType==null || paidAmount==0.0 || balanceAmount==0.0){
+            new Alert(Alert.AlertType.WARNING, "Please fill all details !").show();
+        }else {
+            paymentObj = new Payment(
+                    getOrderObject(),
+                    paymentType,
+                    paidAmount,
+                    balanceAmount,
+                    new Date(),
+                    currentUser.getId()
+            );
+        }
+        return paymentObj;
     }
     private Orders getOrderObject(){
         return orderBo.retrieveById(orderId).get(0);

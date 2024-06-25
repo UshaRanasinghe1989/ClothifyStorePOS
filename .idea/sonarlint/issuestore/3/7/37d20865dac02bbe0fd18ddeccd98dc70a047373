@@ -1,6 +1,6 @@
 
 ›
-java:S1450c"SRemove the "user" field and declare it as a local variable in the relevant methods.(’Ø¾ıÿÿÿÿ8ŸÍÜğ„2J$55ce9c5a-fb79-420a-a12b-08576e29f000
-	java:S125š"<This block of commented-out lines of code should be removed.(’ÃÎ8ªÍÜğ„2J$9b0f255d-4195-4590-9df7-5d18b7cd54be
+java:S1450d"SRemove the "user" field and declare it as a local variable in the relevant methods.(’Ø¾ıÿÿÿÿ8ŸÍÜğ„2J$bc6fb79f-79ce-450b-92e0-1809b608cf54
+	java:S125›"<This block of commented-out lines of code should be removed.(’ÃÎ8ªÍÜğ„2J$ff1ade95-c228-4d06-a9c4-5f2bd855ca5d
 p
-java:S1068c"(Remove this unused "user" private field.(’Ø¾ıÿÿÿÿ8ÅÍÜğ„2J$686c5195-c128-4953-9b18-f4a153a4d0c8
+java:S1068d"(Remove this unused "user" private field.(’Ø¾ıÿÿÿÿ8ÅÍÜğ„2J$e7f0d073-6a76-440a-9630-9a39704ef5ea

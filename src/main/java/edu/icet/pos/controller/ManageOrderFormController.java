@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class ManageOrderFormController extends SuperFormController implements Initializable {
@@ -110,15 +111,19 @@ public class ManageOrderFormController extends SuperFormController implements In
     public Button logoutBtn;
     @FXML
     public ComboBox<String> manageReturnCombo;
+    @FXML
+    public ComboBox<String> sellerCombo;
     private User currentUser;
     private double unitPrice;
     private Product selectedProduct;
+    private String sellerId;
     private final ObservableList<CartTable> cartTableList = FXCollections.observableArrayList();
     private final ProductBo productBo = BoFactory.getInstance().getBo(BoType.PRODUCT);
     private final StockBo stockBo = BoFactory.getInstance().getBo(BoType.STOCK);
     private final OrderBo orderBo = BoFactory.getInstance().getBo(BoType.ORDERS);
     private final OrderDetailBo orderDetailBo = BoFactory.getInstance().getBo(BoType.ORDER_DETAIL);
     private final CustomerBo customerBo = BoFactory.getInstance().getBo(BoType.CUSTOMER);
+    private final UserBo userBo = BoFactory.getInstance().getBo(BoType.USER);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -126,6 +131,7 @@ public class ManageOrderFormController extends SuperFormController implements In
         getCurrentDate(currentDateLbl);
         getCurrentTime(timerLbl);
         loadId();
+        loadSelectSellerCombo();
         loadProductNamesCombo();
         selectedCustomerId.setVisible(false);
         paymentBtn.setVisible(false);
@@ -148,6 +154,11 @@ public class ManageOrderFormController extends SuperFormController implements In
         productSizeLbl.setText(String.valueOf(selectedProduct.getSize()));
 
         loadActiveStockDetails(selectedProductId);
+
+        //CLEAR PRICE DETAILS
+        requiredQtyTxt.setText("");
+        stockDiscountLbl.setText("0");
+        priceLbl.setText("0.0");
     }
 
     public void addToCartBtnOnAction() {
@@ -204,12 +215,17 @@ public class ManageOrderFormController extends SuperFormController implements In
             new Alert(Alert.AlertType.ERROR, "Try again !").show();
         }
     }
+    public void sellerComboOnAction() {
+        sellerId = sellerCombo.getValue();
+    }
     public void paymentBtnOnAction() {
         loadPaymentForm();
     }
 
-    public void clearOrderBtnOnAction(ActionEvent actionEvent) {
+    public void clearOrderBtnOnAction() {
+        clearOrder();
     }
+
     @Override
     void save() {
         Orders newOrder = getOrderObject();
@@ -232,7 +248,7 @@ public class ManageOrderFormController extends SuperFormController implements In
 
     @Override
     void clearForm() {
-        selectProductNameCombo.valueProperty().set("");
+        selectProductNameCombo.valueProperty().set(null);
         productIdLbl.setText("");
         productNameLbl.setText("");
         productDescriptionLbl.setText("");
@@ -250,8 +266,8 @@ public class ManageOrderFormController extends SuperFormController implements In
         int number=0;
         try {
             List<String> list = orderBo.retrieveAllId();
-            ObservableList<String> observableList = FXCollections.observableList(list);
-            lastId = observableList.get(observableList.size() - 1);
+            List<String> sortedList = list.stream().sorted().collect(Collectors.toList());
+            lastId = sortedList.get(sortedList.size() - 1);
             number = Integer.parseInt(lastId.split("ORD")[1]);
         }catch (NullPointerException | IndexOutOfBoundsException e){
             orderIdLbl.setText("ORD0001");
@@ -262,7 +278,7 @@ public class ManageOrderFormController extends SuperFormController implements In
 
     @Override
     void loadDetailTable() {
-        if (selectProductNameCombo.valueProperty() == null || requiredQtyTxt.getText().isEmpty()) {
+        if (selectProductNameCombo.valueProperty() == null || requiredQtyTxt.getText().isEmpty() || Double.parseDouble(priceLbl.getText())==0.0) {
             new Alert(Alert.AlertType.WARNING, "Please select a product and enter a quantity !").show();
         } else{
             ObservableList<CartTable> observableList = getCartTables();
@@ -303,6 +319,7 @@ public class ManageOrderFormController extends SuperFormController implements In
     void updateById() {
 
     }
+
     //MENU - LEFT BORDER
     public User setDisplayName(){
         return setUser(currentDateLbl);
@@ -459,17 +476,32 @@ public class ManageOrderFormController extends SuperFormController implements In
             stage.show();
         }catch (IOException e){
             log.info(e.getMessage());
+        }finally {
+            loadId();
+            clearOrder();
         }
     }
     private Customer getCustomerObject(){
-        return new Customer(
-                customerPhoneTxt.getText(),
-                customerNameTxt.getText(),
-                customerEmailTxt.getText()
-        );
+        Customer customerObj;
+        String contactNo = customerPhoneTxt.getText();
+        String name = customerNameTxt.getText();
+        String email = customerEmailTxt.getText();
+
+        if (contactNo.isEmpty() || name.isEmpty() || email.isEmpty()){
+            customerObj = null;
+        }else {
+            customerObj = new Customer(
+                    customerPhoneTxt.getText(),
+                    customerNameTxt.getText(),
+                    customerEmailTxt.getText()
+            );
+        }
+        return customerObj;
     }
-    private Orders getOrderObject(){
+    private Orders getOrderObject() {
+        Orders orderObj = null;
         String orderId = orderIdLbl.getText();
+        int numberOfProducts = cartTableList.size();
         //ORDER
         double grossAmount = 0.0;
         double discount = 0.0;
@@ -480,15 +512,33 @@ public class ManageOrderFormController extends SuperFormController implements In
             discount += table.getDiscount();
             netAmount = grossAmount - discount;
         }
-
-        return new Orders(
-                orderId,
-                getCustomerObject(),
-                cartTableList.size(),
-                grossAmount,
-                discount,
-                netAmount,
-                new Date()
-        );
+        if (sellerId==null) {
+            new Alert(Alert.AlertType.WARNING, "Please select seller id !").show();
+        } else{
+            orderObj = new Orders(
+                    orderId,
+                    getCustomerObject(),
+                    numberOfProducts,
+                    grossAmount,
+                    discount,
+                    netAmount,
+                    sellerId,
+                    currentUser.getId(),
+                    new Date()
+            );
+        }
+        return  orderObj;
+    }
+    private void loadSelectSellerCombo() {
+        List<String> userIdList = userBo.retrieveAllId();
+        ObservableList<String> observableList = FXCollections.observableList(userIdList);
+        sellerCombo.setItems(observableList);
+    }
+    private void clearOrder() {
+        cartTableList.clear();
+        grossAmountLbl.setText("0.0");
+        netAmountLbl.setText("0.0");
+        totalDiscountLbl.setText("0.0");
+        sellerCombo.valueProperty().setValue(null);
     }
 }

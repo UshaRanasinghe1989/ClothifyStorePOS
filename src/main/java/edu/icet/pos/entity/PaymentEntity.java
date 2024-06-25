@@ -17,7 +17,7 @@ public class PaymentEntity {
     private int id;
 
     @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "order_id")
     private OrderEntity orderEntity;
 
     @Column(nullable = false)
@@ -33,11 +33,15 @@ public class PaymentEntity {
     @Column(nullable = false)
     private Date paymentDateTime;
 
-    public PaymentEntity(OrderEntity orderEntity, PaymentType paymentType, double paidAmount, double balanceAmount, Date dateTime){
+    @Column(nullable = false)
+    private String cashier;
+
+    public PaymentEntity(OrderEntity orderEntity, PaymentType paymentType, double paidAmount, double balanceAmount, Date dateTime, String cashier){
         this.orderEntity = orderEntity;
         this.paymentType = paymentType;
         this.paidAmount = paidAmount;
         this.balanceAmount = balanceAmount;
-        paymentDateTime = dateTime;
+        this.paymentDateTime = dateTime;
+        this.cashier = cashier;
     }
 }

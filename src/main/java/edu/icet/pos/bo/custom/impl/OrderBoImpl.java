@@ -24,7 +24,13 @@ public class OrderBoImpl implements OrderBo {
 
     @Override
     public boolean save(Orders dto) {
-        CustomerEntity customerEntity = mapper.map(dto.getCustomer(), CustomerEntity.class);
+        CustomerEntity customerEntity;
+        if (dto.getCustomer()!=null) {
+            customerEntity = mapper.map(dto.getCustomer(), CustomerEntity.class);
+        }else {
+            customerEntity = null;
+        }
+
         OrderEntity orderEntity = new OrderEntity(
                 dto.getOrderId(),
                 customerEntity,
@@ -32,9 +38,10 @@ public class OrderBoImpl implements OrderBo {
                 dto.getGrossAmount(),
                 dto.getDiscount(),
                 dto.getNetAmount(),
+                dto.getSeller(),
+                dto.getCashier(),
                 dto.getOrderDate()
         );
-
         return orderDao.save(orderEntity);
     }
 

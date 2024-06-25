@@ -22,6 +22,7 @@ import org.modelmapper.ModelMapper;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class ManageUserFormController extends SuperFormController implements Initializable {
@@ -161,8 +162,8 @@ public class ManageUserFormController extends SuperFormController implements Ini
         int number = 0;
         try {
             List<String> list = userBo.retrieveAllId();
-            ObservableList<String> observableList = FXCollections.observableList(list);
-            String lastId = observableList.get(observableList.size() - 1);
+            List<String> sortedList = list.stream().sorted().collect(Collectors.toList());
+            String lastId = sortedList.get(sortedList.size() - 1);
             number = Integer.parseInt(lastId.split("USR")[1]);
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             userIdTxt.setText("USR0001");

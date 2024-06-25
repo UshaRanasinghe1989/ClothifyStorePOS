@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class ManageEmployeeFormController extends SuperFormController implements Initializable {
@@ -161,8 +162,8 @@ public class ManageEmployeeFormController extends SuperFormController implements
         int number = 0;
         try {
             List<String> list = employeeBo.retrieveAllId();
-            ObservableList<String> observableList = FXCollections.observableList(list);
-            String lastId = observableList.get(observableList.size() - 1);
+            List<String> sortedList = list.stream().sorted().collect(Collectors.toList());
+            String lastId = sortedList.get(sortedList.size() - 1);
             number = Integer.parseInt(lastId.split("EMP")[1]);
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             empIdText.setText("EMP0001");

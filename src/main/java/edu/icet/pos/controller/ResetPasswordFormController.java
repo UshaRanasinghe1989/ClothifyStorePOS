@@ -111,15 +111,15 @@ public class ResetPasswordFormController extends PasswordBasedEncryption impleme
     }
 
     private boolean validateOTP(javafx.scene.input.KeyEvent e){
-        boolean OTPisVerified=false;
+        boolean otpVerified=false;
         char otpChar = e.getCharacter().charAt(0);
         String otpString = String.valueOf(otpChar);
         enteredOTP += otpString;
 
         while(enteredOTP.length()==6){
-            OTPisVerified = otp.equals(enteredOTP);
+            otpVerified = otp.equals(enteredOTP);
         }
-        return OTPisVerified;
+        return otpVerified;
     }
 
     //GENERATE ENCRYPTED PASSWORD

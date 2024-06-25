@@ -98,7 +98,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="netAmountLbl" contentDisplay="RIGHT" layoutX="683.0" layoutY="540.0" prefHeight="30.0" prefWidth="177.0" textAlignment="RIGHT" textFill="#f04330">
+            <Label fx:id="netAmountLbl" contentDisplay="RIGHT" layoutX="683.0" layoutY="540.0" prefHeight="30.0" prefWidth="177.0" text="0.0" textAlignment="RIGHT" textFill="#f04330">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -149,19 +149,19 @@
             </Label>
             <Label fx:id="unitPriceLbl" layoutX="318.0" layoutY="210.0" prefHeight="18.0" prefWidth="152.0" />
             <Label fx:id="activeStockIdLbl" layoutX="318.0" layoutY="248.0" prefHeight="18.0" prefWidth="152.0" />
-            <Label fx:id="priceLbl" layoutX="316.0" layoutY="371.0" prefHeight="18.0" prefWidth="76.0" />
+            <Label fx:id="priceLbl" layoutX="317.0" layoutY="370.0" prefHeight="18.0" prefWidth="76.0" text="0.0" />
             <Label layoutX="189.0" layoutY="331.0" text="Discount (%)">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <Label fx:id="stockDiscountLbl" layoutX="317.0" layoutY="331.0" prefHeight="18.0" prefWidth="152.0" />
+            <Label fx:id="stockDiscountLbl" layoutX="317.0" layoutY="331.0" prefHeight="18.0" prefWidth="152.0" text="0" />
             <Label layoutX="555.0" layoutY="580.0" prefHeight="27.0" prefWidth="112.0" text="Discount :">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="totalDiscountLbl" contentDisplay="RIGHT" layoutX="683.0" layoutY="578.0" prefHeight="30.0" prefWidth="177.0" textAlignment="RIGHT" textFill="#f04330">
+            <Label fx:id="totalDiscountLbl" contentDisplay="RIGHT" layoutX="683.0" layoutY="578.0" prefHeight="30.0" prefWidth="177.0" text="0.0" textAlignment="RIGHT">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -171,7 +171,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="grossAmountLbl" contentDisplay="RIGHT" layoutX="683.0" layoutY="616.0" prefHeight="30.0" prefWidth="177.0" textAlignment="RIGHT" textFill="#f04330">
+            <Label fx:id="grossAmountLbl" contentDisplay="RIGHT" layoutX="683.0" layoutY="616.0" prefHeight="30.0" prefWidth="177.0" text="0.0" textAlignment="RIGHT">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -185,6 +185,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
+            <ComboBox fx:id="sellerCombo" layoutX="14.0" layoutY="16.0" onAction="#sellerComboOnAction" prefWidth="150.0" promptText="Select Seller" style="-fx-background-color: #e6e35e;" />
             </children>
         </AnchorPane>
     </center>

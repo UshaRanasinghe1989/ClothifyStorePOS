@@ -30,6 +30,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class ManageProductCategoryFormController extends SuperFormController implements Initializable {
@@ -125,8 +126,9 @@ public class ManageProductCategoryFormController extends SuperFormController imp
     void loadId() {
         int number=0;
         try {
-            ObservableList<String> categoryList = FXCollections.observableList(categoryBo.retrieveAllId());
-            String lastCatId = categoryList.get(categoryList.size() - 1);
+            List<String> list = categoryBo.retrieveAllId();
+            List<String> sortedList = list.stream().sorted().collect(Collectors.toList());
+            String lastCatId = sortedList.get(sortedList.size() - 1);
             number = Integer.parseInt(lastCatId.split("CAT")[1]);
         }catch (NullPointerException | IndexOutOfBoundsException e){
             categoryIdTxt.setText("CAT0001");

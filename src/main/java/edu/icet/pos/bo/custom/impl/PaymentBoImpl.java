@@ -21,7 +21,8 @@ public class PaymentBoImpl implements PaymentBo {
                 dto.getPaymentType(),
                 dto.getPaidAmount(),
                 dto.getBalanceAmount(),
-                dto.getPaymentDateTime()
+                dto.getPaymentDateTime(),
+                dto.getCashier()
         );
         return paymentDao.save(paymentEntity);
     }
