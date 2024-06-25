@@ -410,16 +410,26 @@ public class ManageReturnFormController implements ReturnInterface, Initializabl
         //PENDING
     }
     private Returns getReturnObject(){
-        return new Returns(
-                selectedOrderObj,
-                selectReturnProductCombo.getValue(),
-                returnedQty,
-                Double.parseDouble(returnedProductPriceLbl.getText()),
-                selectReturnReasonCombo.getValue(),
-                returnDescriptionTxtArea.getText(),
-                false,
-                new Date()
-        );
+        Returns returnObj = null;
+        String product = selectReturnProductCombo.getValue();
+        ReturnReason reason = selectReturnReasonCombo.getValue();
+        String description = returnDescriptionTxtArea.getText();
+
+        if (selectedOrderObj==null || product==null || returnedQty==0 || reason==null || description.isEmpty()){
+            new Alert(Alert.AlertType.WARNING, "Please fill all details !").show();
+        }else {
+            returnObj = new Returns(
+                    selectedOrderObj,
+                    product,
+                    returnedQty,
+                    Double.parseDouble(returnedProductPriceLbl.getText()),
+                    reason,
+                    description,
+                    false,
+                    new Date()
+            );
+        }
+        return returnObj;
     }
     private int updateReturnStatus(int orderDetailId){
         return orderDetailBo.updateReturnStatus(orderDetailId);

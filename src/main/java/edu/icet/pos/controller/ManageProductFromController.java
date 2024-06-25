@@ -11,6 +11,7 @@ import edu.icet.pos.dto.User;
 import edu.icet.pos.entity.CategoryEntity;
 import edu.icet.pos.entity.SupplierEntity;
 import edu.icet.pos.util.BoType;
+import edu.icet.pos.util.GetModelMapper;
 import edu.icet.pos.util.ProductSizes;
 import edu.icet.pos.util.UserType;
 import javafx.collections.FXCollections;
@@ -100,6 +101,7 @@ public class ManageProductFromController extends SuperFormController implements 
     private final ProductBo productBo = BoFactory.getInstance().getBo(BoType.PRODUCT);
     private final CategoryBo categoryBo = BoFactory.getInstance().getBo(BoType.CATEGORY);
     private final SupplierBo supplierBo = BoFactory.getInstance().getBo(BoType.SUPPLIER);
+    private final ModelMapper mapper = GetModelMapper.getInstance().getModelMapper();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -149,7 +151,7 @@ public class ManageProductFromController extends SuperFormController implements 
         }
     }
 
-    public void browseImgOneBtnOnAction(ActionEvent actionEvent) {
+    /*public void browseImgOneBtnOnAction(ActionEvent actionEvent) {
     }
 
     public void browseImgTwoBtnOnAction(ActionEvent actionEvent) {
@@ -162,7 +164,7 @@ public class ManageProductFromController extends SuperFormController implements 
     }
 
     public void browseImgFiveBtnOnAction(ActionEvent actionEvent) {
-    }
+    }*/
 
     @Override
     void save() {
@@ -172,17 +174,7 @@ public class ManageProductFromController extends SuperFormController implements 
         List<Supplier> supplierList = supplierBo.retrieveById(selectedSupplierIdHiddenTxt.getText());
         Supplier supplier = supplierList.get(0);
 
-        Product product = new Product(
-                productIdText.getText(),
-                category,
-                supplier,
-                productNameText.getText(),
-                descriptionTxt.getText(),
-                sizeCombo.getValue(),
-                new Date()
-        );
-
-        boolean isSaved = productBo.save(product);
+        boolean isSaved = productBo.save(getProductObj(category, supplier));
         if (isSaved) {
             new Alert(Alert.AlertType.CONFIRMATION, "Product saved successfully !").show();
             loadId();
@@ -240,15 +232,15 @@ public class ManageProductFromController extends SuperFormController implements 
     void searchDetailById() {
         try {
             List<Product> list = productBo.retrieveById(productIdText.getText());
-            Product product = new ModelMapper().map(list.get(0), Product.class);
+            Product product = mapper.map(list.get(0), Product.class);
             productNameText.setText(product.getName());
 
             List<Category> categoryList = categoryBo.retrieveById(product.getCategory().getId());
-            Category category = new ModelMapper().map(categoryList.get(0), Category.class);
+            Category category = mapper.map(categoryList.get(0), Category.class);
             categoryNameCombo.setValue(category.getName());
 
             List<Supplier> supplierList = supplierBo.retrieveById(product.getSupplier().getId());
-            Supplier supplier = new ModelMapper().map(supplierList.get(0), Supplier.class);
+            Supplier supplier = mapper.map(supplierList.get(0), Supplier.class);
             supplierNameCombo.setValue(supplier.getName());
 
             sizeCombo.setValue(product.getSize());
@@ -268,16 +260,7 @@ public class ManageProductFromController extends SuperFormController implements 
                 List<Supplier> supplierList = supplierBo.retrieveById(selectedSupplierIdHiddenTxt.getText());
                 Supplier supplier = supplierList.get(0);
 
-                Product product = new Product(
-                        productIdText.getText(),
-                        category,
-                        supplier,
-                        productNameText.getText(),
-                        descriptionTxt.getText(),
-                        sizeCombo.getValue(),
-                        new Date()
-                );
-                int updatedRowCount = productBo.update(product);
+                int updatedRowCount = productBo.update(getProductObj(category, supplier));
                 if (updatedRowCount > 0) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Product updated successfully !").show();
                     loadId();
@@ -357,6 +340,7 @@ public class ManageProductFromController extends SuperFormController implements 
     }
 
     public void logoutBtnOnAction(ActionEvent event) {
+        //PENDING
     }
 
     public void dashboardBtnOnAction() {
@@ -400,5 +384,27 @@ public class ManageProductFromController extends SuperFormController implements 
         } catch (NullPointerException e) {
             log.info(e.getMessage());
         }
+    }
+    private Product getProductObj(Category category, Supplier supplier) {
+        String id = productIdText.getText();
+        String name = productNameText.getText();
+        String description = descriptionTxt.getText();
+        ProductSizes size = sizeCombo.getValue();
+        Product product = null;
+
+        if (id.isEmpty() || name.isEmpty() || description.isEmpty() || size==null){
+            new Alert(Alert.AlertType.WARNING, "Please fill all details !").show();
+        }else {
+            product = new Product(
+                    id,
+                    category,
+                    supplier,
+                    name,
+                    description,
+                    size,
+                    new Date()
+            );
+        }
+        return product;
     }
 }

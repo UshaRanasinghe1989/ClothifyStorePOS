@@ -54,7 +54,7 @@
                 <Separator layoutX="746.0" layoutY="87.0" orientation="VERTICAL" prefHeight="125.0" prefWidth="5.0" />
                 <Button layoutX="764.0" layoutY="240.0" mnemonicParsing="false" onAction="#saveBtnOnAction" prefHeight="37.0" prefWidth="144.0" style="-fx-background-color: #f04330;" text="Save" />
                 <Button layoutX="939.0" layoutY="240.0" mnemonicParsing="false" onAction="#updateBtnOnAction" prefHeight="38.0" prefWidth="86.0" style="-fx-background-color: #2cbf4e;" text="Update" />
-                <Separator layoutX="406.0" layoutY="307.0" prefHeight="0.0" prefWidth="655.0" />
+                <Separator layoutX="406.0" layoutY="307.0" prefHeight="0.0" prefWidth="781.0" />
                 <TableView fx:id="supplierDetailTable" layoutX="406.0" layoutY="324.0" prefHeight="274.0" prefWidth="785.0">
                     <columns>
                         <TableColumn fx:id="idCol" prefWidth="75.0" text="Id" />

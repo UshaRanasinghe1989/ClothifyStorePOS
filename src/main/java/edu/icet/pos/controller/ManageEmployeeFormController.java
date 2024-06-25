@@ -301,11 +301,7 @@ public class ManageEmployeeFormController extends SuperFormController implements
 
         if (id.isEmpty() || name.isEmpty() || nic.isEmpty() || contactNo.isEmpty() || email.isEmpty() || address.isEmpty()) {
             new Alert(Alert.AlertType.WARNING, "Please fill all details !").show();
-        } else if (!emailFormatMatcher(email).matches()) {
-            new Alert(Alert.AlertType.WARNING, "Wrong email format !").show();
-        } else if (!phoneNoFormatMatcher(contactNo).matches()) {
-            new Alert(Alert.AlertType.WARNING, "Wrong phone number format !").show();
-        } else {
+        }else {
             employeeDto = new Employee(
                     id,
                     name,
@@ -317,6 +313,26 @@ public class ManageEmployeeFormController extends SuperFormController implements
                     new Date()
             );
         }
+        /*else {
+            if (!emailFormatMatcher(email).matches()) {
+                new Alert(Alert.AlertType.WARNING, "Wrong email format !").show();
+            }else {
+                if (!phoneNoFormatMatcher(contactNo).matches()) {
+                    new Alert(Alert.AlertType.WARNING, "Wrong phone number format !").show();
+                }else {
+                    employeeDto = new Employee(
+                            id,
+                            name,
+                            dob,
+                            nic,
+                            contactNo,
+                            email,
+                            address,
+                            new Date()
+                    );
+                }
+            }
+        }*/
         return employeeDto;
     }
 }

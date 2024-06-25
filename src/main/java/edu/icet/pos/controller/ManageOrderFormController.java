@@ -110,9 +110,9 @@ public class ManageOrderFormController extends SuperFormController implements In
     public Button logoutBtn;
     @FXML
     public ComboBox<String> manageReturnCombo;
-
-    double unitPrice;
-    Product selectedProduct;
+    private User currentUser;
+    private double unitPrice;
+    private Product selectedProduct;
     private final ObservableList<CartTable> cartTableList = FXCollections.observableArrayList();
     private final ProductBo productBo = BoFactory.getInstance().getBo(BoType.PRODUCT);
     private final StockBo stockBo = BoFactory.getInstance().getBo(BoType.STOCK);
@@ -122,6 +122,7 @@ public class ManageOrderFormController extends SuperFormController implements In
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        currentUser = setDisplayName();
         getCurrentDate(currentDateLbl);
         getCurrentTime(timerLbl);
         loadId();
@@ -261,18 +262,22 @@ public class ManageOrderFormController extends SuperFormController implements In
 
     @Override
     void loadDetailTable() {
-        ObservableList<CartTable> observableList = getCartTables();
+        if (selectProductNameCombo.valueProperty() == null || requiredQtyTxt.getText().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please select a product and enter a quantity !").show();
+        } else{
+            ObservableList<CartTable> observableList = getCartTables();
 
-        cartDetailTable.setItems(observableList);
+            cartDetailTable.setItems(observableList);
 
-        idCol.setCellValueFactory(new PropertyValueFactory<>("productId"));
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("productName"));
-        unitPriceCol.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
-        qtyCol.setCellValueFactory(new PropertyValueFactory<>("productQuantity"));
-        priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+            idCol.setCellValueFactory(new PropertyValueFactory<>("productId"));
+            nameCol.setCellValueFactory(new PropertyValueFactory<>("productName"));
+            unitPriceCol.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
+            qtyCol.setCellValueFactory(new PropertyValueFactory<>("productQuantity"));
+            priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
 
-        calculateOrderTotal();
-        clearForm();
+            calculateOrderTotal();
+            clearForm();
+        }
     }
 
     @Override

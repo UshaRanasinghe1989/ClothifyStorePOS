@@ -30,15 +30,15 @@ public class ManageUserFormController extends SuperFormController implements Ini
     @FXML
     private TextField nameSystemText;
     @FXML
-    private TableView<User>userDetailsTable;
+    private TableView<User> userDetailsTable;
     @FXML
-    private TableColumn<User, String>userIdCol;
+    private TableColumn<User, String> userIdCol;
     @FXML
-    private TableColumn<User, String>userTypeCol;
+    private TableColumn<User, String> userTypeCol;
     @FXML
-    private TableColumn<User, String>nameSystemCol;
+    private TableColumn<User, String> nameSystemCol;
     @FXML
-    private TableColumn<User, String>userNameCol;
+    private TableColumn<User, String> userNameCol;
     @FXML
     private Label userNameLbl;
     @FXML
@@ -88,6 +88,7 @@ public class ManageUserFormController extends SuperFormController implements Ini
         loadUserTypeCombo();//LOAD USER TYPES
         loadDetailTable();
     }
+
     public void selectEmpComboOnAction() {
         loadEmail(String.valueOf(selectEmpIdCombo.getValue()));
         String empId = String.valueOf(selectEmpIdCombo.getValue());
@@ -131,24 +132,18 @@ public class ManageUserFormController extends SuperFormController implements Ini
 
     @Override
     public void save() {
-        User user = new User(
-                userIdTxt.getText(),
-                employeeBo.retrieveById(selectEmpIdCombo.getValue()).get(0),
-                nameSystemText.getText(),
-                userNameLbl.getText(),
-                getEncryptedPassword(passwordPw.getText()),
-                userTypeCombo.getValue(),
-                true,
-                new Date()
-        );
-        boolean isSaved = userBo.save(user);
-        if(isSaved){//TRUE
-            new Alert(Alert.AlertType.CONFIRMATION, "User added successfully !").show();
-            clearForm();
-            loadId();
-            loadDetailTable();
-        }else {
-            new Alert(Alert.AlertType.ERROR, TRY_AGAIN).show();
+        try {
+            boolean isSaved = userBo.save(getUserObj());
+            if (isSaved) {//TRUE
+                new Alert(Alert.AlertType.CONFIRMATION, "User added successfully !").show();
+                clearForm();
+                loadId();
+                loadDetailTable();
+            } else {
+                new Alert(Alert.AlertType.ERROR, TRY_AGAIN).show();
+            }
+        } catch (NullPointerException e) {
+            log.info(e.getMessage());
         }
     }
 
@@ -160,20 +155,22 @@ public class ManageUserFormController extends SuperFormController implements Ini
         userTypeCombo.valueProperty().set(null);
         passwordPw.setText("");
     }
+
     @Override
     void loadId() {
-        int number=0;
+        int number = 0;
         try {
             List<String> list = userBo.retrieveAllId();
             ObservableList<String> observableList = FXCollections.observableList(list);
             String lastId = observableList.get(observableList.size() - 1);
             number = Integer.parseInt(lastId.split("USR")[1]);
-        }catch (NullPointerException | IndexOutOfBoundsException e){
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
             userIdTxt.setText("USR0001");
         }
         number++;
         userIdTxt.setText(String.format("USR%04d", number));
     }
+
     @Override
     void loadDetailTable() {
         ObservableList<User> userList = FXCollections.observableList(userBo.retrieveAll());//LOAD EXISTING USER RECORDS
@@ -184,6 +181,7 @@ public class ManageUserFormController extends SuperFormController implements Ini
         nameSystemCol.setCellValueFactory(new PropertyValueFactory<>("systemName"));
         userNameCol.setCellValueFactory(new PropertyValueFactory<>("email"));
     }
+
     @Override
     void searchDetailById() {
         String userId = userIdTxt.getText();
@@ -194,16 +192,11 @@ public class ManageUserFormController extends SuperFormController implements Ini
         selectEmpIdCombo.setValue(mapper.map(user.getEmployee(), Employee.class).getId());
         nameSystemText.setText(user.getSystemName());
     }
+
     @Override
     void updateById() {
-        User user = new User(
-                userIdTxt.getText(),
-                nameSystemText.getText(),
-                passwordPw.getText(),
-                userTypeCombo.getValue()
-        );
         if (loadConfirmAlert("Confirm update ?")) {
-            int updatedRowCount = userBo.update(user);
+            int updatedRowCount = userBo.update(getUpdateUserObj());
             if (updatedRowCount > 0) {
                 new Alert(Alert.AlertType.CONFIRMATION, "User updated successfully !").show();
                 clearForm();
@@ -214,8 +207,9 @@ public class ManageUserFormController extends SuperFormController implements Ini
             }
         }
     }
+
     //MENU - LEFT BORDER
-    public User setDisplayName(){
+    public User setDisplayName() {
         return setUser(currentDateLbl);
     }
 
@@ -227,6 +221,7 @@ public class ManageUserFormController extends SuperFormController implements Ini
             log.info(e.getMessage());
         }
     }
+
     public void manageStockComboOnAction() {
         String comboOption = manageStockCombo.getValue();
         try {
@@ -235,6 +230,7 @@ public class ManageUserFormController extends SuperFormController implements Ini
             log.info(e.getMessage());
         }
     }
+
     public void employeesBtnOnAction() {
         try {
             loadEmployeeForm(employeeBtn);
@@ -242,6 +238,7 @@ public class ManageUserFormController extends SuperFormController implements Ini
             log.info(e.getMessage());
         }
     }
+
     public void usersBtnOnAction() {
         try {
             loadUserForm(usersBtn);
@@ -249,6 +246,7 @@ public class ManageUserFormController extends SuperFormController implements Ini
             log.info(e.getMessage());
         }
     }
+
     public void suppliersBtnOnAction() {
         try {
             loadSupplierForm(supplierBtn);
@@ -256,6 +254,7 @@ public class ManageUserFormController extends SuperFormController implements Ini
             log.info(e.getMessage());
         }
     }
+
     public void customersBtnOnAction() {
         try {
             loadCustomerForm(customerBtn);
@@ -263,6 +262,7 @@ public class ManageUserFormController extends SuperFormController implements Ini
             log.info(e.getMessage());
         }
     }
+
     public void manageReturnComboOnAction() {
         String comboOption = manageReturnCombo.getValue();
         try {
@@ -271,6 +271,7 @@ public class ManageUserFormController extends SuperFormController implements Ini
             log.info(e.getMessage());
         }
     }
+
     public void logoutBtnOnAction(ActionEvent event) {
         //PENDING
     }
@@ -282,24 +283,73 @@ public class ManageUserFormController extends SuperFormController implements Ini
             log.info(e.getMessage());
         }
     }
+
     //PRIVATE METHODS
-    private void loadEmpIdCombo(){
+    private void loadEmpIdCombo() {
         ObservableList<String> list = FXCollections.observableList(employeeBo.retrieveAllId());
         selectEmpIdCombo.setItems(list);
     }
-    private void loadEmail(String empId){
+
+    private void loadEmail(String empId) {
         Employee employee = new ModelMapper().map(employeeBo.retrieveById(empId), Employee.class);
         userNameLbl.setText(employee.getEmail());
     }
-    private void loadUserTypeCombo(){
+
+    private void loadUserTypeCombo() {
         ObservableList<UserType> typeOptions = FXCollections.observableArrayList();
         typeOptions.add(UserType.ADMIN);
         typeOptions.add(UserType.USER);
         userTypeCombo.setItems(typeOptions);
     }
+
     //GENERATE ENCRYPTED PASSWORD
-    private String getEncryptedPassword(String password){
+    private String getEncryptedPassword(String password) {
         return PasswordBasedEncryption.generateSecurePassword(password);
     }
 
+    private User getUserObj() {
+        User user = null;
+        String userId = userIdTxt.getText();
+        String empId = selectEmpIdCombo.getValue();
+        String displayName = nameSystemText.getText();
+        String email = userNameLbl.getText();
+        String pw = passwordPw.getText();
+        UserType userType = userTypeCombo.getValue();
+
+        if (userId.isEmpty() || empId.isEmpty() || displayName.isEmpty() || email.isEmpty() || pw.isEmpty() || userType == null) {
+            new Alert(Alert.AlertType.WARNING, "Please fill all details !").show();
+        } else {
+            user = new User(
+                    userId,
+                    employeeBo.retrieveById(empId).get(0),
+                    displayName,
+                    email,
+                    getEncryptedPassword(pw),
+                    userType,
+                    true,
+                    new Date()
+            );
+        }
+        return user;
+    }
+    //USER UPDATE OBJECT
+    private User getUpdateUserObj() {
+        User user = null;
+        String userId = userIdTxt.getText();
+        String displayName = nameSystemText.getText();
+        String pw = passwordPw.getText();
+        UserType userType = userTypeCombo.getValue();
+
+        if (userId.isEmpty() || displayName.isEmpty() || pw.isEmpty() || userType == null) {
+            new Alert(Alert.AlertType.WARNING, "Please fill all details !").show();
+        } else {
+            user = new User(
+                    userIdTxt.getText(),
+                    nameSystemText.getText(),
+                    passwordPw.getText(),
+                    userTypeCombo.getValue()
+            );
+        }
+        return user;
+    }
 }

@@ -85,12 +85,8 @@ public class ManageProductCategoryFormController extends SuperFormController imp
 
     @Override
     void save() {
-        Category category = new Category(
-                categoryIdTxt.getText(),
-                categoryNameTxt.getText()
-        );
         try {
-            boolean isSaved = categoryBo.save(category);
+            boolean isSaved = categoryBo.save(getCategoryObj());
             if (isSaved){
                 new Alert(Alert.AlertType.CONFIRMATION, "Category saved successfully !").show();
                 loadId();
@@ -102,6 +98,22 @@ public class ManageProductCategoryFormController extends SuperFormController imp
         }catch (NullPointerException e){
             log.info(e.getMessage());
         }
+    }
+
+    private Category getCategoryObj() {
+        String id = categoryIdTxt.getText();
+        String name = categoryNameTxt.getText();
+        Category category = null;
+
+        if (id.isEmpty() || name.isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please fill all details !").show();
+        } else{
+            category = new Category(
+                    id,
+                    name
+            );
+        }
+        return category;
     }
 
     @Override
@@ -147,12 +159,8 @@ public class ManageProductCategoryFormController extends SuperFormController imp
 
     @Override
     void updateById() {
-        Category category = new Category(
-                selectCategoryIdCombo.getValue(),
-                categoryNameTxt.getText()
-        );
         if (loadConfirmAlert("Confirm update ?")){
-            int rowCountUpdated = categoryBo.update(category);
+            int rowCountUpdated = categoryBo.update(getCategoryObj());
 
             if (rowCountUpdated>0){
                 new Alert(Alert.AlertType.CONFIRMATION, "Category name updated successfully !").show();

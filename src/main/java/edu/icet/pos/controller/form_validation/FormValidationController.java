@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 public class FormValidationController {
     public Matcher emailFormatMatcher(String email){
         //Regular Expression
-        String regex = "^[A-Za-z0-9+_.-]+@(.+)$";
+        String regex = "^[A-Za-z0-9+%_.-]+@[a-zA-Z0-9.-]+\\\\\\\\.[a-z]{2,}$";
         //Compile regular expression to get the pattern
         Pattern pattern = Pattern.compile(regex);
         return pattern.matcher(email);

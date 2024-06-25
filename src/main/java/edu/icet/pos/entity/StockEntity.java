@@ -1,5 +1,6 @@
 package edu.icet.pos.entity;
 
+import edu.icet.pos.dto.Product;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -38,4 +39,12 @@ public class StockEntity {
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date createDateTime;
+    public StockEntity(String id, ProductEntity productEntity, int initialQty, int availableQty, double unitPrice, float discount) {
+        this.id = id;
+        this.productEntity = productEntity;
+        this.initialQty = initialQty;
+        this.availableQty = availableQty;
+        this.unitPrice = unitPrice;
+        this.discount = discount;
+    }
 }

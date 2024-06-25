@@ -11,163 +11,123 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0"
-            prefWidth="1500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="edu.icet.pos.controller.ManageStockFormController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.ManageStockFormController">
     <top>
-        <AnchorPane prefHeight="72.0" prefWidth="756.0" style="-fx-background-color: #240750;"
-                    BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="72.0" prefWidth="756.0" style="-fx-background-color: #240750;" BorderPane.alignment="CENTER">
             <children>
-                <Label layoutX="406.0" layoutY="18.0" text="Manage Stocks" textFill="#57a6a1">
+                <Label layoutX="627.0" layoutY="16.0" text="Manage Stocks" textFill="#57a6a1">
                     <font>
-                        <Font name="System Bold" size="25.0"/>
+                        <Font name="System Bold" size="25.0" />
                     </font>
                 </Label>
-                <Label fx:id="currentDateLbl" layoutX="14.0" layoutY="21.0" prefHeight="30.0" prefWidth="90.0"
-                       text="05-06-2024" textAlignment="CENTER" textFill="#9a9c9e">
+                <Label fx:id="currentDateLbl" layoutX="14.0" layoutY="21.0" prefHeight="30.0" prefWidth="90.0" text="05-06-2024" textAlignment="CENTER" textFill="#9a9c9e">
                     <font>
-                        <Font name="System Bold" size="16.0"/>
+                        <Font name="System Bold" size="16.0" />
                     </font>
                 </Label>
-                <Label fx:id="timerLbl" layoutX="128.0" layoutY="21.0" prefHeight="30.0" prefWidth="167.0"
-                       text="00:00:00" textAlignment="CENTER" textFill="#9a9c9e">
+                <Label fx:id="timerLbl" layoutX="128.0" layoutY="21.0" prefHeight="30.0" prefWidth="167.0" text="00:00:00" textAlignment="CENTER" textFill="#9a9c9e">
                     <font>
-                        <Font name="System Bold" size="16.0"/>
+                        <Font name="System Bold" size="16.0" />
                     </font>
                 </Label>
             </children>
         </AnchorPane>
     </top>
     <center>
-        <AnchorPane prefHeight="610.0" prefWidth="897.0" style="-fx-background-color: #dae0db;"
-                    BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="610.0" prefWidth="897.0" style="-fx-background-color: #dae0db;" BorderPane.alignment="CENTER">
             <children>
                 <Label layoutX="406.0" layoutY="127.0" text="Initial quantity">
                     <font>
-                        <Font name="System Bold" size="13.0"/>
+                        <Font name="System Bold" size="13.0" />
                     </font>
                 </Label>
-                <TextField fx:id="initialQuantityTxt" layoutX="564.0" layoutY="123.0" prefHeight="26.0"
-                           prefWidth="176.0"/>
-                <Button layoutX="567.0" layoutY="201.0" mnemonicParsing="false" onAction="#saveBtnOnAction"
-                        prefHeight="34.0" prefWidth="179.0" style="-fx-background-color: #f04330;" text="Save">
+                <TextField fx:id="initialQuantityTxt" layoutX="564.0" layoutY="123.0" prefHeight="26.0" prefWidth="176.0" />
+                <Button layoutX="567.0" layoutY="201.0" mnemonicParsing="false" onAction="#saveBtnOnAction" prefHeight="34.0" prefWidth="179.0" style="-fx-background-color: #f04330;" text="Save">
                     <font>
-                        <Font size="14.0"/>
+                        <Font size="14.0" />
                     </font>
                 </Button>
-                <Button layoutX="783.0" layoutY="201.0" mnemonicParsing="false" onAction="#updateBtnOnAction"
-                        prefHeight="34.0" prefWidth="99.0" style="-fx-background-color: #2cbf4e;" text="Update">
+                <Button layoutX="783.0" layoutY="201.0" mnemonicParsing="false" onAction="#updateBtnOnAction" prefHeight="34.0" prefWidth="99.0" style="-fx-background-color: #2cbf4e;" text="Update">
                     <font>
-                        <Font size="14.0"/>
+                        <Font size="14.0" />
                     </font>
                 </Button>
-                <Button layoutX="915.0" layoutY="201.0" mnemonicParsing="false" onAction="#deactivateBtnOnAction"
-                        prefHeight="34.0" prefWidth="95.0" style="-fx-background-color: #aaadab;" text="Deactivate">
+                <Button layoutX="915.0" layoutY="201.0" mnemonicParsing="false" onAction="#deactivateBtnOnAction" prefHeight="34.0" prefWidth="95.0" style="-fx-background-color: #aaadab;" text="Deactivate">
                     <font>
-                        <Font size="14.0"/>
+                        <Font size="14.0" />
                     </font>
                 </Button>
-                <TableView fx:id="stockDetailsTable" layoutX="406.0" layoutY="262.0" prefHeight="335.0"
-                           prefWidth="960.0">
+                <TableView fx:id="stockDetailsTable" layoutX="406.0" layoutY="262.0" prefHeight="335.0" prefWidth="834.0">
                     <columns>
-                        <TableColumn fx:id="idCol" prefWidth="113.59997177124023" text="Stock Id"/>
-                        <TableColumn fx:id="isActiveCol" prefWidth="113.59997177124023" text="Is Active Stock"/>
-                        <TableColumn fx:id="initialQtyCol" prefWidth="152.8000030517578" text="Initial Quantity"/>
-                        <TableColumn fx:id="availableQtyCol" prefWidth="191.20001220703125" text="Available Quantity"/>
-                        <TableColumn fx:id="unitPriceCol" minWidth="0.0" prefWidth="206.39999999999998"
-                                     text="Unit Price (Rs)"/>
-                        <TableColumn fx:id="discountCol" minWidth="0.0" prefWidth="206.39999999999998"
-                                     text="Stock Discount (%)"/>
+                        <TableColumn fx:id="idCol" prefWidth="113.59997177124023" text="Stock Id" />
+                        <TableColumn fx:id="isActiveCol" prefWidth="113.59997177124023" text="Is Active Stock" />
+                        <TableColumn fx:id="initialQtyCol" prefWidth="152.8000030517578" text="Initial Quantity" />
+                        <TableColumn fx:id="availableQtyCol" prefWidth="191.20001220703125" text="Available Quantity" />
+                        <TableColumn fx:id="unitPriceCol" minWidth="0.0" prefWidth="94.39996337890625" text="Unit Price (Rs)" />
+                        <TableColumn fx:id="discountCol" minWidth="0.0" prefWidth="166.39999999999998" text="Stock Discount (%)" />
                     </columns>
                 </TableView>
-                <Separator layoutX="406.0" layoutY="244.0" prefWidth="828.0"/>
-                <Label fx:id="userNameLbl" layoutX="490.0" layoutY="83.0" prefHeight="18.0" prefWidth="174.0"/>
+                <Separator layoutX="406.0" layoutY="244.0" prefWidth="828.0" />
+                <Label fx:id="userNameLbl" layoutX="490.0" layoutY="83.0" prefHeight="18.0" prefWidth="174.0" />
                 <Label layoutX="406.0" layoutY="82.0" text="Select product id">
                     <font>
-                        <Font name="System Bold" size="13.0"/>
+                        <Font name="System Bold" size="13.0" />
                     </font>
                 </Label>
-                <ComboBox fx:id="productIdCombo" layoutX="566.0" layoutY="79.0" prefHeight="26.0" prefWidth="176.0"
-                          promptText="Select Product Id"/>
-                <TextField fx:id="stockIdTxt" layoutX="406.0" layoutY="32.0" promptText="Stock Id"/>
-                <Button layoutX="567.0" layoutY="31.0" mnemonicParsing="false" onAction="#searchBtnOnAction"
-                        prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: #57A6A1;" text="Search"
-                        textFill="#240750">
+                <ComboBox fx:id="productIdCombo" layoutX="566.0" layoutY="79.0" prefHeight="26.0" prefWidth="176.0" promptText="Select Product Id" />
+                <TextField fx:id="stockIdTxt" layoutX="406.0" layoutY="32.0" promptText="Stock Id" />
+                <Button layoutX="567.0" layoutY="31.0" mnemonicParsing="false" onAction="#searchBtnOnAction" prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: #57A6A1;" text="Search" textFill="#240750">
                     <font>
-                        <Font name="System Bold" size="12.0"/>
+                        <Font name="System Bold" size="12.0" />
                     </font>
                 </Button>
                 <Label layoutX="406.0" layoutY="163.0" text="Available quantity">
                     <font>
-                        <Font name="System Bold" size="13.0"/>
+                        <Font name="System Bold" size="13.0" />
                     </font>
                 </Label>
-                <TextField fx:id="availableQuantityTxt" layoutX="564.0" layoutY="159.0" prefHeight="26.0"
-                           prefWidth="176.0"/>
+                <TextField fx:id="availableQuantityTxt" layoutX="564.0" layoutY="159.0" prefHeight="26.0" prefWidth="176.0" />
                 <Label layoutX="787.0" layoutY="127.0" text="Unit price (Rs)">
                     <font>
-                        <Font name="System Bold" size="13.0"/>
+                        <Font name="System Bold" size="13.0" />
                     </font>
                 </Label>
-                <TextField fx:id="unitPriceTxt" layoutX="936.0" layoutY="123.0" prefHeight="26.0" prefWidth="176.0"/>
+                <TextField fx:id="unitPriceTxt" layoutX="936.0" layoutY="123.0" prefHeight="26.0" prefWidth="176.0" />
                 <Label layoutX="789.0" layoutY="163.0" text="Discount(%)">
                     <font>
-                        <Font name="System Bold" size="13.0"/>
+                        <Font name="System Bold" size="13.0" />
                     </font>
                 </Label>
-                <TextField fx:id="stockDiscountPercentageTxt" layoutX="936.0" layoutY="159.0" prefHeight="26.0"
-                           prefWidth="176.0" promptText="0.0"/>
+                <TextField fx:id="stockDiscountPercentageTxt" layoutX="936.0" layoutY="159.0" prefHeight="26.0" prefWidth="176.0" promptText="0.0" />
             </children>
         </AnchorPane>
     </center>
     <bottom>
-        <AnchorPane prefHeight="23.0" prefWidth="1000.0" style="-fx-background-color: #240750;"
-                    BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="23.0" prefWidth="1000.0" style="-fx-background-color: #240750;" BorderPane.alignment="CENTER">
             <children>
-                <Label layoutX="724.0" layoutY="3.0" text="Copyright" textFill="#9a9c9e"/>
+                <Label layoutX="724.0" layoutY="3.0" text="Copyright" textFill="#9a9c9e" />
             </children>
         </AnchorPane>
     </bottom>
     <left>
-        <AnchorPane prefHeight="662.0" prefWidth="223.0" style="-fx-background-color: #240750;"
-                    BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="662.0" prefWidth="223.0" style="-fx-background-color: #240750;" BorderPane.alignment="CENTER">
             <children>
-                <Label layoutX="14.0" layoutY="20.0" prefHeight="30.0" prefWidth="36.0" text="User :"
-                       textAlignment="CENTER" textFill="#57a6a1">
+                <Label layoutX="14.0" layoutY="20.0" prefHeight="30.0" prefWidth="36.0" text="User :" textAlignment="CENTER" textFill="#57a6a1">
                     <font>
-                        <Font name="System Bold" size="12.0"/>
+                        <Font name="System Bold" size="12.0" />
                     </font>
                 </Label>
-                <Label fx:id="userLbl" layoutX="61.0" layoutY="26.0" prefHeight="18.0" prefWidth="130.0"
-                       textFill="#57a6a1"/>
-                <Button fx:id="dashboardBtn" layoutX="13.0" layoutY="119.0" mnemonicParsing="false"
-                        onAction="#dashboardBtnOnAction" prefHeight="26.0" prefWidth="199.0"
-                        style="-fx-background-color: #57A6A1;" text="Reports &amp; Charts"/>
-                <Button fx:id="ordersBtn" layoutX="12.0" layoutY="158.0" mnemonicParsing="false"
-                        onAction="#ordersBtnOnAction" prefHeight="26.0" prefWidth="199.0"
-                        style="-fx-background-color: #57A6A1;" text="Orders"/>
-                <ComboBox fx:id="manageStockCombo" layoutX="12.0" layoutY="264.0" onAction="#manageStockComboOnAction"
-                          prefHeight="26.0" prefWidth="200.0" promptText="Manage Stock"
-                          style="-fx-background-color: #57A6A1;"/>
-                <Button fx:id="supplierBtn" layoutX="13.0" layoutY="306.0" mnemonicParsing="false"
-                        onAction="#suppliersBtnOnAction" prefHeight="26.0" prefWidth="199.0"
-                        style="-fx-background-color: #57A6A1;" text="Suppliers"/>
-                <Button fx:id="customerBtn" layoutX="13.0" layoutY="346.0" mnemonicParsing="false"
-                        onAction="#customersBtnOnAction" prefHeight="26.0" prefWidth="199.0"
-                        style="-fx-background-color: #57A6A1;" text="Customers"/>
-                <Button fx:id="employeeBtn" layoutX="13.0" layoutY="385.0" mnemonicParsing="false"
-                        onAction="#employeesBtnOnAction" prefHeight="26.0" prefWidth="199.0"
-                        style="-fx-background-color: #57A6A1;" text="Employees"/>
-                <Button fx:id="usersBtn" layoutX="13.0" layoutY="425.0" mnemonicParsing="false"
-                        onAction="#usersBtnOnAction" prefHeight="26.0" prefWidth="199.0"
-                        style="-fx-background-color: #57A6A1;" text="Users"/>
-                <Button fx:id="logoutBtn" layoutX="9.0" layoutY="628.0" mnemonicParsing="false"
-                        onAction="#logoutBtnOnAction" prefHeight="26.0" prefWidth="142.0"
-                        style="-fx-background-color: #f50a0a; " text="Logout"/>
-                <Separator layoutX="13.0" layoutY="242.0" prefWidth="200.0"/>
-                <ComboBox fx:id="manageReturnCombo" layoutX="12.0" layoutY="199.0" onAction="#manageReturnComboOnAction"
-                          prefHeight="26.0" prefWidth="200.0" promptText="Manage Return"
-                          style="-fx-background-color: #57A6A1;"/>
+                <Label fx:id="userLbl" layoutX="61.0" layoutY="26.0" prefHeight="18.0" prefWidth="130.0" textFill="#57a6a1" />
+                <Button fx:id="dashboardBtn" layoutX="13.0" layoutY="119.0" mnemonicParsing="false" onAction="#dashboardBtnOnAction" prefHeight="26.0" prefWidth="199.0" style="-fx-background-color: #57A6A1;" text="Reports &amp; Charts" />
+                <Button fx:id="ordersBtn" layoutX="12.0" layoutY="158.0" mnemonicParsing="false" onAction="#ordersBtnOnAction" prefHeight="26.0" prefWidth="199.0" style="-fx-background-color: #57A6A1;" text="Orders" />
+                <ComboBox fx:id="manageStockCombo" layoutX="12.0" layoutY="264.0" onAction="#manageStockComboOnAction" prefHeight="26.0" prefWidth="200.0" promptText="Manage Stock" style="-fx-background-color: #57A6A1;" />
+                <Button fx:id="supplierBtn" layoutX="13.0" layoutY="306.0" mnemonicParsing="false" onAction="#suppliersBtnOnAction" prefHeight="26.0" prefWidth="199.0" style="-fx-background-color: #57A6A1;" text="Suppliers" />
+                <Button fx:id="customerBtn" layoutX="13.0" layoutY="346.0" mnemonicParsing="false" onAction="#customersBtnOnAction" prefHeight="26.0" prefWidth="199.0" style="-fx-background-color: #57A6A1;" text="Customers" />
+                <Button fx:id="employeeBtn" layoutX="13.0" layoutY="385.0" mnemonicParsing="false" onAction="#employeesBtnOnAction" prefHeight="26.0" prefWidth="199.0" style="-fx-background-color: #57A6A1;" text="Employees" />
+                <Button fx:id="usersBtn" layoutX="13.0" layoutY="425.0" mnemonicParsing="false" onAction="#usersBtnOnAction" prefHeight="26.0" prefWidth="199.0" style="-fx-background-color: #57A6A1;" text="Users" />
+                <Button fx:id="logoutBtn" layoutX="9.0" layoutY="628.0" mnemonicParsing="false" onAction="#logoutBtnOnAction" prefHeight="26.0" prefWidth="142.0" style="-fx-background-color: #f50a0a; " text="Logout" />
+                <Separator layoutX="13.0" layoutY="242.0" prefWidth="200.0" />
+                <ComboBox fx:id="manageReturnCombo" layoutX="12.0" layoutY="199.0" onAction="#manageReturnComboOnAction" prefHeight="26.0" prefWidth="200.0" promptText="Manage Return" style="-fx-background-color: #57A6A1;" />
             </children>
         </AnchorPane>
     </left>

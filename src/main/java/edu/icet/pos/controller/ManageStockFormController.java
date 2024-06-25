@@ -121,17 +121,8 @@ public class ManageStockFormController extends SuperFormController implements In
     void save() {
         String selectedProductId = productIdCombo.getValue();
         Product product = productBo.retrieveById(selectedProductId).get(0);
-        Stock stock = new Stock(
-                stockIdTxt.getText(),
-                product,
-                Integer.parseInt(initialQuantityTxt.getText()),
-                Integer.parseInt(availableQuantityTxt.getText()),
-                Double.parseDouble(unitPriceTxt.getText()),
-                Float.parseFloat(stockDiscountPercentageTxt.getText()),
-                true,
-                new Date()
-        );
-        boolean isSaved = stockBo.save(stock);
+
+        boolean isSaved = stockBo.save(getSaveStockObj(product));
         if (isSaved){
             new Alert(Alert.AlertType.CONFIRMATION, "New stock saved successfully !").show();
             loadId();
@@ -141,6 +132,7 @@ public class ManageStockFormController extends SuperFormController implements In
             new Alert(Alert.AlertType.ERROR, "Please try againe !").show();
         }
     }
+
     @Override
     void clearForm() {
         productIdCombo.valueProperty().set(null);
@@ -205,16 +197,9 @@ public class ManageStockFormController extends SuperFormController implements In
         String selectedProductId = productIdCombo.getValue();
         Product product = productBo.retrieveById(selectedProductId).get(0);
 
-        Stock stock = new Stock(
-                stockIdTxt.getText(),
-                product,
-                Integer.parseInt(initialQuantityTxt.getText()),
-                Integer.parseInt(availableQuantityTxt.getText()),
-                Double.parseDouble(unitPriceTxt.getText())
-        );
         if(loadConfirmAlert("Confirm update ?")) {
             try {
-                int updatedRowCount = stockBo.update(stock);
+                int updatedRowCount = stockBo.update(getUpdateStockObj(product));
                 if (updatedRowCount > 0) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Stock updated successfully !").show();
                     loadId();
@@ -228,6 +213,7 @@ public class ManageStockFormController extends SuperFormController implements In
             }
         }
     }
+
     //MENU - LEFT BORDER
     public User setDisplayName(){
         return setUser(currentDateLbl);
@@ -301,5 +287,51 @@ public class ManageStockFormController extends SuperFormController implements In
         }catch (NullPointerException e){
             log.info(e.getMessage());
         }
+    }
+    private Stock getSaveStockObj(Product product) {
+        Stock stock = null;
+        String id = stockIdTxt.getText();
+        int initQty = Integer.parseInt(initialQuantityTxt.getText());
+        int availableQty = Integer.parseInt(availableQuantityTxt.getText());
+        double unitPrice = Double.parseDouble(unitPriceTxt.getText());
+        float discount = Float.parseFloat(stockDiscountPercentageTxt.getText());
+
+        if (id.isEmpty() || product==null || initQty==0 || availableQty==0 || unitPrice==0.0 || discount==0.0) {
+            new Alert(Alert.AlertType.WARNING, "Please fill all details !").show();
+        }else {
+            stock = new Stock(
+                    id,
+                    product,
+                    initQty,
+                    availableQty,
+                    unitPrice,
+                    discount,
+                    true,
+                    new Date()
+            );
+        }
+        return stock;
+    }
+    private Stock getUpdateStockObj(Product product) {
+        Stock stock = null;
+        String id = stockIdTxt.getText();
+        int initQty = Integer.parseInt(initialQuantityTxt.getText());
+        int availableQty = Integer.parseInt(availableQuantityTxt.getText());
+        double unitPrice = Double.parseDouble(unitPriceTxt.getText());
+        float discount = Float.parseFloat(stockDiscountPercentageTxt.getText());
+
+        if (id.isEmpty() || product==null || initQty==0 || availableQty==0 || unitPrice==0.0 || discount==0.0) {
+            new Alert(Alert.AlertType.WARNING, "Please fill all details !").show();
+        }else {
+            stock = new Stock(
+                    id,
+                    product,
+                    initQty,
+                    availableQty,
+                    unitPrice,
+                    discount
+            );
+        }
+        return stock;
     }
 }

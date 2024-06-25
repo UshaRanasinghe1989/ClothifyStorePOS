@@ -23,11 +23,12 @@ public class Stock {
     private Boolean isActive;
     private Date createDateTime;
 
-    public Stock(String id, Product product, int initialQty, int availableQty, double unitPrice) {
+    public Stock(String id, Product product, int initialQty, int availableQty, double unitPrice, float discount) {
         this.id = id;
         this.product = product;
         this.initialQty = initialQty;
         this.availableQty = availableQty;
         this.unitPrice = unitPrice;
+        this.discount = discount;
     }
 }

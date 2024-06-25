@@ -21,18 +21,18 @@ public class StockBoImpl implements StockBo {
 
     @Override
     public boolean save(Stock dto) {
-        /*ProductEntity productEntity = new ModelMapper().map(dto.getProduct(), ProductEntity.class);
+        ProductEntity productEntity = new ModelMapper().map(dto.getProduct(), ProductEntity.class);
         StockEntity stockEntity = new StockEntity(
                 dto.getId(),
                 productEntity,
                 dto.getInitialQty(),
                 dto.getAvailableQty(),
                 dto.getUnitPrice(),
+                dto.getDiscount(),
                 dto.getIsActive(),
                 dto.getCreateDateTime()
-        );*/
-        //return stockDao.save(stockEntity);
-        return stockDao.save(mapper.map(dto, StockEntity.class));
+        );
+        return stockDao.save(stockEntity);
     }
     @Override
     public List<Stock> retrieveAll() {
@@ -53,7 +53,18 @@ public class StockBoImpl implements StockBo {
 
     @Override
     public int update(Stock dto) {
-        return stockDao.update(mapper.map(dto, StockEntity.class));
+        ProductEntity productEntity = new ModelMapper().map(dto.getProduct(), ProductEntity.class);
+        StockEntity stockEntity = new StockEntity(
+                dto.getId(),
+                productEntity,
+                dto.getInitialQty(),
+                dto.getAvailableQty(),
+                dto.getUnitPrice(),
+                dto.getDiscount(),
+                dto.getIsActive(),
+                dto.getCreateDateTime()
+        );
+        return stockDao.update(stockEntity);
     }
 
     @Override

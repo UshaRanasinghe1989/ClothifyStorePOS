@@ -20,13 +20,15 @@ public class EmployeeBoImpl implements EmployeeBo {
 
     @Override
     public boolean save(Employee dto) {
-        EmployeeEntity entity = null;
+        EmployeeEntity entity;
+        boolean isSaved = false;
         try {
             entity = mapper.map(dto, EmployeeEntity.class);
-        }catch (NullPointerException e){
+            isSaved = employeeDao.save(entity);
+        }catch (RuntimeException e){
             log.info(e.getMessage());
         }
-        return employeeDao.save(entity);
+        return isSaved;
     }
 
     @Override
@@ -49,7 +51,7 @@ public class EmployeeBoImpl implements EmployeeBo {
         int rowCount = 0;
         try {
             rowCount = employeeDao.update(mapper.map(dto, EmployeeEntity.class));
-        }catch (NullPointerException e){
+        }catch (RuntimeException e){
             log.info(e.getMessage());
         }
         return rowCount;

@@ -1,9 +1,10 @@
 
 ¦
-java:S4144ƒ"bUpdate this method so that its implementation is not identical to "searchBtnOnAction" on line 126.(¤È°·8¹ŸÌá„2J$71157cd5-f768-462f-8a2b-45ab6c99ae94
+java:S4144ƒ"bUpdate this method so that its implementation is not identical to "searchBtnOnAction" on line 126.(¤È°·8¥ı…ï„2J$7eb19eb9-c466-4f05-99b0-4a01873d2d03
 ›
-java:S1450X"SRemove the "user" field and declare it as a local variable in the relevant methods.(’Ø¾ıÿÿÿÿ8»ŸÌá„2J$82eb6177-5eee-4774-babd-9237452915e8
+java:S1450X"SRemove the "user" field and declare it as a local variable in the relevant methods.(’Ø¾ıÿÿÿÿ8¨ı…ï„2J$d7269329-b44a-4017-9f6b-b3e554231772
+„	java:S125¼"<This block of commented-out lines of code should be removed.(—³¹¡ÿÿÿÿÿ8Ôı…ï„2J$aaa31607-98ee-42a3-95ad-2474e3a14e16
 r
-java:S1068V"*Remove this unused "mapper" private field.(©°¥‹ÿÿÿÿÿ8ĞŸÌá„2J$1b94701c-e656-47cd-a0c6-98ad43f4b1df
+java:S1068V"*Remove this unused "mapper" private field.(©°¥‹ÿÿÿÿÿ8Öı…ï„2J$8d8ed0f0-ca22-4aea-a684-cd04c81f5918
 p
-java:S1068X"(Remove this unused "user" private field.(’Ø¾ıÿÿÿÿ8ĞŸÌá„2J$b253b946-0baf-4a98-b8db-67c7a363518a
+java:S1068X"(Remove this unused "user" private field.(’Ø¾ıÿÿÿÿ8Öı…ï„2J$7b228592-36c4-473a-bb32-cb73eaa65589

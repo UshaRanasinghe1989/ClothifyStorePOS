@@ -107,16 +107,8 @@ public class ManageSupplierFormController extends SuperFormController implements
 
     @Override
     void save() {
-        Supplier supplier = new Supplier(
-                supplierIdTxt.getText(),
-                supplierNameTxt.getText(),
-                contactPersonTxt.getText(),
-                contactNoTxt.getText(),
-                emailTxt.getText(),
-                addressTxt.getText()
-        );
         try {
-            boolean isSaved = supplierBo.save(supplier);
+            boolean isSaved = supplierBo.save(getSupplierObj());
             if (isSaved) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Supplier saved successfully !").show();
                 loadId();
@@ -190,17 +182,9 @@ public class ManageSupplierFormController extends SuperFormController implements
 
     @Override
     void updateById() {
-        Supplier supplier = new Supplier(
-                supplierIdTxt.getText(),
-                supplierNameTxt.getText(),
-                contactPersonTxt.getText(),
-                contactNoTxt.getText(),
-                emailTxt.getText(),
-                addressTxt.getText()
-        );
         if (loadConfirmAlert("Confirm update ?")) {
             try {
-                int updatedRowCount = supplierBo.update(supplier);
+                int updatedRowCount = supplierBo.update(getSupplierObj());
 
                 if (updatedRowCount > 0) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Supplier updated successfully !").show();
@@ -289,5 +273,28 @@ public class ManageSupplierFormController extends SuperFormController implements
         } catch (IOException e) {
             log.info(e.getMessage());
         }
+    }
+    private Supplier getSupplierObj() {
+        Supplier supplier = null;
+        String id = supplierIdTxt.getText();
+        String name = supplierNameTxt.getText();
+        String contactPerson = contactPersonTxt.getText();
+        String contactNo = contactNoTxt.getText();
+        String email = emailTxt.getText();
+        String address = addressTxt.getText();
+
+        if (id.isEmpty() || name.isEmpty() || contactPerson.isEmpty() || contactNo.isEmpty() || email.isEmpty() || address.isEmpty()){
+            new Alert(Alert.AlertType.WARNING, "Please fill all details !").show();
+        }else {
+            supplier = new Supplier(
+                    id,
+                    name,
+                    contactPerson,
+                    contactNo,
+                    email,
+                    address
+            );
+        }
+        return supplier;
     }
 }
