@@ -68,7 +68,7 @@ public class ProductEntity {
     @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL)
     private Set<DamagedStockEntity> damagedStockEntitySet;
 
-    public ProductEntity(String id, CategoryEntity categoryEntity, SupplierEntity supplierEntity, String name, String description, ProductSizes size, Date createDateTime, List<ProductImageEntity> productImageEntityList, List<StockEntity> stockEntityList) {
+    public ProductEntity(String id, CategoryEntity categoryEntity, SupplierEntity supplierEntity, String name, String description, ProductSizes size, Date createDateTime) {
         this.id = id;
         this.categoryEntity = categoryEntity;
         this.supplierEntity = supplierEntity;
@@ -76,8 +76,14 @@ public class ProductEntity {
         this.description = description;
         this.size = size;
         this.createDateTime = createDateTime;
-        this.productImageEntityList = productImageEntityList;
-        this.stockEntityList = stockEntityList;
+    }
+
+    public void addProductImage(ProductImageEntity productImageEntity){
+        this.productImageEntityList.add(productImageEntity);
+    }
+
+    public void addStock(StockEntity stockEntity){
+        this.stockEntityList.add(stockEntity);
     }
 
     public void addOrderDetail(OrderDetailEntity orderDetailEntity){

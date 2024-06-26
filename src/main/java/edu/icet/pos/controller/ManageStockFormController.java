@@ -91,6 +91,8 @@ public class ManageStockFormController extends SuperFormController implements In
         getCurrentTime(timerLbl);
         loadId();
         loadProductCombo();
+        loadManageReturnCombo(manageReturnCombo);
+        loadManageStockCombo(manageStockCombo);
         loadDetailTable();
     }
     public void saveBtnOnAction() {
@@ -257,11 +259,7 @@ public class ManageStockFormController extends SuperFormController implements In
         }
     }
     public void customersBtnOnAction() {
-        try {
-            loadCustomerForm(customerBtn);
-        } catch (IOException e) {
-            log.info(e.getMessage());
-        }
+        loadCustomerForm(customerBtn);
     }
     public void manageReturnComboOnAction() {
         String comboOption = manageReturnCombo.getValue();

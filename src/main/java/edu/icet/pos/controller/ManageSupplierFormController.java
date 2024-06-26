@@ -91,6 +91,8 @@ public class ManageSupplierFormController extends SuperFormController implements
         getCurrentDate(currentDateLbl);
         getCurrentTime(timerLbl);
         loadId();
+        loadManageReturnCombo(manageReturnCombo);
+        loadManageStockCombo(manageStockCombo);
         loadDetailTable();
     }
 
@@ -250,11 +252,7 @@ public class ManageSupplierFormController extends SuperFormController implements
     }
 
     public void customersBtnOnAction() {
-        try {
-            loadCustomerForm(customerBtn);
-        } catch (IOException e) {
-            log.info(e.getMessage());
-        }
+        loadCustomerForm(customerBtn);
     }
 
     public void manageReturnComboOnAction() {

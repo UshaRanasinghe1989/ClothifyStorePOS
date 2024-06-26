@@ -1,7 +1,7 @@
 
-v
-java:S1121".Extract the assignment out of this expression.(ÒÛÛÅúÿÿÿÿ8ÙàÑ„2J$e45b82f1-0911-4fee-a4c4-5316753e2ec9
-Ü
-java:S6548"˜A Singleton implementation was detected. Make sure the use of the Singleton pattern is required and the implementation is the right one for the context.(‡‰“·8İàÑ„2J$96980a48-ddd4-4987-ae33-b2f42d044e73
+P
+java:S1121".Extract the assignment out of this expression.(ÒÛÛÅúÿÿÿÿ8áÀº …2
+¶
+java:S6548"˜A Singleton implementation was detected. Make sure the use of the Singleton pattern is required and the implementation is the right one for the context.(‡‰“·8èÀº …2
 k
-java:S1128"IRemove this unused import 'edu.icet.pos.dao.custom.impl.CategoryDaoImpl'.(Îå Çÿÿÿÿÿ8“†˜„2
+java:S1128"IRemove this unused import 'edu.icet.pos.dao.custom.impl.CategoryDaoImpl'.(Îå Çÿÿÿÿÿ8Ÿ¡Ü¶…2

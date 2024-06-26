@@ -26,6 +26,7 @@ public class DaoFactory implements SuperDao {
             case RETURN: return (T) new ReturnDaoImpl();
             case DAMAGED_STOCK:return (T) new DamagedStockDaoImpl();
             case CREDIT_NOTE: return (T) new CreditNoteDaoImpl();
+            case PRODUCT_IMAGE: return (T) new ProductImageDaoImpl();
         }
         return null;
     }

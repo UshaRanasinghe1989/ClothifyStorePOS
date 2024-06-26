@@ -28,6 +28,7 @@ public class BoFactory implements SuperBo{
             case RETURN: return (T) new ReturnBoImpl();
             case DAMAGED_STOCK: return (T) new DamagedStockBoImpl();
             case CREDIT_NOTE: return (T) new CreditNoteBoImpl();
+            case PRODUCT_IMAGE: return (T) new ProductImageBoImpl();
         }
         return null;
     }

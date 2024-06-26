@@ -1,5 +1,5 @@
 
 
-java:S1450L"ZRemove the "currentUser" field and declare it as a local variable in the relevant methods.(ûË¥ó8õÂÉï„2J$f8c0155b-88a3-4aeb-92db-cefcd9bb5d70
+java:S1450L"ZRemove the "currentUser" field and declare it as a local variable in the relevant methods.(ûË¥ó8õÂÉï„2J$11b4142d-5b3a-4601-806b-bdd56e2cc47b
 r
-java:S1068L"/Remove this unused "currentUser" private field.(ûË¥ó8œÃÉï„2J$ff9a54b9-f334-4c19-b5ad-dcf4bb5613a8
+java:S1068L"/Remove this unused "currentUser" private field.(ûË¥ó8œÃÉï„2J$18fbe697-50c4-4b18-87cf-e57824d2dd62

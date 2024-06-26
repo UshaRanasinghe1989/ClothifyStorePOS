@@ -263,11 +263,7 @@ public class ManageEmployeeFormController extends SuperFormController implements
     }
 
     public void customersBtnOnAction() {
-        try {
-            loadCustomerForm(customerBtn);
-        } catch (IOException e) {
-            log.info(e.getMessage());
-        }
+        loadCustomerForm(customerBtn);
     }
 
     public void manageReturnComboOnAction() {

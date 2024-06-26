@@ -29,9 +29,7 @@ public class ProductBoImpl implements ProductBo {
                 dto.getName(),
                 dto.getDescription(),
                 dto.getSize(),
-                dto.getCreateDateTime(),
-                null,
-                null
+                dto.getCreateDateTime()
         );
         return productDao.save(productEntity);
     }

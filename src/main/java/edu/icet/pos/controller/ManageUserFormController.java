@@ -87,6 +87,8 @@ public class ManageUserFormController extends SuperFormController implements Ini
         loadEmpIdCombo();//LOAD EXISTING EMPLOYEE ID LIST
         loadId();//LOAD NEXT USER ID
         loadUserTypeCombo();//LOAD USER TYPES
+        loadManageReturnCombo(manageReturnCombo);
+        loadManageStockCombo(manageStockCombo);
         loadDetailTable();
     }
 
@@ -257,11 +259,7 @@ public class ManageUserFormController extends SuperFormController implements Ini
     }
 
     public void customersBtnOnAction() {
-        try {
-            loadCustomerForm(customerBtn);
-        } catch (IOException e) {
-            log.info(e.getMessage());
-        }
+        loadCustomerForm(customerBtn);
     }
 
     public void manageReturnComboOnAction() {

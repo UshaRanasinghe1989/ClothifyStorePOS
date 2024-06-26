@@ -1,6 +1,23 @@
 
+œ
+java:S1192æ"SDefine a constant instead of duplicating this literal "Please try again !" 3 times.(›Õ¾¯ùÿÿÿÿ8§ıØµ…2J$d3b95ecc-9a79-4202-9b67-501a72ab1872
+Å
+java:S1186Ç"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(‘ˆ¾§8àıØµ…2J$e18cf0af-7c5e-43e8-8495-6f5193a638ed
+Å
+java:S1186Ê"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(©¸×ƒ8àıØµ…2J$96cdd740-c54a-4327-b7cc-34e94ed07256
+Å
+java:S1186Í"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(´şö¾8àıØµ…2J$6b28aa4b-3ad4-47ac-afe9-c33508ed3a0d
+Ê
+java:S1186Ğ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÍÎ¼œÿÿÿÿÿ8àıØµ…2J$fe6ad531-7cb8-4da1-92cb-adfb15dfb6c6
 ›
-java:S1450d"SRemove the "user" field and declare it as a local variable in the relevant methods.(’Ø¾ıÿÿÿÿ8ŸÍÜğ„2J$bc6fb79f-79ce-450b-92e0-1809b608cf54
-	java:S125›"<This block of commented-out lines of code should be removed.(’ÃÎ8ªÍÜğ„2J$ff1ade95-c228-4d06-a9c4-5f2bd855ca5d
+java:S1450o"SRemove the "user" field and declare it as a local variable in the relevant methods.(’Ø¾ıÿÿÿÿ8äıØµ…2J$5fdb5ff0-18f3-45a6-85a7-39a75df6c872
 p
-java:S1068d"(Remove this unused "user" private field.(’Ø¾ıÿÿÿÿ8ÅÍÜğ„2J$e7f0d073-6a76-440a-9630-9a39704ef5ea
+java:S1068o"(Remove this unused "user" private field.(’Ø¾ıÿÿÿÿ8™şØµ…2J$6c79dffe-f661-4458-b2c6-af6221ea745f
+~
+java:S1068w";Remove this unused "fileInputStreamImageTwo" private field.(Äÿïã8™şØµ…2J$514839a2-2b47-49aa-9a1b-1a59432130ba
+
+java:S1068x"=Remove this unused "fileInputStreamImageThree" private field.(Îòİy8™şØµ…2J$1c28e9d0-6a2a-4b8e-893d-613bd12a70b6
+
+java:S1068y"<Remove this unused "fileInputStreamImageFour" private field.(ĞÍÎ8™şØµ…2J$ce2552a7-4065-4d0a-b2ee-35bd0f5c606b
+„
+java:S1068z"<Remove this unused "fileInputStreamImageFive" private field.(åÑÚõıÿÿÿÿ8™şØµ…2J$378814e8-9d15-49ed-bf8e-b4bb1d4d6228

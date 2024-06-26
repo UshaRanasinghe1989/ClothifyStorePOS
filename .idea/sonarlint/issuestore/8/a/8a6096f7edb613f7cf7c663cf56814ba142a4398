@@ -1,5 +1,4 @@
 
-ˆ	java:S107G"AConstructor has 9 parameters, which is greater than 7 authorized.(»Ûßáúÿÿÿÿ8Ú‰äÑ‚2J$37f02a59-da77-4428-b9fb-d326e4c3336f
-ƒ	java:S125"<This block of commented-out lines of code should be removed.(Äöä›ÿÿÿÿÿ8İ‰äÑ‚2J$4a23a24e-9523-4346-ac45-2869fb6319bd
-Q
-java:S1128"4Remove this unused import 'edu.icet.pos.dto.Orders'.(‘¼¢û8†¶›åƒ2
+ƒ	java:S125"<This block of commented-out lines of code should be removed.(Äöä›ÿÿÿÿÿ8Û°Ÿ…2J$fac8e521-4c2a-4dca-b433-305a86a3711e
+w
+java:S1128"4Remove this unused import 'edu.icet.pos.dto.Orders'.(‘¼¢û8×Æ°Ÿ…2J$3cb21f95-9307-4d1c-a71f-c4dfd9a9c39e

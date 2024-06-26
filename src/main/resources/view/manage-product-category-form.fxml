@@ -36,7 +36,7 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #dae0db;" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="categoryIdTxt" layoutX="542.0" layoutY="28.0" prefHeight="18.0" prefWidth="114.0" />
+            <Label fx:id="categoryIdTxt" layoutX="405.0" layoutY="31.0" prefHeight="18.0" prefWidth="114.0" />
             <ComboBox fx:id="selectCategoryIdCombo" layoutX="559.0" layoutY="28.0" onAction="#catIdComboOnAction" prefWidth="150.0" promptText="Select Category Id" />
             <TextField fx:id="categoryNameTxt" layoutX="559.0" layoutY="90.0" />
             <Label layoutX="406.0" layoutY="93.0" prefHeight="18.0" prefWidth="113.0" text="Category name">

@@ -81,6 +81,8 @@ public class ManageProductCategoryFormController extends SuperFormController imp
         getCurrentTime(timerLbl);
         loadId();
         loadCategoryIdCombo();
+        loadManageReturnCombo(manageReturnCombo);
+        loadManageStockCombo(manageStockCombo);
         loadDetailTable();
     }
 
@@ -92,6 +94,7 @@ public class ManageProductCategoryFormController extends SuperFormController imp
                 new Alert(Alert.AlertType.CONFIRMATION, "Category saved successfully !").show();
                 loadId();
                 loadCategoryIdCombo();
+                loadDetailTable();
                 clearForm();
             }else {
                 new Alert(Alert.AlertType.ERROR, "Please try again !").show();
@@ -231,11 +234,7 @@ public class ManageProductCategoryFormController extends SuperFormController imp
         }
     }
     public void customersBtnOnAction() {
-        try {
-            loadCustomerForm(customerBtn);
-        } catch (IOException e) {
-            log.info(e.getMessage());
-        }
+        loadCustomerForm(customerBtn);
     }
     public void manageReturnComboOnAction() {
         String comboOption = manageReturnCombo.getValue();

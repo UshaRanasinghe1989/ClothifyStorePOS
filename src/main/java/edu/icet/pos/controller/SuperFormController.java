@@ -133,6 +133,15 @@ public abstract class SuperFormController extends FormValidationController {
         stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/manage-user-form.fxml"))));
         stage.show();
     }
+    protected void loadCategoryForm(Button btn) throws IOException {
+        //CLOSE CURRENT FORM
+        Stage currentForm = (Stage) btn.getScene().getWindow();
+        currentForm.close();
+        //LOAD SUPPLIER FORM
+        Stage stage = new Stage();
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/manage-product-category-form.fxml"))));
+        stage.show();
+    }
     protected void loadSupplierForm(Button btn) throws IOException {
         //CLOSE CURRENT FORM
         Stage currentForm = (Stage) btn.getScene().getWindow();
@@ -142,7 +151,7 @@ public abstract class SuperFormController extends FormValidationController {
         stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/manage-supplier-form.fxml"))));
         stage.show();
     }
-    protected void loadCustomerForm(Button btn) throws IOException {
+    protected void loadCustomerForm(Button btn){
         //CLOSE CURRENT FORM
         Stage currentForm = (Stage) btn.getScene().getWindow();
         currentForm.close();

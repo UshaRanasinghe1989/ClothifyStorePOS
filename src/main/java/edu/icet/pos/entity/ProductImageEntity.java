@@ -1,5 +1,6 @@
 package edu.icet.pos.entity;
 
+import edu.icet.pos.dto.Product;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,6 +15,7 @@ import lombok.ToString;
 @Table(name = "product_image")
 public class ProductImageEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     //ONE IMAGE WOULD BELONG TO ONE PRODUCT
     //FOREIGN KEY REFERS PRODUCT TABLE
@@ -23,6 +25,14 @@ public class ProductImageEntity {
 
     @Column(nullable = false)
     private String description;
-    @Column(nullable = false)
-    private String imagePath;
+
+    @Lob
+    @Column(name = "image_data", nullable = false, columnDefinition="BLOB")
+    private byte[] imageData;
+
+    public ProductImageEntity(ProductEntity productEntity, String description, byte[] imageData){
+        this.productEntity = productEntity;
+        this.description = description;
+        this.imageData = imageData;
+    }
 }

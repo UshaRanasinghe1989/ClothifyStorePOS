@@ -70,7 +70,6 @@ public class AdminDashboardFormController implements Initializable {
         loadMenu();
         loadManageStockCombo();
         loadManageReturnCombo();
-        loadCharts();
     }
     @FXML
     void generateOrderReportBtnOnAction() {
@@ -109,6 +108,18 @@ public class AdminDashboardFormController implements Initializable {
     void generateProductReportBtnOnAction(ActionEvent event) {
         try {
             JasperDesign design = JRXmlLoader.load("src/main/resources/jasper_report/products.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(design);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, DBConnection.getDbConnection().getConnection());
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (JRException | ClassNotFoundException | SQLException e) {
+            log.info(e.getMessage());
+        }
+    }
+
+    //GENERATE CHARTS
+    public void dailySalesChartBtnOnAction(ActionEvent event) {
+        try {
+            JasperDesign design = JRXmlLoader.load("src/main/resources/jasper_charts/sales_chart.jrxml");
             JasperReport jasperReport = JasperCompileManager.compileReport(design);
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, DBConnection.getDbConnection().getConnection());
             JasperViewer.viewReport(jasperPrint, false);
@@ -250,16 +261,6 @@ public class AdminDashboardFormController implements Initializable {
             usersBtn.setVisible(false);
         }else {
             userLbl.setText("Admin");
-        }
-    }
-    private void loadCharts(){
-        try {
-            JasperDesign design = JRXmlLoader.load("src/main/resources/jasper_charts/sales_chart.jrxml");
-            JasperReport jasperReport = JasperCompileManager.compileReport(design);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, DBConnection.getDbConnection().getConnection());
-            JasperViewer.viewReport(jasperPrint, false);
-        } catch (JRException | ClassNotFoundException | SQLException e) {
-            log.info(e.getMessage());
         }
     }
 }

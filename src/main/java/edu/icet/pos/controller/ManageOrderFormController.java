@@ -133,6 +133,8 @@ public class ManageOrderFormController extends SuperFormController implements In
         loadId();
         loadSelectSellerCombo();
         loadProductNamesCombo();
+        loadManageReturnCombo(manageReturnCombo);
+        loadManageStockCombo(manageStockCombo);
         selectedCustomerId.setVisible(false);
         paymentBtn.setVisible(false);
     }
@@ -363,11 +365,7 @@ public class ManageOrderFormController extends SuperFormController implements In
         }
     }
     public void customersBtnOnAction() {
-        try {
-            loadCustomerForm(customerBtn);
-        } catch (IOException e) {
-            log.info(e.getMessage());
-        }
+        loadCustomerForm(customerBtn);
     }
     public void manageReturnComboOnAction() {
         String comboOption = manageReturnCombo.getValue();
