@@ -81,7 +81,6 @@ public class ManageProductCategoryFormController extends SuperFormController imp
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadUserMenu();
         currentUser = setDisplayName();
         getCurrentDate(currentDateLbl);
         getCurrentTime(timerLbl);
@@ -90,6 +89,10 @@ public class ManageProductCategoryFormController extends SuperFormController imp
         loadManageReturnCombo(manageReturnCombo);
         loadManageStockCombo(manageStockCombo);
         loadDetailTable();
+
+        if (currentUser.getType()== UserType.USER){
+            loadUserMenu();
+        }
     }
 
     @Override
@@ -187,12 +190,10 @@ public class ManageProductCategoryFormController extends SuperFormController imp
 
     @Override
     void loadUserMenu() {
-        if (currentUser.getType()== UserType.USER){
-            dashboardBtn.setVisible(false);
-            employeeBtn.setVisible(false);
-            usersBtn.setVisible(false);
-            updateBtn.setVisible(false);
-        }
+        dashboardBtn.setVisible(false);
+        employeeBtn.setVisible(false);
+        usersBtn.setVisible(false);
+        updateBtn.setVisible(false);
     }
 
     public void saveBtnOnAction() {

@@ -93,7 +93,6 @@ public class ManageStockFormController extends SuperFormController implements In
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //LOGICALLY INHERITED METHODS FROM SuperFormController ABSTRACT CLASS
-        loadUserMenu();
         currentUser = setDisplayName();
         getCurrentDate(currentDateLbl);
         getCurrentTime(timerLbl);
@@ -102,6 +101,10 @@ public class ManageStockFormController extends SuperFormController implements In
         loadManageReturnCombo(manageReturnCombo);
         loadManageStockCombo(manageStockCombo);
         loadDetailTable();
+
+        if (currentUser.getType()== UserType.USER){
+            loadUserMenu();
+        }
     }
     public void saveBtnOnAction() {
         save();
@@ -227,13 +230,11 @@ public class ManageStockFormController extends SuperFormController implements In
 
     @Override
     void loadUserMenu() {
-        if (currentUser.getType()== UserType.USER){
-            dashboardBtn.setVisible(false);
-            employeeBtn.setVisible(false);
-            usersBtn.setVisible(false);
-            updateBtn.setVisible(false);
-            deactivateBtn.setVisible(false);
-        }
+        dashboardBtn.setVisible(false);
+        employeeBtn.setVisible(false);
+        usersBtn.setVisible(false);
+        updateBtn.setVisible(false);
+        deactivateBtn.setVisible(false);
     }
 
     //MENU - LEFT BORDER

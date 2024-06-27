@@ -89,7 +89,6 @@ public class GenerateCreditNoteFormController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadUserMenu();
         currentUser = setUser();
         loadMenu();
         loadManageStockCombo();
@@ -316,11 +315,9 @@ public class GenerateCreditNoteFormController implements Initializable {
     }
 
     private void loadMenu() {
-        CurrentUserHolder currentUserHolder = CurrentUserHolder.getInstance();
-        User user = currentUserHolder.getUser();
-        if (user.getType().equals(UserType.USER)) {
-            userLbl.setText(user.getSystemName());
+        if (currentUser.getType().equals(UserType.USER)) {
             dashboardBtn.setVisible(false);
+            employeeBtn.setVisible(false);
             usersBtn.setVisible(false);
         } else {
             userLbl.setText("Admin");
@@ -339,12 +336,5 @@ public class GenerateCreditNoteFormController implements Initializable {
         typeOptions.add("Generate Return Note");
         typeOptions.add("Generate Credit Note");
         manageReturnCombo.setItems(typeOptions);
-    }
-    private void loadUserMenu() {
-        if (currentUser.getType()== UserType.USER){
-            dashboardBtn.setVisible(false);
-            employeeBtn.setVisible(false);
-            usersBtn.setVisible(false);
-        }
     }
 }

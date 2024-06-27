@@ -9,7 +9,6 @@ import edu.icet.pos.util.GetModelMapper;
 import edu.icet.pos.util.UserType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -99,15 +98,17 @@ public class ManageEmployeeFormController extends SuperFormController implements
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //LOAD MENU FOR USER
-        loadUserMenu();
         currentUser = setDisplayName();
         getCurrentDate(currentDateLbl);
         getCurrentTime(timerLbl);
         loadManageStockCombo(manageStockCombo);
         loadManageReturnCombo(manageReturnCombo);
-
         loadId();
         loadDetailTable();
+
+        if (currentUser.getType()== UserType.USER){
+            loadUserMenu();
+        }
     }
 
     public void saveBtnOnAction() {
@@ -225,13 +226,11 @@ public class ManageEmployeeFormController extends SuperFormController implements
 
     @Override
     void loadUserMenu() {
-        if (currentUser.getType()== UserType.USER){
-            dashboardBtn.setVisible(false);
-            employeeBtn.setVisible(false);
-            usersBtn.setVisible(false);
-            updateBtn.setVisible(false);
-            deleteBtn.setVisible(false);
-        }
+        dashboardBtn.setVisible(false);
+        employeeBtn.setVisible(false);
+        usersBtn.setVisible(false);
+        updateBtn.setVisible(false);
+        deleteBtn.setVisible(false);
     }
 
     //MENU - LEFT BORDER

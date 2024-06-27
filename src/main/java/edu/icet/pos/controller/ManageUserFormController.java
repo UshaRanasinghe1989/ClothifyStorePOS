@@ -86,7 +86,6 @@ public class ManageUserFormController extends SuperFormController implements Ini
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadUserMenu();
         currentUser = setDisplayName();
         getCurrentDate(currentDateLbl);//LOAD CURRENT DATE
         getCurrentTime(timerLbl);
@@ -96,6 +95,10 @@ public class ManageUserFormController extends SuperFormController implements Ini
         loadManageReturnCombo(manageReturnCombo);
         loadManageStockCombo(manageStockCombo);
         loadDetailTable();
+
+        if (currentUser.getType()== UserType.USER){
+            loadUserMenu();
+        }
     }
 
     public void selectEmpComboOnAction() {
@@ -219,13 +222,11 @@ public class ManageUserFormController extends SuperFormController implements Ini
 
     @Override
     void loadUserMenu() {
-        if (currentUser.getType()== UserType.USER){
-            dashboardBtn.setVisible(false);
-            employeeBtn.setVisible(false);
-            usersBtn.setVisible(false);
-            updateBtn.setVisible(false);
-            deactivateBtn.setVisible(false);
-        }
+        dashboardBtn.setVisible(false);
+        employeeBtn.setVisible(false);
+        usersBtn.setVisible(false);
+        updateBtn.setVisible(false);
+        deactivateBtn.setVisible(false);
     }
 
     //MENU - LEFT BORDER

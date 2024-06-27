@@ -153,7 +153,6 @@ public class ManageProductFormController extends SuperFormController implements 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadUserMenu();
         currentUser = setDisplayName();
         getCurrentTime(timerLbl);
         getCurrentDate(currentDateLbl);
@@ -170,6 +169,10 @@ public class ManageProductFormController extends SuperFormController implements 
         imageThreeLbl.setVisible(false);
         imageFourLbl.setVisible(false);
         imageFiveLbl.setVisible(false);
+
+        if (currentUser.getType()== UserType.USER){
+            loadUserMenu();
+        }
     }
 
     public void saveBtnOnAction() {
@@ -440,12 +443,10 @@ public class ManageProductFormController extends SuperFormController implements 
 
     @Override
     void loadUserMenu() {
-        if (currentUser.getType()== UserType.USER){
-            dashboardBtn.setVisible(false);
-            employeeBtn.setVisible(false);
-            usersBtn.setVisible(false);
-            updateBtn.setVisible(false);
-        }
+        dashboardBtn.setVisible(false);
+        employeeBtn.setVisible(false);
+        usersBtn.setVisible(false);
+        updateBtn.setVisible(false);
     }
 
     //MENU - LEFT BORDER

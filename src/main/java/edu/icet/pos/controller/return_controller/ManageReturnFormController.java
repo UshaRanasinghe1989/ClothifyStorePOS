@@ -118,7 +118,6 @@ public class ManageReturnFormController implements ReturnInterface, Initializabl
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadUserMenu();
         currentUser = setUser();
         getCurrentDate();
         getCurrentTime();
@@ -127,8 +126,6 @@ public class ManageReturnFormController implements ReturnInterface, Initializabl
         loadManageStockCombo();
         loadManageReturnCombo();
         loadMenu();
-
-        //
         selectReturnProductCombo.setDisable(true);
     }
 
@@ -323,15 +320,6 @@ public class ManageReturnFormController implements ReturnInterface, Initializabl
         if (result.orElse(btnNo)==btnYes) isConfirm = true;
 
         return isConfirm;
-    }
-
-    @Override
-    public void loadUserMenu() {
-        if (currentUser.getType()== UserType.USER){
-            dashboardBtn.setVisible(false);
-            employeeBtn.setVisible(false);
-            usersBtn.setVisible(false);
-        }
     }
 
     public void dashboardBtnOnAction() throws IOException {

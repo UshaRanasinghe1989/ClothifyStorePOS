@@ -92,7 +92,6 @@ public class ManageSupplierFormController extends SuperFormController implements
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadUserMenu();
         currentUser = setDisplayName();
         getCurrentDate(currentDateLbl);
         getCurrentTime(timerLbl);
@@ -100,6 +99,10 @@ public class ManageSupplierFormController extends SuperFormController implements
         loadManageReturnCombo(manageReturnCombo);
         loadManageStockCombo(manageStockCombo);
         loadDetailTable();
+
+        if (currentUser.getType()== UserType.USER){
+            loadUserMenu();
+        }
     }
 
     public void searchBtnOnAction() {
@@ -212,12 +215,10 @@ public class ManageSupplierFormController extends SuperFormController implements
 
     @Override
     void loadUserMenu() {
-        if (currentUser.getType()== UserType.USER){
-            dashboardBtn.setVisible(false);
-            employeeBtn.setVisible(false);
-            usersBtn.setVisible(false);
-            updateBtn.setVisible(false);
-        }
+        dashboardBtn.setVisible(false);
+        employeeBtn.setVisible(false);
+        usersBtn.setVisible(false);
+        updateBtn.setVisible(false);
     }
 
     //MENU - LEFT BORDER
