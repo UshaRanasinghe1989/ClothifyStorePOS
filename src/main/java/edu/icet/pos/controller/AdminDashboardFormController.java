@@ -35,6 +35,8 @@ import java.util.ResourceBundle;
 
 @Slf4j
 public class AdminDashboardFormController implements Initializable {
+    @FXML
+    public Button productCategoryBtn;
     //MENU FIELDS
     @FXML
     private ComboBox<String> manageStockCombo;
@@ -61,11 +63,11 @@ public class AdminDashboardFormController implements Initializable {
     @FXML
     public Button logoutBtn;
 
-    private User user;
+    private User currentUser;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        user = setDisplayName();
+        currentUser = setDisplayName();
         loadDateTime();
         loadMenu();
         loadManageStockCombo();
@@ -117,7 +119,7 @@ public class AdminDashboardFormController implements Initializable {
     }
 
     //GENERATE CHARTS
-    public void dailySalesChartBtnOnAction(ActionEvent event) {
+    public void dailySalesChartBtnOnAction() {
         try {
             JasperDesign design = JRXmlLoader.load("src/main/resources/jasper_charts/sales_chart.jrxml");
             JasperReport jasperReport = JasperCompileManager.compileReport(design);
@@ -163,6 +165,15 @@ public class AdminDashboardFormController implements Initializable {
             stage.show();
         }
     }
+    public void productCategoryBtnOnAction() throws IOException {
+        //CLOSE CURRENT FORM
+        Stage currentForm = (Stage) productCategoryBtn.getScene().getWindow();
+        currentForm.close();
+        //LOAD SUPPLIER FORM
+        Stage stage = new Stage();
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/manage-product-category-form.fxml"))));
+        stage.show();
+    }
     public void suppliersBtnOnAction() throws IOException {
         //CLOSE CURRENT FORM
         Stage currentForm = (Stage) supplierBtn.getScene().getWindow();
@@ -174,6 +185,7 @@ public class AdminDashboardFormController implements Initializable {
     }
 
     public void customersBtnOnAction() {
+        //PENDING
     }
 
     public void employeesBtnOnAction() throws IOException {
@@ -195,6 +207,7 @@ public class AdminDashboardFormController implements Initializable {
         stage.show();
     }
     public void logoutBtnOnAction() {
+        CurrentUserHolder.getInstance().setUser(null);
         //CLOSE CURRENT FORM
         Stage currentForm = (Stage) logoutBtn.getScene().getWindow();
         currentForm.close();

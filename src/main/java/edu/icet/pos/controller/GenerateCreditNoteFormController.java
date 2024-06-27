@@ -16,6 +16,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -39,6 +40,8 @@ import java.util.ResourceBundle;
 
 @Slf4j
 public class GenerateCreditNoteFormController implements Initializable {
+    @FXML
+    private Button productCategoryBtn;
     @FXML
     private Label categoryIdTxt;
     @FXML
@@ -86,6 +89,7 @@ public class GenerateCreditNoteFormController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        loadUserMenu();
         currentUser = setUser();
         loadMenu();
         loadManageStockCombo();
@@ -288,8 +292,21 @@ public class GenerateCreditNoteFormController implements Initializable {
         stage.show();
     }
 
+    public void productCategoryBtnOnAction() throws IOException {
+        //CLOSE CURRENT FORM
+        Stage currentForm = (Stage) productCategoryBtn.getScene().getWindow();
+        currentForm.close();
+        //LOAD SUPPLIER FORM
+        Stage stage = new Stage();
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/manage-product-category-form.fxml"))));
+        stage.show();
+    }
+
     public void logoutBtnOnAction() {
-        //PENDING
+        CurrentUserHolder.getInstance().setUser(null);
+        //CLOSE CURRENT FORM
+        Stage currentForm = (Stage) logoutBtn.getScene().getWindow();
+        currentForm.close();
     }
 
     private User setUser() {
@@ -322,5 +339,12 @@ public class GenerateCreditNoteFormController implements Initializable {
         typeOptions.add("Generate Return Note");
         typeOptions.add("Generate Credit Note");
         manageReturnCombo.setItems(typeOptions);
+    }
+    private void loadUserMenu() {
+        if (currentUser.getType()== UserType.USER){
+            dashboardBtn.setVisible(false);
+            employeeBtn.setVisible(false);
+            usersBtn.setVisible(false);
+        }
     }
 }

@@ -13,4 +13,5 @@ public interface ReturnInterface {
     void getCurrentTime();
     void getCurrentDate();
     boolean loadConfirmAlert(String msg);
+    void loadUserMenu();
 }

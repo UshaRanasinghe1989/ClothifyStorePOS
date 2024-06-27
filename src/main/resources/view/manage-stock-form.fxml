@@ -11,6 +11,8 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.ManageStockFormController">
     <top>
         <AnchorPane prefHeight="72.0" prefWidth="756.0" style="-fx-background-color: #240750;" BorderPane.alignment="CENTER">
@@ -47,12 +49,12 @@
                         <Font size="14.0" />
                     </font>
                 </Button>
-                <Button layoutX="783.0" layoutY="201.0" mnemonicParsing="false" onAction="#updateBtnOnAction" prefHeight="34.0" prefWidth="99.0" style="-fx-background-color: #2cbf4e;" text="Update">
+                <Button fx:id="updateBtn" layoutX="783.0" layoutY="201.0" mnemonicParsing="false" onAction="#updateBtnOnAction" prefHeight="34.0" prefWidth="99.0" style="-fx-background-color: #2cbf4e;" text="Update">
                     <font>
                         <Font size="14.0" />
                     </font>
                 </Button>
-                <Button layoutX="915.0" layoutY="201.0" mnemonicParsing="false" onAction="#deactivateBtnOnAction" prefHeight="34.0" prefWidth="95.0" style="-fx-background-color: #aaadab;" text="Deactivate">
+                <Button fx:id="deactivateBtn" layoutX="915.0" layoutY="201.0" mnemonicParsing="false" onAction="#deactivateBtnOnAction" prefHeight="34.0" prefWidth="95.0" style="-fx-background-color: #aaadab;" text="Deactivate">
                     <font>
                         <Font size="14.0" />
                     </font>
@@ -121,13 +123,19 @@
                 <Button fx:id="dashboardBtn" layoutX="13.0" layoutY="119.0" mnemonicParsing="false" onAction="#dashboardBtnOnAction" prefHeight="26.0" prefWidth="199.0" style="-fx-background-color: #57A6A1;" text="Reports &amp; Charts" />
                 <Button fx:id="ordersBtn" layoutX="12.0" layoutY="158.0" mnemonicParsing="false" onAction="#ordersBtnOnAction" prefHeight="26.0" prefWidth="199.0" style="-fx-background-color: #57A6A1;" text="Orders" />
                 <ComboBox fx:id="manageStockCombo" layoutX="12.0" layoutY="264.0" onAction="#manageStockComboOnAction" prefHeight="26.0" prefWidth="200.0" promptText="Manage Stock" style="-fx-background-color: #57A6A1;" />
+                <Button fx:id="productCategoryBtn" layoutX="12.0" layoutY="301.0" mnemonicParsing="false" onAction="#productCategoryBtnOnAction" prefHeight="26.0" prefWidth="199.0" style="-fx-background-color: #57A6A1;" text="Product Category" />
                 <Button fx:id="supplierBtn" layoutX="13.0" layoutY="306.0" mnemonicParsing="false" onAction="#suppliersBtnOnAction" prefHeight="26.0" prefWidth="199.0" style="-fx-background-color: #57A6A1;" text="Suppliers" />
                 <Button fx:id="customerBtn" layoutX="13.0" layoutY="346.0" mnemonicParsing="false" onAction="#customersBtnOnAction" prefHeight="26.0" prefWidth="199.0" style="-fx-background-color: #57A6A1;" text="Customers" />
                 <Button fx:id="employeeBtn" layoutX="13.0" layoutY="385.0" mnemonicParsing="false" onAction="#employeesBtnOnAction" prefHeight="26.0" prefWidth="199.0" style="-fx-background-color: #57A6A1;" text="Employees" />
                 <Button fx:id="usersBtn" layoutX="13.0" layoutY="425.0" mnemonicParsing="false" onAction="#usersBtnOnAction" prefHeight="26.0" prefWidth="199.0" style="-fx-background-color: #57A6A1;" text="Users" />
-                <Button fx:id="logoutBtn" layoutX="9.0" layoutY="628.0" mnemonicParsing="false" onAction="#logoutBtnOnAction" prefHeight="26.0" prefWidth="142.0" style="-fx-background-color: #f50a0a; " text="Logout" />
                 <Separator layoutX="13.0" layoutY="242.0" prefWidth="200.0" />
                 <ComboBox fx:id="manageReturnCombo" layoutX="12.0" layoutY="199.0" onAction="#manageReturnComboOnAction" prefHeight="26.0" prefWidth="200.0" promptText="Manage Return" style="-fx-background-color: #57A6A1;" />
+                <Button fx:id="logoutBtn" layoutX="46.0" layoutY="579.0" mnemonicParsing="false"
+                        onAction="#logoutBtnOnAction" prefHeight="43.0" prefWidth="131.0" text="Logout"/>
+                <ImageView fitHeight="38.0" fitWidth="41.0" layoutX="53.0" layoutY="582.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <Image url="@../img/logout_red.jpg"/>
+                </ImageView>
             </children>
         </AnchorPane>
     </left>

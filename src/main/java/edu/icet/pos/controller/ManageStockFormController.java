@@ -7,6 +7,7 @@ import edu.icet.pos.dto.Product;
 import edu.icet.pos.dto.Stock;
 import edu.icet.pos.dto.User;
 import edu.icet.pos.util.BoType;
+import edu.icet.pos.util.UserType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,6 +27,12 @@ import java.util.stream.Collectors;
 
 @Slf4j
 public class ManageStockFormController extends SuperFormController implements Initializable {
+    @FXML
+    public Button productCategoryBtn;
+    @FXML
+    public Button updateBtn;
+    @FXML
+    public Button deactivateBtn;
     @FXML
     private TextField initialQuantityTxt;
     @FXML
@@ -79,14 +86,15 @@ public class ManageStockFormController extends SuperFormController implements In
     public Button logoutBtn;
     @FXML
     public ComboBox<String> manageReturnCombo;
-    private User user;
+    private User currentUser;
     private final StockBo stockBo = BoFactory.getInstance().getBo(BoType.STOCK);
     private final ProductBo productBo = BoFactory.getInstance().getBo(BoType.PRODUCT);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //LOGICALLY INHERITED METHODS FROM SuperFormController ABSTRACT CLASS
-        user = setDisplayName();
+        loadUserMenu();
+        currentUser = setDisplayName();
         getCurrentDate(currentDateLbl);
         getCurrentTime(timerLbl);
         loadId();
@@ -217,6 +225,17 @@ public class ManageStockFormController extends SuperFormController implements In
         }
     }
 
+    @Override
+    void loadUserMenu() {
+        if (currentUser.getType()== UserType.USER){
+            dashboardBtn.setVisible(false);
+            employeeBtn.setVisible(false);
+            usersBtn.setVisible(false);
+            updateBtn.setVisible(false);
+            deactivateBtn.setVisible(false);
+        }
+    }
+
     //MENU - LEFT BORDER
     public User setDisplayName(){
         return setUser(currentDateLbl);
@@ -269,11 +288,19 @@ public class ManageStockFormController extends SuperFormController implements In
             log.info(e.getMessage());
         }
     }
-    public void logoutBtnOnAction(ActionEvent event) {
+    public void logoutBtnOnAction() {
+        systemLogout(logoutBtn);
     }
     public void dashboardBtnOnAction() {
         try {
             loadDashboardForm(dashboardBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+    public void productCategoryBtnOnAction() {
+        try {
+            loadCategoryForm(productCategoryBtn);
         } catch (IOException e) {
             log.info(e.getMessage());
         }

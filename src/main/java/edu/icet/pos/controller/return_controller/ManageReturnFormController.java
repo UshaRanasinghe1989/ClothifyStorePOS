@@ -32,6 +32,8 @@ import java.util.*;
 @Slf4j
 public class ManageReturnFormController implements ReturnInterface, Initializable {
     @FXML
+    public Button productCategoryBtn;
+    @FXML
     private TableView<OrderDetail> orderDetailTable;
     @FXML
     private TableColumn<OrderDetail, Integer> idCol;
@@ -116,8 +118,8 @@ public class ManageReturnFormController implements ReturnInterface, Initializabl
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        loadUserMenu();
         currentUser = setUser();
-
         getCurrentDate();
         getCurrentTime();
         loadOrdersCombo();
@@ -322,6 +324,16 @@ public class ManageReturnFormController implements ReturnInterface, Initializabl
 
         return isConfirm;
     }
+
+    @Override
+    public void loadUserMenu() {
+        if (currentUser.getType()== UserType.USER){
+            dashboardBtn.setVisible(false);
+            employeeBtn.setVisible(false);
+            usersBtn.setVisible(false);
+        }
+    }
+
     public void dashboardBtnOnAction() throws IOException {
         //CLOSE CURRENT FORM
         Stage currentForm = (Stage) dashboardBtn.getScene().getWindow();
@@ -406,8 +418,20 @@ public class ManageReturnFormController implements ReturnInterface, Initializabl
         stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/manage-employee-form.fxml"))));
         stage.show();
     }
+    public void productCategoryBtnOnAction() throws IOException {
+        //CLOSE CURRENT FORM
+        Stage currentForm = (Stage) productCategoryBtn.getScene().getWindow();
+        currentForm.close();
+        //LOAD SUPPLIER FORM
+        Stage stage = new Stage();
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/manage-product-category-form.fxml"))));
+        stage.show();
+    }
     public void logoutBtnOnAction() {
-        //PENDING
+        currentUser = null;
+        //CLOSE CURRENT FORM
+        Stage currentForm = (Stage) logoutBtn.getScene().getWindow();
+        currentForm.close();
     }
     private Returns getReturnObject(){
         Returns returnObj = null;

@@ -6,9 +6,9 @@ import edu.icet.pos.dto.*;
 import edu.icet.pos.dto.table_dto.CartTable;
 import edu.icet.pos.dto.holder_dto.OrderDetailsHolder;
 import edu.icet.pos.util.BoType;
+import edu.icet.pos.util.UserType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -113,9 +113,10 @@ public class ManageOrderFormController extends SuperFormController implements In
     public ComboBox<String> manageReturnCombo;
     @FXML
     public ComboBox<String> sellerCombo;
+    @FXML
+    public Button productCategoryBtn;
     private User currentUser;
     private double unitPrice;
-    private Product selectedProduct;
     private String sellerId;
     private final ObservableList<CartTable> cartTableList = FXCollections.observableArrayList();
     private final ProductBo productBo = BoFactory.getInstance().getBo(BoType.PRODUCT);
@@ -137,6 +138,10 @@ public class ManageOrderFormController extends SuperFormController implements In
         loadManageStockCombo(manageStockCombo);
         selectedCustomerId.setVisible(false);
         paymentBtn.setVisible(false);
+
+        if (currentUser.getType()==UserType.USER){
+            loadUserMenu();
+        }
     }
 
     public void placeOrderBtnOnAction(){
@@ -146,7 +151,7 @@ public class ManageOrderFormController extends SuperFormController implements In
     public void selectProductComboOnAction() {
         String selectedProductId = String.valueOf(selectProductNameCombo.getValue());
         List<Product> productList = productBo.retrieveById(selectedProductId);
-        selectedProduct = productList.get(0);
+        Product selectedProduct = productList.get(0);
 
         String description = selectedProduct.getDescription();
 
@@ -319,12 +324,19 @@ public class ManageOrderFormController extends SuperFormController implements In
 
     @Override
     void updateById() {
+        //PENDING
+    }
 
+    @Override
+    void loadUserMenu() {
+        dashboardBtn.setVisible(false);
+        employeeBtn.setVisible(false);
+        usersBtn.setVisible(false);
     }
 
     //MENU - LEFT BORDER
     public User setDisplayName(){
-        return setUser(currentDateLbl);
+        return setUser(userLbl);
     }
 
     //MENU FUNCTIONS
@@ -375,12 +387,21 @@ public class ManageOrderFormController extends SuperFormController implements In
             log.info(e.getMessage());
         }
     }
-    public void logoutBtnOnAction(ActionEvent event) {
+    public void logoutBtnOnAction() {
+        systemLogout(logoutBtn);
     }
 
     public void dashboardBtnOnAction() {
         try {
             loadDashboardForm(dashboardBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+
+    public void productCategoryBtnOnAction() {
+        try {
+            loadCategoryForm(productCategoryBtn);
         } catch (IOException e) {
             log.info(e.getMessage());
         }

@@ -1,9 +1,5 @@
 
-Ê
-java:S1186°"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(öƒ¿ûÿÿÿÿ8ã‰ë…2J$97b9d3c2-6a1c-4958-a730-30390b52cc7a
-›
-java:S1450@"SRemove the "user" field and declare it as a local variable in the relevant methods.(’Ø¾ıÿÿÿÿ8æ‰ë…2J$70e29740-6aab-4bb2-ac1c-736c5c64f8c9
-t
-java:S1172x",Remove this unused method parameter "event".(òùúÑùÿÿÿÿ8ñ‰ë…2J$56a2c83a-2413-46da-99bd-13d19399a265
-p
-java:S1068@"(Remove this unused "user" private field.(’Ø¾ıÿÿÿÿ8‰Šë…2J$2b0752d1-486e-4e7b-8a64-29f91f520790
+
+java:S1450B"ZRemove the "currentUser" field and declare it as a local variable in the relevant methods.(ûË¥ó8âÃÓÚ…2J$85a6838f-41c4-4ab1-aa07-6541028d304c
+r
+java:S1068B"/Remove this unused "currentUser" private field.(ûË¥ó8ø¸¼Æ…2J$cf6b4fd6-7673-42a6-83e4-76c80df3dac4

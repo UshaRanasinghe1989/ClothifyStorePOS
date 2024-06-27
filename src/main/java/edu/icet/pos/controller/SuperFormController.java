@@ -32,23 +32,17 @@ public abstract class SuperFormController extends FormValidationController {
 
     abstract void searchDetailById();
     abstract void updateById();
+    abstract void loadUserMenu();
 
     //CONCRETE METHODS
     protected User setUser(Label userLbl){
         User user = CurrentUserHolder.getInstance().getUser();
-        userLbl.setText(user.getSystemName());
-        return user;
-    }
-    protected void loadMenu(Label userLbl, Button dashboardBtn, Button usersBtn){
-        CurrentUserHolder currentUserHolder = CurrentUserHolder.getInstance();
-        User user = currentUserHolder.getUser();
-        if (user.getType().equals(UserType.USER)){
+        if (user.getType().equals(UserType.USER)) {
             userLbl.setText(user.getSystemName());
-            dashboardBtn.setVisible(false);
-            usersBtn.setVisible(false);
         }else {
             userLbl.setText("Admin");
         }
+        return user;
     }
     void getCurrentTime(Label label){
         Timeline timeline = new Timeline(new KeyFrame(Duration.ZERO, e -> {
@@ -181,6 +175,10 @@ public abstract class SuperFormController extends FormValidationController {
         stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/admin-dashboard-form.fxml"))));
         stage.show();
     }
-
-    //INPUT VALIDATION
+    protected void systemLogout(Button btn){
+        CurrentUserHolder.getInstance().setUser(null);
+        //CLOSE CURRENT FORM
+        Stage currentForm = (Stage) btn.getScene().getWindow();
+        currentForm.close();
+    }
 }

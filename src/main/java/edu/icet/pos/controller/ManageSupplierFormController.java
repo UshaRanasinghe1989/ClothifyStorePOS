@@ -5,6 +5,7 @@ import edu.icet.pos.bo.custom.SupplierBo;
 import edu.icet.pos.dto.Supplier;
 import edu.icet.pos.dto.User;
 import edu.icet.pos.util.BoType;
+import edu.icet.pos.util.UserType;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -31,6 +32,10 @@ import java.util.stream.Collectors;
 
 @Slf4j
 public class ManageSupplierFormController extends SuperFormController implements Initializable {
+    @FXML
+    public Button productCategoryBtn;
+    @FXML
+    public Button updateBtn;
     @FXML
     private TextField supplierIdTxt;
     @FXML
@@ -82,12 +87,13 @@ public class ManageSupplierFormController extends SuperFormController implements
     public Button logoutBtn;
     @FXML
     public ComboBox<String> manageReturnCombo;
-    private User user;
+    private User currentUser;
     private final SupplierBo supplierBo = BoFactory.getInstance().getBo(BoType.SUPPLIER);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        user = setDisplayName();
+        loadUserMenu();
+        currentUser = setDisplayName();
         getCurrentDate(currentDateLbl);
         getCurrentTime(timerLbl);
         loadId();
@@ -204,6 +210,16 @@ public class ManageSupplierFormController extends SuperFormController implements
         }
     }
 
+    @Override
+    void loadUserMenu() {
+        if (currentUser.getType()== UserType.USER){
+            dashboardBtn.setVisible(false);
+            employeeBtn.setVisible(false);
+            usersBtn.setVisible(false);
+            updateBtn.setVisible(false);
+        }
+    }
+
     //MENU - LEFT BORDER
     public User setDisplayName() {
         return setUser(currentDateLbl);
@@ -264,12 +280,20 @@ public class ManageSupplierFormController extends SuperFormController implements
         }
     }
 
-    public void logoutBtnOnAction(ActionEvent event) {
+    public void logoutBtnOnAction() {
+        systemLogout(logoutBtn);
     }
 
     public void dashboardBtnOnAction() {
         try {
             loadDashboardForm(dashboardBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+    public void productCategoryBtnOnAction() {
+        try {
+            loadCategoryForm(productCategoryBtn);
         } catch (IOException e) {
             log.info(e.getMessage());
         }

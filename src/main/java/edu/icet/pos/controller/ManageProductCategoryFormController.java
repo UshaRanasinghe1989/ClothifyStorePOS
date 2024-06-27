@@ -7,6 +7,7 @@ import edu.icet.pos.dto.Category;
 import edu.icet.pos.dto.User;
 import edu.icet.pos.util.BoType;
 import edu.icet.pos.util.GetModelMapper;
+import edu.icet.pos.util.UserType;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -34,6 +35,10 @@ import java.util.stream.Collectors;
 
 @Slf4j
 public class ManageProductCategoryFormController extends SuperFormController implements Initializable {
+    @FXML
+    public Button updateBtn;
+    @FXML
+    public Button productCategoryBtn;
     @FXML
     private Label categoryIdTxt;
     @FXML
@@ -72,11 +77,12 @@ public class ManageProductCategoryFormController extends SuperFormController imp
     public ComboBox<String> manageReturnCombo;
     private final ModelMapper mapper = GetModelMapper.getInstance().getModelMapper();
     private final CategoryBo categoryBo = BoFactory.getInstance().getBo(BoType.CATEGORY);
-    private User user;
+    private User currentUser;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        user = setDisplayName();
+        loadUserMenu();
+        currentUser = setDisplayName();
         getCurrentDate(currentDateLbl);
         getCurrentTime(timerLbl);
         loadId();
@@ -179,6 +185,16 @@ public class ManageProductCategoryFormController extends SuperFormController imp
         }
     }
 
+    @Override
+    void loadUserMenu() {
+        if (currentUser.getType()== UserType.USER){
+            dashboardBtn.setVisible(false);
+            employeeBtn.setVisible(false);
+            usersBtn.setVisible(false);
+            updateBtn.setVisible(false);
+        }
+    }
+
     public void saveBtnOnAction() {
         save();
     }
@@ -245,11 +261,19 @@ public class ManageProductCategoryFormController extends SuperFormController imp
         }
     }
     public void logoutBtnOnAction() {
+        systemLogout(logoutBtn);
     }
 
     public void dashboardBtnOnAction() {
         try {
             loadDashboardForm(dashboardBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
+    public void productCategoryBtnOnAction() {
+        try {
+            loadCategoryForm(productCategoryBtn);
         } catch (IOException e) {
             log.info(e.getMessage());
         }

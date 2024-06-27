@@ -8,73 +8,85 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="508.0" prefWidth="557.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.PaymentFormController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="508.0"
+            prefWidth="557.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.icet.pos.controller.PaymentFormController">
     <top>
-        <AnchorPane prefHeight="72.0" prefWidth="756.0" style="-fx-background-color: #240750;" BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="72.0" prefWidth="756.0" style="-fx-background-color: #240750;"
+                    BorderPane.alignment="CENTER">
             <children>
                 <Label layoutX="272.0" layoutY="18.0" text="Make Payment" textFill="#57a6a1">
                     <font>
-                        <Font name="System Bold" size="25.0" />
+                        <Font name="System Bold" size="25.0"/>
                     </font>
                 </Label>
-                <Label fx:id="currentDateLbl" layoutX="14.0" layoutY="21.0" prefHeight="30.0" prefWidth="90.0" text="05-06-2024" textAlignment="CENTER" textFill="#9a9c9e">
+                <Label fx:id="currentDateLbl" layoutX="14.0" layoutY="21.0" prefHeight="30.0" prefWidth="90.0"
+                       text="05-06-2024" textAlignment="CENTER" textFill="#9a9c9e">
                     <font>
-                        <Font name="System Bold" size="16.0" />
+                        <Font name="System Bold" size="16.0"/>
                     </font>
                 </Label>
-                <Label fx:id="timerLbl" layoutX="128.0" layoutY="21.0" prefHeight="30.0" prefWidth="124.0" text="00:00:00" textAlignment="CENTER" textFill="#9a9c9e">
+                <Label fx:id="timerLbl" layoutX="128.0" layoutY="21.0" prefHeight="30.0" prefWidth="124.0"
+                       text="00:00:00" textAlignment="CENTER" textFill="#9a9c9e">
                     <font>
-                        <Font name="System Bold" size="16.0" />
+                        <Font name="System Bold" size="16.0"/>
                     </font>
                 </Label>
             </children>
         </AnchorPane>
     </top>
     <center>
-        <AnchorPane prefHeight="610.0" prefWidth="897.0" style="-fx-background-color: #dae0db;" BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="610.0" prefWidth="897.0" style="-fx-background-color: #dae0db;"
+                    BorderPane.alignment="CENTER">
             <children>
                 <Label layoutX="116.0" layoutY="189.0" text="Paid amount (Rs)">
                     <font>
-                        <Font name="System Bold" size="13.0" />
+                        <Font name="System Bold" size="13.0"/>
                     </font>
                 </Label>
-                <TextField fx:id="paidAmountTxt" layoutX="264.0" layoutY="185.0" onAction="#paidAmountTxtOnAction" prefHeight="26.0" prefWidth="176.0" promptText="0.0" />
-                <Button layoutX="117.0" layoutY="293.0" mnemonicParsing="false" onAction="#savePaymentBtnOnAction" prefHeight="34.0" prefWidth="322.0" style="-fx-background-color: #f04330;" text="Save Payment">
+                <TextField fx:id="paidAmountTxt" layoutX="264.0" layoutY="185.0" onAction="#paidAmountTxtOnAction"
+                           prefHeight="26.0" prefWidth="176.0" promptText="0.0"/>
+                <Button layoutX="117.0" layoutY="293.0" mnemonicParsing="false" onAction="#savePaymentBtnOnAction"
+                        prefHeight="34.0" prefWidth="322.0" style="-fx-background-color: #f04330;" text="Save Payment">
                     <font>
-                        <Font size="14.0" />
+                        <Font size="14.0"/>
                     </font>
                 </Button>
                 <Label layoutX="116.0" layoutY="85.0" text="Payment type">
                     <font>
-                        <Font name="System Bold" size="13.0" />
+                        <Font name="System Bold" size="13.0"/>
                     </font>
                 </Label>
-                <ComboBox fx:id="selectPaymentTypeCombo" layoutX="265.0" layoutY="82.0" prefHeight="26.0" prefWidth="176.0" promptText="Select Payment Type" />
+                <ComboBox fx:id="selectPaymentTypeCombo" layoutX="265.0" layoutY="82.0" prefHeight="26.0"
+                          prefWidth="176.0" promptText="Select Payment Type"/>
                 <Label layoutX="118.0" layoutY="242.0" text="Balance (Rs)">
                     <font>
-                        <Font name="System Bold" size="13.0" />
+                        <Font name="System Bold" size="13.0"/>
                     </font>
                 </Label>
-                <TextField fx:id="balanceTxt" layoutX="264.0" layoutY="238.0" prefHeight="26.0" prefWidth="176.0" promptText="0.0" />
-            <Label layoutX="118.0" layoutY="36.0" text="Order No.">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Label>
-            <Label fx:id="orderIdPaymentLbl" layoutX="266.0" layoutY="40.0" text="order number">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label layoutX="117.0" layoutY="139.0" text="Payment amount (Rs)" />
-            <Label fx:id="paymentAmountLbl" layoutX="265.0" layoutY="139.0" text="amount" />
+                <TextField fx:id="balanceTxt" layoutX="264.0" layoutY="238.0" prefHeight="26.0" prefWidth="176.0"
+                           promptText="0.0"/>
+                <Label layoutX="118.0" layoutY="36.0" text="Order No.">
+                    <font>
+                        <Font name="System Bold" size="16.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="orderIdPaymentLbl" layoutX="266.0" layoutY="40.0" text="order number">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="117.0" layoutY="139.0" text="Payment amount (Rs)"/>
+                <Label fx:id="paymentAmountLbl" layoutX="265.0" layoutY="139.0" text="amount"/>
             </children>
         </AnchorPane>
     </center>
     <bottom>
-        <AnchorPane prefHeight="15.0" prefWidth="1500.0" style="-fx-background-color: #240750;" BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="15.0" prefWidth="1500.0" style="-fx-background-color: #240750;"
+                    BorderPane.alignment="CENTER">
             <children>
-                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="252.0" text="Copyright" textAlignment="CENTER" textFill="#dae0db" />
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="252.0" text="Copyright"
+                       textAlignment="CENTER" textFill="#dae0db"/>
             </children>
         </AnchorPane>
     </bottom>

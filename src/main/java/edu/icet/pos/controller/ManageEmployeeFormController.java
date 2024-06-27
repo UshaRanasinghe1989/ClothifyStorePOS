@@ -6,6 +6,7 @@ import edu.icet.pos.dto.Employee;
 import edu.icet.pos.dto.User;
 import edu.icet.pos.util.BoType;
 import edu.icet.pos.util.GetModelMapper;
+import edu.icet.pos.util.UserType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,6 +28,12 @@ import java.util.stream.Collectors;
 
 @Slf4j
 public class ManageEmployeeFormController extends SuperFormController implements Initializable {
+    @FXML
+    public Button productCategoryBtn;
+    @FXML
+    public Button updateBtn;
+    @FXML
+    public Button deleteBtn;
     @FXML
     private TextField empNameText;
     @FXML
@@ -86,13 +93,14 @@ public class ManageEmployeeFormController extends SuperFormController implements
     private final EmployeeBo employeeBo = BoFactory.getInstance().getBo(BoType.EMPLOYEE);
     private final ModelMapper mapper = GetModelMapper.getInstance().getModelMapper();
     private static final String TRYAGAIN = "Please try again !";
-    private User user;
+    private User currentUser;
     private String selectedEmpId;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        user = setDisplayName();
-        loadMenu(userLbl, dashboardBtn, usersBtn);
+        //LOAD MENU FOR USER
+        loadUserMenu();
+        currentUser = setDisplayName();
         getCurrentDate(currentDateLbl);
         getCurrentTime(timerLbl);
         loadManageStockCombo(manageStockCombo);
@@ -215,6 +223,17 @@ public class ManageEmployeeFormController extends SuperFormController implements
         }
     }
 
+    @Override
+    void loadUserMenu() {
+        if (currentUser.getType()== UserType.USER){
+            dashboardBtn.setVisible(false);
+            employeeBtn.setVisible(false);
+            usersBtn.setVisible(false);
+            updateBtn.setVisible(false);
+            deleteBtn.setVisible(false);
+        }
+    }
+
     //MENU - LEFT BORDER
     public User setDisplayName() {
         return setUser(currentDateLbl);
@@ -261,7 +280,13 @@ public class ManageEmployeeFormController extends SuperFormController implements
             log.info(e.getMessage());
         }
     }
-
+    public void productCategoryBtnOnAction() {
+        try {
+            loadCategoryForm(productCategoryBtn);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
+    }
     public void customersBtnOnAction() {
         loadCustomerForm(customerBtn);
     }
@@ -276,7 +301,7 @@ public class ManageEmployeeFormController extends SuperFormController implements
     }
 
     public void logoutBtnOnAction() {
-        //PENDING
+        systemLogout(logoutBtn);
     }
 
     public void dashboardBtnOnAction() {

@@ -6,8 +6,6 @@ import edu.icet.pos.bo.custom.ProductBo;
 import edu.icet.pos.bo.custom.ProductImageBo;
 import edu.icet.pos.bo.custom.SupplierBo;
 import edu.icet.pos.dto.*;
-import edu.icet.pos.entity.CategoryEntity;
-import edu.icet.pos.entity.SupplierEntity;
 import edu.icet.pos.util.BoType;
 import edu.icet.pos.util.GetModelMapper;
 import edu.icet.pos.util.ProductSizes;
@@ -23,11 +21,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -39,17 +35,13 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 @Slf4j
-public class ManageProductFromController extends SuperFormController implements Initializable {
+public class ManageProductFormController extends SuperFormController implements Initializable {
+    @FXML
+    public Button updateBtn;
     @FXML
     public Button productCategoryBtn;
     @FXML
     private TextField productNameText;
-    @FXML
-    private TextField imageOnePathTxt;
-    @FXML
-    private TextField imageTwoPathTxt;
-    @FXML
-    private TextField imageThreePathTxt;
     @FXML
     private TableView<Product> productDetailTable;
     @FXML
@@ -74,14 +66,38 @@ public class ManageProductFromController extends SuperFormController implements 
     private ComboBox<ProductSizes> sizeCombo;
     @FXML
     private TextField descriptionTxt;
-    @FXML
-    private TextField imageFourPathTxt;
-    @FXML
-    private TextField imageFivePathTxt;
+    //PRODUCT IMAGES
     @FXML
     private ImageView imageOne;
     @FXML
     private Label imageOneLbl;
+    @FXML
+    public ImageView imageTwo;
+    @FXML
+    public Label imageTwoLbl;
+    @FXML
+    public ImageView imageThree;
+    @FXML
+    public Label imageThreeLbl;
+    @FXML
+    public ImageView imageFour;
+    @FXML
+    public Label imageFourLbl;
+    @FXML
+    public ImageView imageFive;
+    @FXML
+    public Label imageFiveLbl;
+    @FXML
+    private TextField imageOnePathTxt;
+    @FXML
+    private TextField imageTwoPathTxt;
+    @FXML
+    private TextField imageThreePathTxt;
+    @FXML
+    private TextField imageFourPathTxt;
+    @FXML
+    private TextField imageFivePathTxt;
+
     //MENU FIELDS
     @FXML
     public Label currentDateLbl;
@@ -108,7 +124,7 @@ public class ManageProductFromController extends SuperFormController implements 
     @FXML
     public ComboBox<String> manageReturnCombo;
     private String selectedProductId;
-    private User user;
+    private User currentUser;
     private Product savedProductObj;
     private ProductImage productImageOneObj;
     private ProductImage productImageTwoObj;
@@ -127,10 +143,18 @@ public class ManageProductFromController extends SuperFormController implements 
     private final SupplierBo supplierBo = BoFactory.getInstance().getBo(BoType.SUPPLIER);
     private final ProductImageBo productImageBo = BoFactory.getInstance().getBo(BoType.PRODUCT_IMAGE);
     private final ModelMapper mapper = GetModelMapper.getInstance().getModelMapper();
+    private static final String JPG_1 = "JPG files (*.jpg)";
+    private static final String JPG_2 = "*.JPG";
+    private static final String JPG_3 = "*.JPEG";
+    private static final String JPG_4 = "*.jpeg";
+    private static final String PNG_1 = "PNG files (*.png)";
+    private static final String PNG_2 = "*.PNG";
+    private static final String ALERT_TRY_AGAIN = "Please try again !";
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        user = setDisplayName();
+        loadUserMenu();
+        currentUser = setDisplayName();
         getCurrentTime(timerLbl);
         getCurrentDate(currentDateLbl);
         loadId();
@@ -140,7 +164,12 @@ public class ManageProductFromController extends SuperFormController implements 
         loadManageStockCombo(manageStockCombo);
         loadSizeCombo();
         loadDetailTable();
+        //HIDE IMAGE LABELS
         imageOneLbl.setVisible(false);
+        imageTwoLbl.setVisible(false);
+        imageThreeLbl.setVisible(false);
+        imageFourLbl.setVisible(false);
+        imageFiveLbl.setVisible(false);
     }
 
     public void saveBtnOnAction() {
@@ -180,8 +209,8 @@ public class ManageProductFromController extends SuperFormController implements 
     }
 
     public void browseImgOneBtnOnAction() throws FileNotFoundException {
-        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG","*.JPEG","*.jpeg");
-        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter(JPG_1, JPG_2, JPG_3, JPG_4);
+        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter(PNG_1, PNG_2);
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
         File file = fileChooser.showOpenDialog(new Stage());
@@ -196,16 +225,76 @@ public class ManageProductFromController extends SuperFormController implements 
             fileInputStreamImageOne = new FileInputStream(file);
         }
     }
-    public void browseImgTwoBtnOnAction(ActionEvent actionEvent) {
+    public void browseImgTwoBtnOnAction() throws FileNotFoundException {
+        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter(JPG_1, JPG_2, JPG_3, JPG_4);
+        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter(PNG_1, PNG_2);
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+        File file = fileChooser.showOpenDialog(new Stage());
+        if (file!=null){
+            imageTwoLbl.setVisible(true);
+            Image image = new Image(file.toURI().toString());
+            imageTwo.setImage(image);
+
+            String imagePath = file.getAbsolutePath();
+            imageTwoPathTxt.setText(imagePath);
+
+            fileInputStreamImageTwo = new FileInputStream(file);
+        }
     }
 
-    public void browseImgThreeBtnOnAction(ActionEvent actionEvent) {
+    public void browseImgThreeBtnOnAction() throws FileNotFoundException {
+        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter(JPG_1, JPG_2, JPG_3, JPG_4);
+        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter(PNG_1, PNG_2);
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+        File file = fileChooser.showOpenDialog(new Stage());
+        if (file!=null){
+            imageThreeLbl.setVisible(true);
+            Image image = new Image(file.toURI().toString());
+            imageThree.setImage(image);
+
+            String imagePath = file.getAbsolutePath();
+            imageThreePathTxt.setText(imagePath);
+
+            fileInputStreamImageThree = new FileInputStream(file);
+        }
     }
 
-    public void browseImgFourBtnOnAction(ActionEvent actionEvent) {
+    public void browseImgFourBtnOnAction() throws FileNotFoundException {
+        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter(JPG_1, JPG_2, JPG_3, JPG_4);
+        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter(PNG_1, PNG_2);
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+        File file = fileChooser.showOpenDialog(new Stage());
+        if (file!=null){
+            imageFourLbl.setVisible(true);
+            Image image = new Image(file.toURI().toString());
+            imageFour.setImage(image);
+
+            String imagePath = file.getAbsolutePath();
+            imageFourPathTxt.setText(imagePath);
+
+            fileInputStreamImageFour = new FileInputStream(file);
+        }
     }
 
-    public void browseImgFiveBtnOnAction(ActionEvent actionEvent) {
+    public void browseImgFiveBtnOnAction() throws FileNotFoundException {
+        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter(JPG_1, JPG_2, JPG_3, JPG_4);
+        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter(PNG_1, PNG_2);
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+        File file = fileChooser.showOpenDialog(new Stage());
+        if (file!=null){
+            imageFiveLbl.setVisible(true);
+            Image image = new Image(file.toURI().toString());
+            imageFive.setImage(image);
+
+            String imagePath = file.getAbsolutePath();
+            imageFivePathTxt.setText(imagePath);
+
+            fileInputStreamImageFive = new FileInputStream(file);
+        }
     }
 
     @Override
@@ -227,10 +316,10 @@ public class ManageProductFromController extends SuperFormController implements 
                 loadDetailTable();
                 clearForm();
             }else {
-                new Alert(Alert.AlertType.ERROR, "Please try again !").show();
+                new Alert(Alert.AlertType.ERROR, ALERT_TRY_AGAIN).show();
             }
         } else {
-            new Alert(Alert.AlertType.ERROR, "Please try again !").show();
+            new Alert(Alert.AlertType.ERROR, ALERT_TRY_AGAIN).show();
         }
     }
 
@@ -243,6 +332,23 @@ public class ManageProductFromController extends SuperFormController implements 
         selectedSupplierIdHiddenTxt.setText("");
         sizeCombo.valueProperty().set(null);
         descriptionTxt.setText("");
+
+        //IMAGES FORM
+        imageOneLbl.setVisible(false);
+        imageTwoLbl.setVisible(false);
+        imageThreeLbl.setVisible(false);
+        imageFourLbl.setVisible(false);
+        imageFiveLbl.setVisible(false);
+        imageOnePathTxt.setText("");
+        imageTwoPathTxt.setText("");
+        imageThreePathTxt.setText("");
+        imageFourPathTxt.setText("");
+        imageFivePathTxt.setText("");
+        imageOne.setImage(null);
+        imageTwo.setImage(null);
+        imageThree.setImage(null);
+        imageFour.setImage(null);
+        imageFive.setImage(null);
     }
 
     @Override
@@ -324,11 +430,21 @@ public class ManageProductFromController extends SuperFormController implements 
                     loadDetailTable();
                     clearForm();
                 } else {
-                    new Alert(Alert.AlertType.ERROR, "Please try again !").show();
+                    new Alert(Alert.AlertType.ERROR, ALERT_TRY_AGAIN).show();
                 }
             } catch (NullPointerException e) {
                 log.info(e.getMessage());
             }
+        }
+    }
+
+    @Override
+    void loadUserMenu() {
+        if (currentUser.getType()== UserType.USER){
+            dashboardBtn.setVisible(false);
+            employeeBtn.setVisible(false);
+            usersBtn.setVisible(false);
+            updateBtn.setVisible(false);
         }
     }
 
@@ -398,8 +514,8 @@ public class ManageProductFromController extends SuperFormController implements 
         }
     }
 
-    public void logoutBtnOnAction(ActionEvent event) {
-        //PENDING
+    public void logoutBtnOnAction() {
+        systemLogout(logoutBtn);
     }
 
     public void dashboardBtnOnAction() {
@@ -480,6 +596,58 @@ public class ManageProductFromController extends SuperFormController implements 
             log.info(e.getMessage(), productImageOneObj);
         }
     }
+    private void getProductImageTwoObj() {
+        try {
+            if (savedProductObj!=null && !imageTwoPathTxt.getText().isEmpty()) {
+                productImageTwoObj = new ProductImage(
+                        savedProductObj,
+                        imageTwoPathTxt.getText(),
+                        fileInputStreamImageTwo.readAllBytes()
+                );
+            }
+        } catch (IOException e) {
+            log.info(e.getMessage(), productImageTwoObj);
+        }
+    }
+    private void getProductImageThreeObj() {
+        try {
+            if (savedProductObj!=null && !imageThreePathTxt.getText().isEmpty()) {
+                productImageThreeObj = new ProductImage(
+                        savedProductObj,
+                        imageThreePathTxt.getText(),
+                        fileInputStreamImageThree.readAllBytes()
+                );
+            }
+        } catch (IOException e) {
+            log.info(e.getMessage(), productImageThreeObj);
+        }
+    }
+    private void getProductImageFourObj() {
+        try {
+            if (savedProductObj!=null && !imageFourPathTxt.getText().isEmpty()) {
+                productImageFourObj = new ProductImage(
+                        savedProductObj,
+                        imageFourPathTxt.getText(),
+                        fileInputStreamImageFour.readAllBytes()
+                );
+            }
+        } catch (IOException e) {
+            log.info(e.getMessage(), productImageFourObj);
+        }
+    }
+    private void getProductImageFiveObj() {
+        try {
+            if (savedProductObj!=null && !imageFivePathTxt.getText().isEmpty()) {
+                productImageFiveObj = new ProductImage(
+                        savedProductObj,
+                        imageFivePathTxt.getText(),
+                        fileInputStreamImageFive.readAllBytes()
+                );
+            }
+        } catch (IOException e) {
+            log.info(e.getMessage(), productImageFiveObj);
+        }
+    }
     private boolean saveProductImages() {
         boolean isSaved = false;
         //SAVE IMAGE ONE
@@ -487,23 +655,26 @@ public class ManageProductFromController extends SuperFormController implements 
             new Alert(Alert.AlertType.WARNING, "Please select at least one image of the product !").show();
         }else {
             getProductImageOneObj();
-
             isSaved = productImageBo.save(productImageOneObj);
         }
         //SAVE IMAGE TWO
         if (productImageTwoObj!=null){
+            getProductImageTwoObj();
             isSaved = productImageBo.save(productImageTwoObj);
         }
         //SAVE IMAGE THREE
         if (productImageThreeObj!=null){
+            getProductImageThreeObj();
             isSaved = productImageBo.save(productImageThreeObj);
         }
         //SAVE IMAGE FOUR
         if (productImageFourObj!=null){
+            getProductImageFourObj();
             isSaved = productImageBo.save(productImageFourObj);
         }
         //SAVE IMAGE FIVE
         if (productImageFiveObj!=null){
+            getProductImageFiveObj();
             isSaved = productImageBo.save(productImageFiveObj);
         }
 
