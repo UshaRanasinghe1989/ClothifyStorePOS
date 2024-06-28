@@ -20,6 +20,12 @@ public class EmployeeEntity {
     private String id;
 
     @Column(nullable = false)
+    private String title;
+
+    @Column(nullable = false)
+    private String initials;
+
+    @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
@@ -27,6 +33,12 @@ public class EmployeeEntity {
 
     @Column(nullable = false)
     private String nic;
+
+    @Column(nullable = false)
+    private String gender;
+
+    @Column(name = "marital_status", nullable = false)
+    private String maritalStatus;
 
     @Column(nullable = false)
     private String contactNo;

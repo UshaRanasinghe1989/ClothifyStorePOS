@@ -19,9 +19,7 @@ import org.modelmapper.ModelMapper;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.stream.Collectors;
 
@@ -34,6 +32,16 @@ public class ManageEmployeeFormController extends SuperFormController implements
     @FXML
     public Button deleteBtn;
     @FXML
+    public ComboBox<String> titleCombo;
+    @FXML
+    public RadioButton maleGenderRadioBtn;
+    @FXML
+    public RadioButton femaleGenderRadioBtn;
+    @FXML
+    public ComboBox<String> maritalStatusCombo;
+    @FXML
+    public TextField initialsTxt;
+    @FXML
     private TextField empNameText;
     @FXML
     private TextField empNicText;
@@ -44,7 +52,7 @@ public class ManageEmployeeFormController extends SuperFormController implements
     @FXML
     private TextField empEmailText;
     @FXML
-    private TextField empAddressText;
+    private TextArea empAddressText;
     @FXML
     private TableColumn<Employee, String> idCol;
     @FXML
@@ -90,22 +98,27 @@ public class ManageEmployeeFormController extends SuperFormController implements
     public Button logoutBtn;
 
     private final EmployeeBo employeeBo = BoFactory.getInstance().getBo(BoType.EMPLOYEE);
-    private final ModelMapper mapper = GetModelMapper.getInstance().getModelMapper();
     private static final String TRYAGAIN = "Please try again !";
     private User currentUser;
     private String selectedEmpId;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //LOAD MENU FOR USER
+        //SET USERS DISPLAY NAME
         currentUser = setDisplayName();
+        //LOAD DATE & TIME
         getCurrentDate(currentDateLbl);
         getCurrentTime(timerLbl);
+        //LOAD COMBO BOXES
         loadManageStockCombo(manageStockCombo);
         loadManageReturnCombo(manageReturnCombo);
+        loadTitleCombo();
+        loadMaritalStatusCombo();
+        //LOAD NEXT EMPLOYEE ID
         loadId();
+        //TABLES
         loadDetailTable();
-
+        //LOAD MENU FOR USER
         if (currentUser.getType()== UserType.USER){
             loadUserMenu();
         }
@@ -139,8 +152,7 @@ public class ManageEmployeeFormController extends SuperFormController implements
     }
     @FXML
     public void empIdTextOnAction() {
-        selectedEmpId = empIdText.getText();
-        searchDetailById();
+        searchBtnOnAction();
     }
 
     @Override
@@ -164,6 +176,11 @@ public class ManageEmployeeFormController extends SuperFormController implements
         empContactNoText.setText("");
         empEmailText.setText("");
         empAddressText.setText("");
+        initialsTxt.setText("");
+        titleCombo.valueProperty().setValue(null);
+        maritalStatusCombo.valueProperty().setValue(null);
+        maleGenderRadioBtn.setSelected(false);
+        femaleGenderRadioBtn.setSelected(false);
     }
 
     @Override
@@ -207,6 +224,13 @@ public class ManageEmployeeFormController extends SuperFormController implements
         empContactNoText.setText(employee.getContactNo());
         empEmailText.setText(employee.getEmail());
         empAddressText.setText(employee.getAddress());
+        titleCombo.setValue(employee.getTitle());
+        String gender = employee.getGender();
+        if (Objects.equals(gender, "male")){
+            maleGenderRadioBtn.setSelected(true);
+        }else {
+            femaleGenderRadioBtn.setSelected(true);
+        }
     }
 
     @Override
@@ -319,15 +343,29 @@ public class ManageEmployeeFormController extends SuperFormController implements
         String contactNo = empContactNoText.getText();
         String email = empEmailText.getText();
         String address = empAddressText.getText();
+        String title = titleCombo.getValue();
+        String maritalStatus = maritalStatusCombo.getValue();
+        String initials = initialsTxt.getText();
+        //GET SELECTED GENDER
+        String selectedGender;
+        if (maleGenderRadioBtn.isSelected()){
+            selectedGender = maleGenderRadioBtn.getText();
+        }else {
+            selectedGender = femaleGenderRadioBtn.getText();
+        }
 
-        if (id.isEmpty() || name.isEmpty() || nic.isEmpty() || contactNo.isEmpty() || email.isEmpty() || address.isEmpty()) {
+        if (id.isEmpty() || initials.isEmpty() || name.isEmpty() || nic.isEmpty() || contactNo.isEmpty() || email.isEmpty() || address.isEmpty() || title==null || selectedGender ==null || maritalStatus==null) {
             new Alert(Alert.AlertType.WARNING, "Please fill all details !").show();
         }else {
             employeeDto = new Employee(
                     id,
+                    title,
+                    initials,
                     name,
                     dob,
                     nic,
+                    selectedGender,
+                    maritalStatus,
                     contactNo,
                     email,
                     address,
@@ -355,5 +393,23 @@ public class ManageEmployeeFormController extends SuperFormController implements
             }
         }*/
         return employeeDto;
+    }
+    private void loadTitleCombo(){
+        try {
+            ObservableList<String> titleOptions = FXCollections.observableArrayList();
+            titleOptions.add("Mr");
+            titleOptions.add("Mrs");
+            titleOptions.add("Miss");
+
+            titleCombo.setItems(titleOptions);
+        }catch (NullPointerException e){
+            log.info(e.getMessage());
+        }
+    }
+    private void loadMaritalStatusCombo() {
+        ObservableList<String> statusOptions = FXCollections.observableArrayList();
+        statusOptions.add("Single");
+        statusOptions.add("Married");
+        maritalStatusCombo.setItems(statusOptions);
     }
 }

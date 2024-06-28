@@ -10,6 +10,7 @@ import edu.icet.pos.util.GetModelMapper;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserBoImpl implements UserBo {
@@ -29,8 +30,13 @@ public class UserBoImpl implements UserBo {
 
     @Override
     public List<User> retrieveById(String id) {
+        List<User> userList = new ArrayList<>();
+
         List<UserEntity> userEntityList = userDao.retrieveById(id);
-        return mapper.map(userEntityList, new TypeToken<List<User>>() {}.getType());
+        UserEntity userEntity = userEntityList.get(0);
+
+        userList.add(mapper.map(userEntity, User.class));
+        return userList;
     }
 
     @Override

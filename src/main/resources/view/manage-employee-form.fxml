@@ -4,16 +4,18 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.pos.controller.ManageEmployeeFormController">
     <top>
         <AnchorPane prefHeight="72.0" prefWidth="1500.0" style="-fx-background-color: #240750;" BorderPane.alignment="CENTER">
@@ -39,58 +41,58 @@
     <center>
         <AnchorPane prefHeight="610.0" prefWidth="897.0" style="-fx-background-color: #dae0db;" BorderPane.alignment="CENTER">
             <children>
-                <Label layoutX="408.0" layoutY="87.0" text="Name">
+                <Label layoutX="52.0" layoutY="125.0" text="Full name">
                     <font>
                         <Font name="System Bold" size="13.0" />
                     </font>
                 </Label>
-                <Label layoutX="768.0" layoutY="88.0" text="Contact no.">
+                <Label layoutX="51.0" layoutY="392.0" text="Contact no.">
                     <font>
                         <Font name="System Bold" size="13.0" />
                     </font>
                 </Label>
-                <Label layoutX="768.0" layoutY="125.0" text="Email address">
+                <Label layoutX="51.0" layoutY="429.0" text="Email address">
                     <font>
                         <Font name="System Bold" size="13.0" />
                     </font>
                 </Label>
-                <Label layoutX="407.0" layoutY="163.0" text="NIC">
+                <Label layoutX="51.0" layoutY="245.0" text="NIC">
                     <font>
                         <Font name="System Bold" size="13.0" />
                     </font>
                 </Label>
-                <Label layoutX="406.0" layoutY="125.0" text="Date of birth">
+                <Label layoutX="50.0" layoutY="207.0" text="Date of birth">
                     <font>
                         <Font name="System Bold" size="13.0" />
                     </font>
                 </Label>
-                <Label layoutX="768.0" layoutY="163.0" text="Address">
+                <Label layoutX="51.0" layoutY="467.0" text="Address">
                     <font>
                         <Font name="System Bold" size="13.0" />
                     </font>
                 </Label>
-                <TextField fx:id="empNameText" layoutX="521.0" layoutY="85.0" prefHeight="26.0" prefWidth="178.0" />
-                <TextField fx:id="empNicText" layoutX="521.0" layoutY="160.0" prefHeight="26.0" prefWidth="176.0" />
-                <DatePicker fx:id="empDobDatePicker" layoutX="522.0" layoutY="122.0" />
-                <TextField fx:id="empContactNoText" layoutX="887.0" layoutY="84.0" prefHeight="26.0" prefWidth="174.0" />
-                <TextField fx:id="empEmailText" layoutX="887.0" layoutY="121.0" prefHeight="26.0" prefWidth="174.0" />
-                <TextField fx:id="empAddressText" layoutX="887.0" layoutY="160.0" prefHeight="26.0" prefWidth="334.0" />
-                <Button layoutX="768.0" layoutY="211.0" mnemonicParsing="false" onAction="#saveBtnOnAction" prefHeight="34.0" prefWidth="179.0" style="-fx-background-color: #f04330;" text="Save">
+                <TextField fx:id="empNameText" layoutX="165.0" layoutY="123.0" prefHeight="26.0" prefWidth="178.0" />
+                <DatePicker fx:id="empDobDatePicker" layoutX="166.0" layoutY="204.0" promptText="1/30/2024" />
+                <TextField fx:id="empNicText" layoutX="165.0" layoutY="242.0" prefHeight="26.0" prefWidth="176.0" />
+                <TextField fx:id="empContactNoText" layoutX="166.0" layoutY="388.0" prefHeight="26.0" prefWidth="174.0" promptText="Ex. 0771234567" />
+                <TextField fx:id="empEmailText" layoutX="166.0" layoutY="426.0" prefHeight="26.0" prefWidth="174.0" />
+                <TextArea fx:id="empAddressText" layoutX="166.0" layoutY="467.0" prefHeight="101.0" prefWidth="176.0" />
+                <Button layoutX="48.0" layoutY="590.0" mnemonicParsing="false" onAction="#saveBtnOnAction" prefHeight="34.0" prefWidth="108.0" style="-fx-background-color: #f04330;" text="Save">
                     <font>
                         <Font size="14.0" />
                     </font>
                 </Button>
-                <Button fx:id="updateBtn" layoutX="974.0" layoutY="211.0" mnemonicParsing="false" onAction="#editBtnOnAction" prefHeight="34.0" prefWidth="99.0" style="-fx-background-color: #2cbf4e;" text="Update">
+                <Button fx:id="updateBtn" layoutX="168.0" layoutY="590.0" mnemonicParsing="false" onAction="#editBtnOnAction" prefHeight="34.0" prefWidth="99.0" style="-fx-background-color: #2cbf4e;" text="Update">
                     <font>
                         <Font size="14.0" />
                     </font>
                 </Button>
-                <Button fx:id="deleteBtn" layoutX="1093.0" layoutY="211.0" mnemonicParsing="false" onAction="#deleteBtnOnAction" prefHeight="34.0" prefWidth="95.0" style="-fx-background-color: #aaadab;" text="Delete">
+                <Button fx:id="deleteBtn" layoutX="283.0" layoutY="590.0" mnemonicParsing="false" onAction="#deleteBtnOnAction" prefHeight="34.0" prefWidth="95.0" style="-fx-background-color: #aaadab;" text="Delete">
                     <font>
                         <Font size="14.0" />
                     </font>
                 </Button>
-                <TableView fx:id="empDetailTable" layoutX="406.0" layoutY="296.0" prefHeight="280.0" prefWidth="823.0">
+                <TableView fx:id="empDetailTable" layoutX="414.0" layoutY="33.0" prefHeight="611.0" prefWidth="823.0">
                     <columns>
                         <TableColumn fx:id="idCol" prefWidth="75.0" text="Id" />
                         <TableColumn fx:id="nameCol" prefWidth="108.800048828125" text="Name" />
@@ -101,13 +103,38 @@
                         <TableColumn fx:id="addressCol" prefWidth="202.4000244140625" text="Address" />
                     </columns>
                 </TableView>
-                <Separator layoutX="406.0" layoutY="272.0" prefWidth="828.0" />
-                <TextField fx:id="empIdText" layoutX="406.0" layoutY="28.0" onAction="#empIdTextOnAction" prefHeight="26.0" prefWidth="174.0" promptText="Employee Id" />
-                <Button layoutX="591.0" layoutY="28.0" mnemonicParsing="false" onAction="#searchBtnOnAction" prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: #57A6A1;" text="Search" textFill="#240750">
+               <Button layoutX="245.0" layoutY="31.0" mnemonicParsing="false" onAction="#searchBtnOnAction" prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: #57A6A1;" text="Search" textFill="#240750">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font>
                 </Button>
+            <Label layoutX="52.0" layoutY="87.0" text="Title">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="titleCombo" layoutX="166.0" layoutY="84.0" prefHeight="26.0" prefWidth="176.0" promptText="Select Title" />
+            <Label layoutX="51.0" layoutY="283.0" text="Gender">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <RadioButton fx:id="maleGenderRadioBtn" layoutX="165.0" layoutY="285.0" mnemonicParsing="false" text="Male" />
+            <RadioButton fx:id="femaleGenderRadioBtn" layoutX="281.0" layoutY="284.0" mnemonicParsing="false" text="Female" />
+            <Separator layoutX="397.0" layoutY="10.0" orientation="VERTICAL" prefHeight="635.0" prefWidth="2.0" />
+            <Label layoutX="51.0" layoutY="323.0" text="Marital status">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="maritalStatusCombo" layoutX="165.0" layoutY="320.0" prefHeight="26.0" prefWidth="175.0" promptText="Select Marital Status" />
+            <Label layoutX="52.0" layoutY="164.0" text="Initials">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="initialsTxt" layoutX="165.0" layoutY="162.0" prefHeight="26.0" prefWidth="178.0" promptText="Ex. A B C" />
+            <TextField fx:id="empIdText" layoutX="47.0" layoutY="33.0" onAction="#empIdTextOnAction" prefHeight="26.0" prefWidth="176.0" promptText="Employee Id" />
             </children>
         </AnchorPane>
     </center>
@@ -137,11 +164,9 @@
                 <Button fx:id="usersBtn" layoutX="13.0" layoutY="460.0" mnemonicParsing="false" onAction="#usersBtnOnAction" prefHeight="26.0" prefWidth="199.0" style="-fx-background-color: #57A6A1;" text="Users" />
                 <Separator layoutX="13.0" layoutY="242.0" prefWidth="200.0" />
                 <ComboBox fx:id="manageReturnCombo" layoutX="12.0" layoutY="199.0" onAction="#manageReturnComboOnAction" prefHeight="26.0" prefWidth="200.0" promptText="Manage Return" style="-fx-background-color: #57A6A1;" />
-                <Button fx:id="logoutBtn" layoutX="46.0" layoutY="579.0" mnemonicParsing="false"
-                        onAction="#logoutBtnOnAction" prefHeight="43.0" prefWidth="131.0" text="Logout"/>
-                <ImageView fitHeight="38.0" fitWidth="41.0" layoutX="53.0" layoutY="582.0" pickOnBounds="true"
-                           preserveRatio="true">
-                    <Image url="@../img/logout_red.jpg"/>
+                <Button fx:id="logoutBtn" layoutX="46.0" layoutY="579.0" mnemonicParsing="false" onAction="#logoutBtnOnAction" prefHeight="43.0" prefWidth="131.0" text="Logout" />
+                <ImageView fitHeight="38.0" fitWidth="41.0" layoutX="53.0" layoutY="582.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../img/logout_red.jpg" />
                 </ImageView>
             </children>
         </AnchorPane>

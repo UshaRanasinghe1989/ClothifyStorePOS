@@ -11,6 +11,7 @@ import edu.icet.pos.util.PasswordBasedEncryption;
 import edu.icet.pos.util.UserType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -109,6 +110,7 @@ public class ManageUserFormController extends SuperFormController implements Ini
 
         userIdTxt.setText(user.getId());
         userTypeCombo.setValue(user.getType());
+        userNameLbl.setText(user.getEmail());
         nameSystemText.setText(user.getSystemName());
     }
 
@@ -139,6 +141,9 @@ public class ManageUserFormController extends SuperFormController implements Ini
     }
 
     public void searchBtnOnAction() {
+        searchDetailById();
+    }
+    public void userIdTxtOnAction() {
         searchDetailById();
     }
 
@@ -200,7 +205,6 @@ public class ManageUserFormController extends SuperFormController implements Ini
         User user = userBo.retrieveById(userId).get(0);
         userIdTxt.setText(user.getId());
         userTypeCombo.setValue(user.getType());
-        userNameLbl.setText(user.getEmail());
         selectEmpIdCombo.setValue(mapper.map(user.getEmployee(), Employee.class).getId());
         nameSystemText.setText(user.getSystemName());
     }

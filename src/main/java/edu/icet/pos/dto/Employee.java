@@ -14,9 +14,13 @@ import java.util.Date;
 @ToString
 public class Employee {
     private String id;
+    private String title;
+    private String initials;
     private String name;
     private LocalDate dob;
     private String nic;
+    private String gender;
+    private String maritalStatus;
     private String contactNo;
     private String email;
     private String address;
